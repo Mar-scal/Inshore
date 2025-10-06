@@ -413,6 +413,9 @@ MBNE.rec.spr.est[MBNE.rec.spr.est$Year==2023,c(2:3)] <- c(K$Yspr, K$var.Yspr.cor
 #MBNE.rec.spr.est[MBNE.rec.spr.est$Year==2025,c(2:3)] <- c(K$Yspr, K$var.Yspr.corrected)
 #Check for all zero tows -- 2024 repeated tows all had zero scallop so breaks SPR - use simple mean for 2025 
 
+#test <- livefreq2024 %>% filter(TOW_NO %in% (crossref.BoF.2025$TOW_NO_REF[crossref.BoF.2025$STRATA_ID==58])) 
+#apply(test[test$STRATA_ID==58,21:23],1,sum)
+
 MBNE.rec.spr.est
 
 #in 2020 had no survey to linear interpolation from SPR estimate (note very different result from simple estimate)
@@ -2249,6 +2252,9 @@ MBNE.rec.sprwt.est[MBNE.rec.sprwt.est$Year==2023,c(2:3)] <- c(K$Yspr, K$var.Yspr
 #MBNE.rec.sprwt.est[MBNE.rec.sprwt.est$Year==2025,c(2:3)] <- c(K$Yspr, K$var.Yspr.corrected)
 # 2024 repeats used for 2025 all had zero recruits so cannot use SPR 
 
+# See if tows assocaited with given year were all zero or not 
+#test <- liveweight2024 %>% filter(TOW_NO %in% (crossref.BoF.2025$TOW_NO_REF[crossref.BoF.2025$STRATA_ID==58])) 
+#apply(test[test$STRATA_ID==58,23:25],1,sum)
 
 
 MBNE.rec.sprwt.est
@@ -2543,7 +2549,7 @@ Wrecwt14 <- spr(liveweight2023$TOW_NO[liveweight2023$STRATA_ID == 38],apply(live
 K <- summary(Wrecwt14) #In cor(x$matched.t1t2$y.last.year, x$matched.t1t2$y.this.year):the standard deviation is zero - use simple mean
 MBNW.rec.sprwt.est[MBNW.rec.sprwt.est$Year==2024,c(2:3)] <- c(K$Yspr, K$var.Yspr.corrected)
 
-#2023/2024 spr
+#2024/2025 spr
 Wrecwt15 <- spr(liveweight2024$TOW_NO[liveweight2024$STRATA_ID == 38],apply(liveweight2024[liveweight2024$STRATA_ID == 38,23:25],1,sum),
                 liveweight2025$TOW_NO[liveweight2025$STRATA_ID == 38],apply(liveweight2025[liveweight2025$STRATA_ID == 38,26:28],1,sum),
                 crossref.BoF.2025[crossref.BoF.2025$STRATA_ID == 38,c("TOW_NO_REF","TOW_NO")])
@@ -3223,6 +3229,9 @@ Out.rec.wt.spr.est[Out.rec.wt.spr.est$Year == 2024,c(2:3)] <- c(K$Yspr, K$var.Ys
 #K <- summary(OUTrecwt16) 
 #Out.rec.wt.spr.est[Out.rec.wt.spr.est$Year == 2025,c(2:3)] <- c(K$Yspr, K$var.Yspr.corrected)
 
+# See if tows assocaited with given year were all zero or not 
+#test <- liveweight2024 %>% filter(TOW_NO %in% (crossref.BoF.2025$TOW_NO_REF[crossref.BoF.2025$STRATA_ID==49])) 
+#apply(test[test$STRATA_ID==49,23:25],1,sum)
 
 Out.rec.wt.spr.est
 
@@ -3310,11 +3319,11 @@ K<-summary (OUTcommcf5,summary (OUTcommcf4, summary (OUTcommcf3,summary (OUTcomm
 Out.wt.spr.est[Out.wt.spr.est$Year==2013,c(2:3)] <- c(K$Yspr, K$var.Yspr.corrected)
 
 #2013/2014
-OUTcommcf6<-spr(liveweight2013$TOW_NO[liveweight2013$STRATA_ID==49],apply(liveweight2013[liveweight2013$STRATA_ID==49,26:52],1,sum),
-    liveweight2014$TOW_NO[liveweight2014$STRATA_ID==49],apply(liveweight2014[liveweight2014$STRATA_ID==49,29:52],1,sum),
-     crossref.BoF.2014[crossref.BoF.2014$STRATA_ID==49,c("TOW_NO_REF","TOW_NO")])
-K<-summary (OUTcommcf6, summary (OUTcommcf5,summary (OUTcommcf4, summary (OUTcommcf3,summary (OUTcommcf2)))))  #
-Out.wt.spr.est[Out.wt.spr.est$Year==2014,c(2:3)] <- c(941.75222, 1879785.07)# only two tows; use simple mean
+#OUTcommcf6<-spr(liveweight2013$TOW_NO[liveweight2013$STRATA_ID==49],apply(liveweight2013[liveweight2013$STRATA_ID==49,26:52],1,sum),
+#    liveweight2014$TOW_NO[liveweight2014$STRATA_ID==49],apply(liveweight2014[liveweight2014$STRATA_ID==49,29:52],1,sum),
+#     crossref.BoF.2014[crossref.BoF.2014$STRATA_ID==49,c("TOW_NO_REF","TOW_NO")])
+#K<-summary (OUTcommcf6, summary (OUTcommcf5,summary (OUTcommcf4, summary (OUTcommcf3,summary (OUTcommcf2)))))  #
+#Out.wt.spr.est[Out.wt.spr.est$Year==2014,c(2:3)] <- c(941.75222, 1879785.07)# only two tows; use simple mean
 
 #2014/2015
 OUTcommcf7<-spr(liveweight2014$TOW_NO[liveweight2014$STRATA_ID==49],apply(liveweight2014[liveweight2014$STRATA_ID==49,26:52],1,sum),
@@ -4015,7 +4024,7 @@ IR$Bmass
 
 
 ###
-###  ----  Calculate CV for model I.cv and R.cv ----
+###  ----  Calculate CV for model I.cv and R.cv ---- 
 ###                
 
 # NB! This was not done in 2019 because modelling was not done
@@ -4108,6 +4117,7 @@ round(I.cv.upto2008$cv,4)
 #spr: MBNE, C28, Out (simple in 2009), AH; MBNW: spr in 2009, 2010, 2012, 2015-2016
 #simple mean CS, SI, SB
 
+
 years <- 2009:surveyyear
 X <- length(years)
 
@@ -4121,7 +4131,8 @@ se.SPA1B <- data.frame(Year=(years),
                        SI.var=SPA1B.SI.CommWt.simple$var.y[which(SPA1B.CS.CommWt.simple$Year == 2009):which(SPA1B.CS.CommWt.simple$Year == surveyyear)],
                        SB.var=SPA1B.SB.CommWt.simple$var.y[which(SPA1B.CS.CommWt.simple$Year == 2009):which(SPA1B.CS.CommWt.simple$Year == surveyyear)])
 
-
+#UPDATES NEEDED EVERY YEAR CHECK SIMPLE MEANS OR SPR!!
+#if simple means used, need to divide by number of tows
 se.SPA1B$sum.var <- (se.SPA1B$CS.var*191023.77^2)/tow.SPA1B$CS.tow[which(tow.SPA1B$Year==2009):which(tow.SPA1B$Year==surveyyear)] +
       (se.SPA1B$MBNE.var*215314^2)+
       c((se.SPA1B$MBNW.var[which(se.SPA1B$Year==2009):which(se.SPA1B$Year==2010)]*78830.97^2),
@@ -4129,12 +4140,17 @@ se.SPA1B$sum.var <- (se.SPA1B$CS.var*191023.77^2)/tow.SPA1B$CS.tow[which(tow.SPA
         se.SPA1B$MBNW.var[which(se.SPA1B$Year==2012)]*78830.97^2,
         (se.SPA1B$MBNW.var[which(se.SPA1B$Year==2013):which(se.SPA1B$Year==2014)]*78830.97^2)/tow.SPA1B$MBNW.tow[which(tow.SPA1B$Year==2013):which(tow.SPA1B$Year==2014)],
         se.SPA1B$MBNW.var[which(se.SPA1B$Year==2015):which(se.SPA1B$Year==2017)]*78830.97^2, 
-        (se.SPA1B$MBNW.var[which(se.SPA1B$Year==2018):which(se.SPA1B$Year==surveyyear)]*78830.97^2)/tow.SPA1B$MBNW.tow[which(tow.SPA1B$Year==2018):which(tow.SPA1B$Year==surveyyear)]) +
+        (se.SPA1B$MBNW.var[which(se.SPA1B$Year==2018):which(se.SPA1B$Year==2020)]*78830.97^2)/tow.SPA1B$MBNW.tow[which(tow.SPA1B$Year==2018):which(tow.SPA1B$Year==2020)],
+        se.SPA1B$MBNW.var[which(se.SPA1B$Year==2021)]*78830.97^2, 
+        (se.SPA1B$MBNW.var[which(se.SPA1B$Year==2022):which(se.SPA1B$Year==2023)]*78830.97^2)/tow.SPA1B$MBNW.tow[which(tow.SPA1B$Year==2022):which(tow.SPA1B$Year==2023)],
+        se.SPA1B$MBNW.var[which(se.SPA1B$Year==2024):which(se.SPA1B$Year==surveyyear)]*78830.97^2)+
       (se.SPA1B$C28.var*88000.2^2) +
       c((se.SPA1B$Out.var[which(se.SPA1B$Year==2009)]*56009.889^2)/tow.SPA1B$Out.tow[tow.SPA1B$Year==2009] , 
         se.SPA1B$Out.var[which(se.SPA1B$Year==2010):which(se.SPA1B$Year==2013)]*56009.889^2, 
         (se.SPA1B$Out.var[which(se.SPA1B$Year==2014)]*56009.889^2)/tow.SPA1B$Out.tow[tow.SPA1B$Year==2014], 
-        se.SPA1B$Out.var[which(se.SPA1B$Year==2015):which(se.SPA1B$Year==surveyyear)]*56009.889^2) +
+        se.SPA1B$Out.var[which(se.SPA1B$Year==2015):which(se.SPA1B$Year==2020)]*56009.889^2,
+        (se.SPA1B$Out.var[which(se.SPA1B$Year==2021)]*56009.889^2)/tow.SPA1B$Out.tow[tow.SPA1B$Year==2021],
+        se.SPA1B$Out.var[which(se.SPA1B$Year==2022):which(se.SPA1B$Year==surveyyear)]*56009.889^2) +
       (se.SPA1B$AH.var*8626.27^2) +
       (se.SPA1B$SB.var*19415.98^2)/tow.SPA1B$SB.tow[which(tow.SPA1B$Year==2009):which(tow.SPA1B$Year==surveyyear)] +
       (se.SPA1B$SI.var*20337.96^2)/tow.SPA1B$SI.tow[which(tow.SPA1B$Year==2009):which(tow.SPA1B$Year==surveyyear)]
@@ -4200,20 +4216,30 @@ se.SPA1B.rec <- data.frame(Year = (years), CS.var = SPA1B.CS.RecWt.simple$var.y[
                            SI.var = SPA1B.SI.RecWt.simple$var.y[which(SPA1B.SI.RecWt.simple$Year==2009):which(SPA1B.SI.RecWt.simple$Year==surveyyear)],
                            SB.var = SPA1B.SB.RecWt.simple$var.y[which(SPA1B.SB.RecWt.simple$Year==2009):which(SPA1B.SB.RecWt.simple$Year==surveyyear)])
 
+#UPDATES NEEDED EVERY YEAR CHECK SIMPLE MEANS OR SPR!!#
+
 se.SPA1B.rec$sum.var <- (se.SPA1B.rec$CS.var*191023.77^2)/tow.SPA1B$CS.tow[which(tow.SPA1B$Year==2009):which(tow.SPA1B$Year==surveyyear)] + #2009 
         c(se.SPA1B.rec$MBNE.var[which(se.SPA1B.rec$Year==2009)]*215314^2/tow.SPA1B$MBNE.tow[which(tow.SPA1B$Year==2009)], #$2009
           (se.SPA1B.rec$MBNE.var[which(se.SPA1B.rec$Year==2010)]*215314^2),  #2010
           (se.SPA1B.rec$MBNE.var[which(se.SPA1B.rec$Year==2011)]*215314^2)/tow.SPA1B$MBNE.tow[which(tow.SPA1B$Year==2011)],  #2011
-          (se.SPA1B.rec$MBNE.var[which(se.SPA1B.rec$Year==2012):which(se.SPA1B.rec$Year==surveyyear)]*215314^2)) +  #2012 to 2019
+          (se.SPA1B.rec$MBNE.var[which(se.SPA1B.rec$Year==2012):which(se.SPA1B.rec$Year==2023)]*215314^2), #2012 to 2023
+          se.SPA1B.rec$MBNE.var[which(se.SPA1B.rec$Year==2024):which(se.SPA1B.rec$Year==surveyyear)]*215314^2/tow.SPA1B$MBNE.tow[which(tow.SPA1B$Year==2024):which(tow.SPA1B$Year==surveyyear)]) +  
         c(se.SPA1B.rec$MBNW.var[which(se.SPA1B.rec$Year==2009):which(se.SPA1B.rec$Year==2010)]*78830.97^2, # 2009 and 2010: Used SPR mean
           se.SPA1B.rec$MBNW.var[which(se.SPA1B.rec$Year==2011)]*78830.97^2/tow.SPA1B$MBNW.tow[which(tow.SPA1B$Year==2011)], # 2011: Simple
           se.SPA1B.rec$MBNW.var[which(se.SPA1B.rec$Year==2012)]*78830.97^2, #2012: SPR
           se.SPA1B.rec$MBNW.var[which(se.SPA1B.rec$Year==2013):which(se.SPA1B.rec$Year==2014)]*78830.97^2/tow.SPA1B$MBNW.tow[which(tow.SPA1B$Year==2013):which(tow.SPA1B$Year==2014)], #2013-2014
           se.SPA1B.rec$MBNW.var[which(se.SPA1B.rec$Year==2015):which(se.SPA1B.rec$Year==2017)]*78830.97^2, #2015-2017
-          se.SPA1B.rec$MBNW.var[which(se.SPA1B.rec$Year==2018):which(se.SPA1B.rec$Year==surveyyear)]*78830.97^2/tow.SPA1B$MBNW.tow[which(tow.SPA1B$Year==2018):which(tow.SPA1B$Year==surveyyear)]) +  #2018-2019 SIMPLE 
-        (se.SPA1B.rec$C28.var*88000.2^2) +  
-        c((se.SPA1B.rec$Out.var[which(se.SPA1B.rec$Year==2009):which(se.SPA1B.rec$Year==2017)]*56009.889^2)/tow.SPA1B$Out.tow[which(tow.SPA1B$Year==2009):which(tow.SPA1B$Year==2017)],  #2009-2017
-          se.SPA1B.rec$Out.var[which(se.SPA1B.rec$Year==2018):which(se.SPA1B.rec$Year==surveyyear)]*56009.889^2) +  #2018-2019
+          se.SPA1B.rec$MBNW.var[which(se.SPA1B.rec$Year==2018):which(se.SPA1B.rec$Year==2020)]*78830.97^2/tow.SPA1B$MBNW.tow[which(tow.SPA1B$Year==2018):which(tow.SPA1B$Year==2020)], #2018-2020 SIMPLE
+          se.SPA1B.rec$MBNW.var[which(se.SPA1B.rec$Year==2021)]*78830.97^2,
+          se.SPA1B.rec$MBNW.var[which(se.SPA1B.rec$Year==2022):which(se.SPA1B.rec$Year==2023)]*78830.97^2/tow.SPA1B$MBNW.tow[which(tow.SPA1B$Year==2022):which(tow.SPA1B$Year==2023)],
+          se.SPA1B.rec$MBNW.var[which(se.SPA1B.rec$Year==2024):which(se.SPA1B.rec$Year==surveyyear)]*78830.97^2) +   
+        (se.SPA1B.rec$C28.var*88000.2^2) +
+        (se.SPA1B.rec$Out.var*56009.889^2)/tow.SPA1B$Out.tow[which(tow.SPA1B$Year==2009):which(tow.SPA1B$Year==surveyyear)]+ #in 2021, switched to using simple means for all years
+        #c(se.SPA1B.rec$Out.var[which(se.SPA1B.rec$Year==2009):which(se.SPA1B.rec$Year==2017)]*56009.889^2/tow.SPA1B$Out.tow[which(tow.SPA1B$Year==2009):which(tow.SPA1B$Year==2017)],  #2009-2017
+          #se.SPA1B.rec$Out.var[which(se.SPA1B.rec$Year==2018):which(se.SPA1B.rec$Year==2019)]*56009.889^2,
+          #se.SPA1B.rec$Out.var[which(se.SPA1B.rec$Year==2020):which(se.SPA1B.rec$Year==2021)]*56009.889^2/tow.SPA1B$Out.tow[which(tow.SPA1B$Year==2020):which(tow.SPA1B$Year==2021)], #2020-2021 sm
+          #se.SPA1B.rec$Out.var[which(se.SPA1B.rec$Year==2022):which(se.SPA1B.rec$Year==2024)]*56009.889^2, #2022-2024 spr
+          #se.SPA1B.rec$Out.var[which(se.SPA1B.rec$Year==2025)]*56009.889^2/tow.SPA1B$Out.tow[which(tow.SPA1B$Year==2025)]) +  #2025 sm
         (se.SPA1B.rec$AH.var*8626.27^2) +
         (se.SPA1B.rec$SB.var*20337.96^2)/tow.SPA1B$SB.tow[which(tow.SPA1B$Year==2009):which(tow.SPA1B$Year==surveyyear)] +  #2009-2019
         (se.SPA1B.rec$SI.var*19415.98^2)/tow.SPA1B$SI.tow[which(tow.SPA1B$Year==2009):which(tow.SPA1B$Year==surveyyear)]  #2009-2019
