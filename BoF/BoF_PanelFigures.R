@@ -312,7 +312,7 @@ m.plot <- ggplot() +
   #styling
   scale_color_manual(name="",values=c("grey20"))+
   labs(y = "Natural mortality (proportional rate)", x = "") +
-  coord_cartesian(xlim=c(min(Years)-1, max(Years+2)), ylim=c(0,0.8))+
+  coord_cartesian(xlim=c(min(Years)-1, max(Years+2)), ylim=c(0,1.0))+
   scale_x_continuous(breaks=x_years[[area]]$breaks,
                      # (hello future modelers!) Need to adjust labels once we get to 2030. In 2030 add [,2030].
                      labels = x_years[[area]]$labels, # , 2030), # add this back in 2030
