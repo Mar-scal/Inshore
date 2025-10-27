@@ -235,7 +235,7 @@ bm.ts.plot <- ggplot() +
 #geom_text(aes(x=RP.labels$x.pos[RP.labels$region == "Critical"], y=RP.labels$y.pos[RP.labels$region == "Critical"], label = toupper("Critical")),col="firebrick2",cex=5) +
 
 showtext_auto(FALSE)
-ggsave(filename=paste0(direct_out, "/Figures/test/FSAR_panel1_CommercialBiomass_SPA", area, ".png"), bm.ts.plot, dpi = 600, width = 6.5, height = 5.5)
+ggsave(filename=paste0(direct_out, "Figures/FSR_Panel_plots/FSAR_panel1_CommercialBiomass_SPA", area,"_",year,".png"), bm.ts.plot, dpi = 600, width = 6.5, height = 5.5)
 showtext_auto(TRUE)
 
 ## Panel C  ###################################################################################################################
@@ -266,7 +266,7 @@ e.m.plot <- ggplot() +
         plot.margin = margin(5, 0, 5, 0, "points"))
 e.m.plot
 showtext_auto(FALSE)
-ggsave(filename=paste0(direct_out, "/Figures/test/FSAR_panel1_Exploitation_SPA", area, ".png"), e.m.plot, dpi = 600, width = 6.5, height = 5.5)
+ggsave(filename=paste0(direct_out, "Figures/FSR_Panel_plots/FSAR_panel1_Exploitation_SPA", area,"_",year,".png"), e.m.plot, dpi = 600, width = 6.5, height = 5.5)
 showtext_auto(TRUE)
 
 ## Panel D ####################################################################################################################
@@ -297,7 +297,7 @@ rec.ts.plot <- ggplot() +
         plot.margin = margin(5, 10, 5, 0, "points"))
 rec.ts.plot
 showtext_auto(FALSE)
-ggsave(filename=paste0(direct_out, "/Figures/test/FSAR_panel1_RecruitBiomass_SPA", area, ".png"), rec.ts.plot, dpi = 600, width = 6.5, height = 5.5)
+ggsave(filename=paste0(direct_out, "Figures/FSR_Panel_plots/FSAR_panel1_RecruitBiomass_SPA", area,"_",year,".png"), rec.ts.plot, dpi = 600, width = 6.5, height = 5.5)
 showtext_auto(TRUE)
 
 ## Panel 2 ####################################################################################################################
@@ -328,7 +328,7 @@ m.plot <- ggplot() +
         plot.margin = margin(5, 5, 5, 5, "points"))
 m.plot
 showtext_auto(FALSE)
-ggsave(filename=paste0(direct_out, "/Figures/test/FSAR_panel2_NatMort_SPA", area, ".png"), m.plot, dpi = 600, width = 4.5, height = 3.5)
+ggsave(filename=paste0(direct_out, "Figures/FSR_Panel_plots/FSAR_panel2_NatMort_SPA", area,"_",year,".png"), m.plot, dpi = 600, width = 4.5, height = 3.5)
 showtext_auto(TRUE)
 
 #Probably need an if loop for tacland plots
@@ -382,7 +382,7 @@ tacland <- ggplot(landings) +
 tacland
 
 showtext_auto(FALSE)
-ggsave(filename=paste0(direct_out, "/Figures/test/FSAR_panel1_TAClandings_SPA", area, ".png"), tacland, dpi = 600, width = 6.5, height = 5.5)
+ggsave(filename=paste0(direct_out, "Figures/FSR_Panel_plots/FSAR_panel1_TAClandings_SPA", area,"_",year,".png"), tacland, dpi = 600, width = 6.5, height = 5.5)
 showtext_auto(TRUE)
   }
 ### SPA 1B #############################################################################################################################
@@ -429,7 +429,7 @@ if (area == "1B") {
           plot.margin = margin(5, 5, 5, 1, "points"))
 
 showtext_auto(FALSE)
-ggsave(filename=paste0(direct_out, "/Figures/test/FSAR_panel1_TAClandings_SPA", area, ".png"), tacland, dpi = 600, width = 6.5, height = 5.5)
+ggsave(filename=paste0(direct_out, "Figures/FSR_Panel_plots/FSAR_panel1_TAClandings_SPA", area,"_",year,".png"), tacland, dpi = 600, width = 6.5, height = 5.5)
 showtext_auto(TRUE)
   }
 ### SPA 3 #############################################################################################################################
@@ -467,7 +467,7 @@ tacland <- ggplot(landings) +
         plot.margin = margin(5, 5, 5, 1, "points"))
 
 showtext_auto(FALSE)
-ggsave(filename=paste0(direct_out, "/Figures/test/FSAR_panel1_TAClandings_SPA", area, ".png"), tacland, dpi = 600, width = 6.5, height = 5.5)
+ggsave(filename=paste0(direct_out, "Figures/FSR_Panel_plots/FSAR_panel1_TAClandings_SPA", area,"_",year,".png"), tacland, dpi = 600, width = 6.5, height = 5.5)
 showtext_auto(TRUE)
   }
 ### SPA 4 #############################################################################################################################
@@ -548,7 +548,7 @@ tacland <- ggplot(landings) +
         plot.margin = margin(5, 5, 5, 1, "points"))
 
 showtext_auto(FALSE)
-ggsave(filename=paste0(direct_out, "/Figures/test/FSAR_panel1_TAClandings_SPA", area, "_V2.png"), tacland, dpi = 600, width = 6.5, height = 5.5)
+ggsave(filename=paste0(direct_out, "Figures/FSR_Panel_plots/FSAR_panel1_TAClandings_SPA", area,"_",year,"_V2.png"), tacland, dpi = 600, width = 6.5, height = 5.5)
 showtext_auto(TRUE)
 # SPA 4 & 5 TAC and Landings with truncated x-axis for presentations
 tacland2 <- ggplot(landings) +
@@ -579,7 +579,7 @@ tacland2 <- ggplot(landings) +
         plot.margin = margin(5, 5, 5, 1, "points"))
 
 showtext_auto(FALSE)
-ggsave(filename=paste0(direct_out, "/Figures/test/FSAR_panel1_TAClandings_SPA", area, ".png"), tacland, dpi = 600, width = 6.5, height = 5.5)
+ggsave(filename=paste0(direct_out, "Figures/FSR_Panel_plots/FSAR_panel1_TAClandings_SPA", area,"_",year,".png"), tacland, dpi = 600, width = 6.5, height = 5.5)
 showtext_auto(TRUE)
   }
 ### SPA 6 #############################################################################################################################
@@ -627,7 +627,7 @@ tacland <- ggplot(landings) +
         plot.margin = margin(5, 8, 5, 1, "points"))
 
 showtext_auto(FALSE)
-ggsave(filename=paste0(direct_out, "/Figures/test/FSAR_panel1_TAClandings_SPA", area, ".png"), tacland, dpi = 600, width = 6.5, height = 5.5)
+ggsave(filename=paste0(direct_out, "Figures/FSR_Panel_plots/FSAR_panel1_TAClandings_SPA", area,"_",year,".png"), tacland, dpi = 600, width = 6.5, height = 5.5)
 showtext_auto(TRUE)
   }
 
@@ -636,7 +636,7 @@ showtext_auto(TRUE)
 showtext_auto(FALSE)
 panel <- cowplot::plot_grid(tacland, bm.ts.plot, e.m.plot, rec.ts.plot, align="v",ncol=2,axis="lr")
 #ggsave(filename=paste0(direct_out, "/Figures/test/FSAR_panel1_SPA", area, ".png"), panel, dpi = 600, width = 9, height = 7)
-ggsave(filename=paste0(direct_out, "/Figures/test/FSAR_panel1_SPA", area, "_v2.png"), panel, dpi = 600, width = 9, height = 7) #use if altering a 4-panel figure (i.e SPA4 without SPA5 TAC) - Make sure to change "area_input" argument at line 86 to desired area!!
+ggsave(filename=paste0(direct_out, "Figures/FSR_Panel_plots/FSAR_panel1_SPA", area,"_",year,"_v2.png"), panel, dpi = 600, width = 9, height = 7) #use if altering a 4-panel figure (i.e SPA4 without SPA5 TAC) - Make sure to change "area_input" argument at line 86 to desired area!!
 showtext_auto(TRUE)
 # End of loop
 }
