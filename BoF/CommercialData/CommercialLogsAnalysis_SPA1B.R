@@ -241,7 +241,7 @@ cpue.combined <- data.frame(area = "SPA1B", year = fishingyear, effort.dat.hr = 
 #Combine landings with cpue
 catch.fishery.combined <- landings %>%
   filter(year == fishingyear & variable != 'TAC') %>%
-  summarize(catch.fleet.mt = sum(catch.fleet.mt))
+  summarize(catch.fleet.mt = sum(catch.fleet.mt, na.rm=TRUE))
 
 cpue.combined <- cbind(cpue.combined, catch.fishery.combined)
 
@@ -336,12 +336,14 @@ ggplot(comm.dat.combined) +
 ggsave(file = paste0(direct, "/",assessmentyear,"/Assessment/Figures/CommercialData/SPA1B_CPUEandEffort_combined",fishingyear, ".png"), width = 24,height = 20,dpi=400,units='cm')
 
 #TAC and Landings
+landings %>%filter(year >= 2003) %>%
 ggplot() +
   theme_bw(base_size = 16) + theme(panel.grid=element_blank()) + # white background, no gridlines
-  geom_bar(data=landings[landings$variable%in%c('FB','MB', 'UB', 'FSC'),], aes(year, catch.fleet.mt, fill=factor(variable, levels = c('FSC','UB', 'MB', 'FB'))), colour="black", stat="identity") + 
+  #geom_bar(data=landings[landings$variable%in%c('FB','MB', 'UB', 'FSC'),], aes(year, catch.fleet.mt, fill=factor(variable, levels = c('FSC','UB', 'MB', 'FB'))), colour="black", stat="identity") + 
+  geom_bar(data=landings %>% filter (year >=2003, variable != 'TAC'), aes(year, catch.fleet.mt, fill=factor(variable, levels = c('FSC','UB', 'MB', 'FB'))), colour="black", stat="identity") + 
   geom_line(data=landings[landings$variable == 'TAC',], aes(x = year, y = catch.fleet.mt), lwd = 1) +
   scale_y_continuous("Landings (meats, t)", breaks=seq(0,1200,200)) + # 
-  scale_x_continuous("Year", breaks=seq(2003,fishingyear,2)) +
+  scale_x_continuous("Year", breaks=seq(2003,fishingyear,2), limits =c(2002.5, fishingyear+0.5)) +
   scale_fill_manual(values=c("black", "white", "royalblue2", "grey"), labels=c("FSC","Upper Bay", "Mid-Bay", "Full Bay"), name=NULL) +
   annotate(geom="text",label="TAC", x=2010.4, y= 425) +
   theme(legend.position=c(0.15, 0.85)) # play with the location if you want it inside the plotting panel
