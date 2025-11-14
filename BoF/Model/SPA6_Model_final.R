@@ -61,7 +61,7 @@ area <- 6  #this would be the SPA, for entries options are to use: 1A, 1B, 3, 4,
 
 
 # Set the value for catch next year, assume same catch removals as current year, this is used in SSModel.plot.median() after the model runs; note no interim used for SPA 6 fishery 
-catch.next.year <- 173 #0.55*314 = 180
+catch.next.year <- 173 #0.55*314 = 172.7
 
 #reference points - **NEW BIOMASS ref pts for SPA 6**
 #Set reference points 
