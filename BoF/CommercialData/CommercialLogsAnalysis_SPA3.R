@@ -428,7 +428,7 @@ p +
   geom_sf(data = poly.VMS, fill=NA, colour="red") +
   geom_sf(data = poly.SMB, fill=NA, colour="red") +
   coord_sf(xlim = c(-66.8,-65.8), ylim = c(43.6,44.6), expand = FALSE) +
-  scale_fill_binned(type = "viridis", direction = -1, name="Effort (h)", breaks = c(25, 50, 75, 100, 125)) +
+  scale_fill_binned(type = "viridis", direction = -1, name="Effort (h)", breaks = c(25, 50, 75, 100, 125, 150, 200)) +
   theme(plot.title = element_text(size = 14, hjust = 0.5), #plot title size and position
         axis.title = element_text(size = 12),
         axis.text = element_text(size = 10),
