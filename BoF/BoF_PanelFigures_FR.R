@@ -197,10 +197,10 @@ bm.ts.plot <- ggplot() +
   geom_rect(aes(xmin=min(Years)-5,xmax=max(Years)+5,ymin=ref.pts[1],ymax=ref.pts[2]),fill=rgb(1,1,0,0.3),col=NA)+ # Yellow/Cautious
   geom_rect(aes(xmin=min(Years)-5,xmax=max(Years)+5,ymin=0,ymax=ref.pts[1]),fill=rgb(1,0,0,0.4),col=NA)+ # Red/Critical
   # ref pts
-  geom_hline(aes(yintercept = ref.pts[1], color = "LRP", linetype = "LRP")) +
-  geom_hline(aes(yintercept = ref.pts[2], color = "USR", linetype = "USR")) +
-  scale_color_manual(name = "", values = c("LRP" = "firebrick", "USR" = "goldenrod1")) +
-  scale_linetype_manual(name = "", values = c("LRP" = "dotdash", "USR" = "longdash")) +
+  geom_hline(aes(yintercept = ref.pts[1], color = "PRL", linetype = "PRL")) +
+  geom_hline(aes(yintercept = ref.pts[2], color = "PRS", linetype = "PRS")) +
+  scale_color_manual(name = "", values = c("PRL" = "firebrick", "PRS" = "goldenrod1")) +
+  scale_linetype_manual(name = "", values = c("PRL" = "dotdash", "PRS" = "longdash")) +
   guides(color = guide_legend(reverse = TRUE), linetype = guide_legend(reverse = TRUE)) +# rearranges legend order to put USR at top of list (more intuitive)
   # data
   geom_ribbon(aes(ymin=b$`2.5%`, ymax=b$`97.5%`, x=Years.ribbon),alpha=0.2,fill="grey20") + # plots 95% CI around time series
@@ -216,7 +216,7 @@ bm.ts.plot <- ggplot() +
                      labels = x_years[[area]]$labels, # , 2030), # add this back in 2030
                      expand = c(0, 0), limits = c(0, NA)) +
   scale_y_continuous(expand = c(0, 0), limits = c(0, NA)) + # {...}
-  labs(y = "Commercial biomass (meats, t)", x = "") +
+  labs(y = "Biomasse commerciale \n(tonnes de chairs)", x = "") +
   #annotate("text", x = year, y = Inf, label = "(B)", size = 5, vjust = 1.5) +
   annotate("text",x = Inf, y = Inf,label = "(B)",hjust = 1.5, vjust = 1.5, size = 5) +
   theme(legend.position = c(0.15,0.95), # places legend in by 0.15%, up by 0.95% (down by 0.05) of plot space
@@ -235,7 +235,7 @@ bm.ts.plot <- ggplot() +
 #geom_text(aes(x=RP.labels$x.pos[RP.labels$region == "Critical"], y=RP.labels$y.pos[RP.labels$region == "Critical"], label = toupper("Critical")),col="firebrick2",cex=5) +
 
 showtext_auto(FALSE)
-ggsave(filename=paste0(direct_out, "Figures/FSR_Panel_plots/FSAR_panel1_CommercialBiomass_SPA", area,"_",year,".png"), bm.ts.plot, dpi = 600, width = 6.5, height = 5.5)
+ggsave(filename=paste0(direct_out, "Figures/FSR_Panel_plots/French_Figures/FSAR_panel1_CommercialBiomass_SPA", area,"_",year,"_FR.png"), bm.ts.plot, dpi = 600, width = 6.5, height = 5.5)
 showtext_auto(TRUE)
 
 ## Panel C  ###################################################################################################################
@@ -248,7 +248,7 @@ e.m.plot <- ggplot() +
   geom_point(aes(x=Years[-1]-1, y=mu$median), col="black", size=1) +
   #styling
   scale_color_manual(name="",values=c("black"))+
-  labs(y = "Exploitation (proportional rate)", x = "") +
+  labs(y = "Exploitation (taux proportionnel)", x = "") +
   coord_cartesian(xlim=c(min(Years)-1, max(Years+2)), ylim=c(0,0.6))+
   scale_x_continuous(breaks=x_years[[area]]$breaks,
                      # (hello future modelers!) Need to adjust labels once we get to 2030. In 2030 add [,2030].
@@ -266,7 +266,7 @@ e.m.plot <- ggplot() +
         plot.margin = margin(5, 0, 5, 0, "points"))
 e.m.plot
 showtext_auto(FALSE)
-ggsave(filename=paste0(direct_out, "Figures/FSR_Panel_plots/FSAR_panel1_Exploitation_SPA", area,"_",year,".png"), e.m.plot, dpi = 600, width = 6.5, height = 5.5)
+ggsave(filename=paste0(direct_out, "Figures/FSR_Panel_plots/French_Figures/FSAR_panel1_Exploitation_SPA", area,"_",year,"_FR.png"), e.m.plot, dpi = 600, width = 6.5, height = 5.5)
 showtext_auto(TRUE)
 
 ## Panel D ####################################################################################################################
@@ -274,12 +274,12 @@ showtext_auto(TRUE)
 rec.ts.plot <- ggplot() +
   # data
   geom_ribbon(aes(ymin=r$`2.5%`,ymax=r$`97.5%`,x=Years.ribbon), alpha=0.2,fill='grey20') +
-  geom_hline(aes(yintercept=median(r$median[-length(r$median)]),col="LTM"), lty="dashed", alpha=0.7)+ # long-term median (1994:current yr-1)
+  geom_hline(aes(yintercept=median(r$median[-length(r$median)]),col="MLT"), lty="dashed", alpha=0.7)+ # long-term median (1994:current yr-1)
   scale_color_manual(name="",values=c("grey20"))+
   geom_line(aes(Years,r$median),col="black", linewidth = 0.4) +
   geom_point(aes(Years,r$median), col="black", size=1) +
   # styling
-  xlab("") + ylab("Recruit biomass (meats, t)")  +
+  xlab("") + ylab("Biomasse des recrues \n (tonnes de chairs)")  +
   coord_cartesian(xlim=c(min(Years)-1, max(Years+2)), ylim=c(-25,max(r$`97.5%`)*1.1))+
   scale_x_continuous(breaks=x_years[[area]]$breaks,
                      # (hello future modelers!) Need to adjust labels once we get to 2030. In 2030 add [,2030].
@@ -297,7 +297,7 @@ rec.ts.plot <- ggplot() +
         plot.margin = margin(5, 10, 5, 0, "points"))
 rec.ts.plot
 showtext_auto(FALSE)
-ggsave(filename=paste0(direct_out, "Figures/FSR_Panel_plots/FSAR_panel1_RecruitBiomass_SPA", area,"_",year,".png"), rec.ts.plot, dpi = 600, width = 6.5, height = 5.5)
+ggsave(filename=paste0(direct_out, "Figures/FSR_Panel_plots/French_Figures/FSAR_panel1_RecruitBiomass_SPA", area,"_",year,"_FR.png"), rec.ts.plot, dpi = 600, width = 6.5, height = 5.5)
 showtext_auto(TRUE)
 
 ## Panel 2 ####################################################################################################################
@@ -306,12 +306,12 @@ m.ltm <- median(m.prop$median[-length(m.prop$median)])
 m.plot <- ggplot() +
   # nat mort (prop): m.prop
   geom_ribbon(aes(ymin=m.prop$`2.5%`,ymax=m.prop$`97.5%`,x=Years.ribbon), alpha=0.12,fill="black") +
-  geom_hline(aes(yintercept=m.ltm,col="LTM"), lty="dashed", alpha=0.7)+ # RR
+  geom_hline(aes(yintercept=m.ltm,col="MLT"), lty="dashed", alpha=0.7)+ # RR
   geom_line(aes(x=Years, y=m.prop$median), col="black", linewidth = 0.4) +
   geom_point(aes(x=Years, y=m.prop$median), col="black", size=1) +
   #styling
   scale_color_manual(name="",values=c("grey20"))+
-  labs(y = "Natural mortality (proportional rate)", x = "") +
+  labs(y = "Mortalité naturelle (taux proportionnel)", x = "") +
   coord_cartesian(xlim=c(min(Years)-1, max(Years+2)), ylim=c(0,1.0))+
   scale_x_continuous(breaks=x_years[[area]]$breaks,
                      # (hello future modelers!) Need to adjust labels once we get to 2030. In 2030 add [,2030].
@@ -328,7 +328,7 @@ m.plot <- ggplot() +
         plot.margin = margin(5, 5, 5, 5, "points"))
 m.plot
 showtext_auto(FALSE)
-ggsave(filename=paste0(direct_out, "Figures/FSR_Panel_plots/FSAR_panel2_NatMort_SPA", area,"_",year,".png"), m.plot, dpi = 600, width = 4.5, height = 3.5)
+ggsave(filename=paste0(direct_out, "Figures/FSR_Panel_plots/French_Figures/FSAR_panel2_NatMort_SPA", area,"_",year,"_FR.png"), m.plot, dpi = 600, width = 4.5, height = 3.5)
 showtext_auto(TRUE)
 
 #Probably need an if loop for tacland plots
@@ -361,7 +361,7 @@ landings$year <- as.numeric(substr(rownames(landings),6,9))
 tacland <- ggplot(landings) +
   geom_bar(aes(x = year, y = landings.fleet.mt), stat = "identity", color = "black", fill = "white", linewidth=0.2) +
   geom_line(aes(x = year, y = TAC), lwd = 1) +
-  ylab("Landings (meats, t)") +
+  ylab("Débarquements (tonnes de chairs)") +
   coord_cartesian(xlim=c(min(Years)-1, max(Years+2)), ylim=c(0,max(landings$TAC, na.rm=T)+100))+
   scale_y_continuous(expand = c(0, 0), limits = c(0, NA))+
   scale_x_continuous(breaks=x_years[[SPA]]$breaks,
@@ -382,7 +382,7 @@ tacland <- ggplot(landings) +
 tacland
 
 showtext_auto(FALSE)
-ggsave(filename=paste0(direct_out, "Figures/FSR_Panel_plots/FSAR_panel1_TAClandings_SPA", area,"_",year,".png"), tacland, dpi = 600, width = 6.5, height = 5.5)
+ggsave(filename=paste0(direct_out, "Figures/FSR_Panel_plots/French_Figures/FSAR_panel1_TAClandings_SPA", area,"_",year,"_FR.png"), tacland, dpi = 600, width = 6.5, height = 5.5)
 showtext_auto(TRUE)
   }
 ### SPA 1B #############################################################################################################################
@@ -397,18 +397,18 @@ if (area == "1B") {
   landings$year <- as.numeric(substr(rownames(landings),6,9))
   #Convert landings data to long format
   landings <- reshape2::melt(landings, id.vars = "year", value.name = "catch.fleet.mt")
-  
-  landings.tot <- landings %>% group_by(year) %>% 
-    filter(variable != "TAC") %>% 
+
+  landings.tot <- landings %>% group_by(year) %>%
+    filter(variable != "TAC") %>%
     summarize(tot = sum(catch.fleet.mt, na.rm = TRUE))
-  
+
   # plot
   tacland <- ggplot(landings) +
     geom_bar(data = landings.tot, aes(x = year, y = tot), stat = "identity", color = "black", fill = "white", linewidth=0.2) +
     #geom_bar(data=landings[landings$variable%in%c('FB','MB', 'UB', 'FSC'),],
     #aes(year, catch.fleet.mt, fill=factor(variable, levels = c('FSC','UB', 'MB', 'FB'))), colour="black", stat="identity") +
     geom_line(data=landings[landings$variable == 'TAC',], aes(x = year, y = catch.fleet.mt), lwd = 1) +
-    ylab("Landings (meats, t)") +
+    ylab("Débarquements (tonnes de chairs)") +
     coord_cartesian(xlim=c(min(Years)-1, max(Years+2)), ylim=c(0,max(landings$catch.fleet.mt, na.rm=T)+100))+
     scale_y_continuous(expand = c(0, 0), limits = c(0, NA))+
     scale_x_continuous(breaks=x_years[[SPA]]$breaks,
@@ -429,7 +429,7 @@ if (area == "1B") {
           plot.margin = margin(5, 5, 5, 1, "points"))
 
 showtext_auto(FALSE)
-ggsave(filename=paste0(direct_out, "Figures/FSR_Panel_plots/FSAR_panel1_TAClandings_SPA", area,"_",year,".png"), tacland, dpi = 600, width = 6.5, height = 5.5)
+ggsave(filename=paste0(direct_out, "Figures/FSR_Panel_plots/French_Figures/FSAR_panel1_TAClandings_SPA", area,"_",year,"_FR.png"), tacland, dpi = 600, width = 6.5, height = 5.5)
 showtext_auto(TRUE)
   }
 ### SPA 3 #############################################################################################################################
@@ -446,7 +446,7 @@ landings$year <- as.numeric(substr(rownames(landings),6,9))
 tacland <- ggplot(landings) +
   geom_bar(aes(x = year, y = landings.fleet.mt), stat = "identity", color = "black", fill = "white", linewidth=0.2) +
   geom_line(aes(x = year, y = TAC), lwd = 1) +
-  ylab("Landings (meats, t)") +
+  ylab("Débarquements (tonnes de chairs)") +
   coord_cartesian(xlim=c(min(Years)-1, max(Years+2)), ylim=c(0,max(landings$TAC, na.rm=T)+100))+
   scale_y_continuous(expand = c(0, 0), limits = c(0, NA))+
   scale_x_continuous(breaks=x_years[[SPA]]$breaks,
@@ -467,7 +467,7 @@ tacland <- ggplot(landings) +
         plot.margin = margin(5, 5, 5, 1, "points"))
 
 showtext_auto(FALSE)
-ggsave(filename=paste0(direct_out, "Figures/FSR_Panel_plots/FSAR_panel1_TAClandings_SPA", area,"_",year,".png"), tacland, dpi = 600, width = 6.5, height = 5.5)
+ggsave(filename=paste0(direct_out, "Figures/FSR_Panel_plots/French_Figures/FSAR_panel1_TAClandings_SPA", area,"_",year,"_FR.png"), tacland, dpi = 600, width = 6.5, height = 5.5)
 showtext_auto(TRUE)
   }
 ### SPA 4 #############################################################################################################################
@@ -516,7 +516,7 @@ tacq4$year <- as.numeric(substr(rownames(tacq4), 2,5))+1
 #         panel.border = element_rect(linewidth = 1, fill = NA),
 #         axis.ticks = element_line(linewidth = 0.3), axis.ticks.length = unit(5, "pt"),
 #         plot.margin = margin(5, 5, 5, 1, "points"))
-# 
+#
 # showtext_auto(FALSE)
 # ggsave(filename=paste0(direct_out, "/Figures/test/FSAR_panel1_TAClandings_SPA", area, ".png"), tacland, dpi = 600, width = 6.5, height = 5.5)
 # showtext_auto(TRUE)
@@ -526,7 +526,7 @@ tacland <- ggplot(landings) +
   geom_bar(data=landings[landings$variable%in%c('SPA4','SPA5'),], aes(year, catch.fleet.mt, fill=factor(variable, levels = c("SPA5", "SPA4"))), colour="black", fill= "white", stat="identity", linewidth=0.2) +
   geom_line(data=landings[landings$variable == 'TAC' & landings$year >= 2014,], aes(x = year, y = catch.fleet.mt), lwd = 1) + #adds combined TAC line
   geom_line(data=tacq4, aes(year, TAC),linetype="dashed", lwd=1) + #adds historical SPA4 TAC line
-  ylab("Landings (meats, t)") +
+  ylab("Débarquements (tonnes de chairs)") +
   coord_cartesian(xlim=c(min(Years)-1, max(Years+2)), ylim=c(0,max(landings$catch.fleet.mt, na.rm=T)+100))+
   scale_y_continuous(expand = c(0, 0), limits = c(0, NA))+
   scale_x_continuous(breaks=x_years[[SPA]]$breaks,
@@ -536,8 +536,8 @@ tacland <- ggplot(landings) +
   #scale_fill_manual(values=c("black", "white", "royalblue2", "grey"), labels=c("FSC","Upper Bay", "Mid-Bay", "Full Bay"), name=NULL) +
   #annotate("text", x = year, y = Inf, label = "(A)", size = 5, vjust = 1.5) +
   annotate("text",x = Inf, y = Inf,label = "(A)",hjust = 1.5, vjust = 1.5, size = 5)+
-  annotate(geom="text",label="SPA 4 and 5 TAC", x=2015, y= 350) +
-  annotate(geom="text",label="SPA 4 TAC", x=2003, y= 1340) +
+  annotate(geom="text",label="ZPrP 4 et 5 TAC", x=2015, y= 350) +
+  annotate(geom="text",label="ZPrP 4 TAC", x=2003, y= 1340) +
   theme(axis.title.x = element_blank(),
         axis.text.x = element_text(margin = margin(t = 4)),
         axis.title.y = element_text(margin = margin(r = 4)),
@@ -548,7 +548,7 @@ tacland <- ggplot(landings) +
         plot.margin = margin(5, 5, 5, 1, "points"))
 
 showtext_auto(FALSE)
-ggsave(filename=paste0(direct_out, "Figures/FSR_Panel_plots/FSAR_panel1_TAClandings_SPA", area,"_",year,".png"), tacland, dpi = 600, width = 6.5, height = 5.5)
+ggsave(filename=paste0(direct_out, "Figures/FSR_Panel_plots/French_Figures/FSAR_panel1_TAClandings_SPA", area,"_",year,"_FR.png"), tacland, dpi = 600, width = 6.5, height = 5.5)
 showtext_auto(TRUE)
 # SPA 4 & 5 TAC and Landings with truncated x-axis for presentations
 tacland2 <- ggplot(landings) +
@@ -557,7 +557,7 @@ tacland2 <- ggplot(landings) +
   geom_line(data=landings[landings$variable == 'TAC' & landings$year >= 2014,], aes(x = year, y = catch.fleet.mt), lwd = 1) + #adds combined TAC line
   geom_line(data=tacq4[tacq4$year >= 2008,], aes(year, TAC),linetype="dashed", lwd=1) + #adds historical SPA4 TAC line
   scale_fill_manual(values=c("skyblue1", "grey"), labels=c("SPA 5", "SPA 4"), name=NULL) +
-  ylab("Landings (meats, t)") +
+  ylab("Débarquements (tonnes de chairs)") +
   coord_cartesian(xlim=c(min(Years)-1, max(Years+2)), ylim=c(0,max(landings$catch.fleet.mt[landings$year > 2008], na.rm = TRUE)+100))+
   scale_y_continuous(expand = c(0, 0), limits = c(0, NA))+
   scale_x_continuous(breaks=x_years[[SPA]]$breaks,
@@ -567,8 +567,8 @@ tacland2 <- ggplot(landings) +
   #scale_fill_manual(values=c("black", "white", "royalblue2", "grey"), labels=c("FSC","Upper Bay", "Mid-Bay", "Full Bay"), name=NULL) +
   #annotate("text", x = year, y = Inf, label = "(A)", size = 5, vjust = 1.5) +
   annotate("text",x = Inf, y = Inf,label = "(A)",hjust = 1.5, vjust = 1.5, size = 5)+
-  annotate(geom="text",label="SPA 4 and 5 TAC", x=2016, y= 260) +
-  annotate(geom="text",label="SPA 4 TAC", x=2011, y= 160) +
+  annotate(geom="text",label="ZPrP 4 et 5 TAC", x=2016, y= 260) +
+  annotate(geom="text",label="ZPrP 4 TAC", x=2011, y= 160) +
   theme(axis.title.x = element_blank(),
         axis.text.x = element_text(margin = margin(t = 4)),
         axis.title.y = element_text(margin = margin(r = 4)),
@@ -579,7 +579,7 @@ tacland2 <- ggplot(landings) +
         plot.margin = margin(5, 5, 5, 1, "points"))
 
 showtext_auto(FALSE)
-ggsave(filename=paste0(direct_out, "Figures/FSR_Panel_plots/FSAR_panel1_TAClandings_SPA", area,"_",year,".png"), tacland, dpi = 600, width = 6.5, height = 5.5)
+ggsave(filename=paste0(direct_out, "Figures/FSR_Panel_plots/French_Figures/FSAR_panel1_TAClandings_SPA", area,"_",year,"_FR.png"), tacland, dpi = 600, width = 6.5, height = 5.5)
 showtext_auto(TRUE)
   }
 ### SPA 6 #############################################################################################################################
@@ -597,8 +597,8 @@ landings <- reshape2::melt(landings, id.vars = "year", value.name = "catch.fleet
 landings <- landings %>% filter(year >= 2006)
 
 landings.tot <- landings %>%
-  group_by(year) %>% 
-  filter(variable != "TAC") %>% 
+  group_by(year) %>%
+  filter(variable != "TAC") %>%
   summarize(tot = sum(catch.fleet.mt, na.rm = TRUE))
 
 # plot
@@ -606,7 +606,7 @@ tacland <- ggplot(landings) +
   geom_bar(data = landings.tot, aes(x = year, y = tot), stat = "identity", color = "black", fill = "white",linewidth=0.2) +
   #geom_bar(data=landings[landings$variable%in%c('FSC','FB','MB'),], aes(year, catch.fleet.mt, fill=factor(variable, levels = c('FSC', 'FB','MB'))), colour="black", stat="identity") +
   geom_line(data=landings[landings$variable == 'TAC',], aes(x = year, y = catch.fleet.mt), lwd = 1) +
-  ylab("Landings (meats, t)") +
+  ylab("Débarquements (tonnes de chairs)") +
   coord_cartesian(xlim=c(min(x_years[[SPA]]$breaks), max(Years+2)), ylim=c(0,max(landings$catch.fleet.mt, na.rm=T)+100))+
   #scale_fill_manual(values=c("black","white", "grey"), labels=c("Food, Social, and Ceremonial","Full Bay", "Mid-Bay"), name=NULL) +
   scale_y_continuous(expand = c(0, 0), limits = c(0, NA))+
@@ -627,7 +627,7 @@ tacland <- ggplot(landings) +
         plot.margin = margin(5, 8, 5, 1, "points"))
 
 showtext_auto(FALSE)
-ggsave(filename=paste0(direct_out, "Figures/FSR_Panel_plots/FSAR_panel1_TAClandings_SPA", area,"_",year,".png"), tacland, dpi = 600, width = 6.5, height = 5.5)
+ggsave(filename=paste0(direct_out, "Figures/FSR_Panel_plots/French_Figures/FSAR_panel1_TAClandings_SPA", area,"_",year,"_FR.png"), tacland, dpi = 600, width = 6.5, height = 5.5)
 showtext_auto(TRUE)
   }
 
@@ -636,7 +636,7 @@ showtext_auto(TRUE)
 showtext_auto(FALSE)
 panel <- cowplot::plot_grid(tacland, bm.ts.plot, e.m.plot, rec.ts.plot, align="v",ncol=2,axis="lr")
 #ggsave(filename=paste0(direct_out, "/Figures/test/FSAR_panel1_SPA", area, ".png"), panel, dpi = 600, width = 9, height = 7)
-ggsave(filename=paste0(direct_out, "Figures/FSR_Panel_plots/FSAR_panel1_SPA", area,"_",year,".png"), panel, dpi = 600, width = 9, height = 7) #use if altering a 4-panel figure (i.e SPA4 without SPA5 TAC) - Make sure to change "area_input" argument at line 86 to desired area!!
+ggsave(filename=paste0(direct_out, "Figures/FSR_Panel_plots/French_Figures/FSAR_panel1_SPA", area,"_",year,"_FR.png"), panel, dpi = 600, width = 9, height = 7) #use if altering a 4-panel figure (i.e SPA4 without SPA5 TAC) - Make sure to change "area_input" argument at line 86 to desired area!!
 showtext_auto(TRUE)
 # End of loop
 }
