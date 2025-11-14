@@ -166,6 +166,10 @@
   
   logs$effort_h <- (logs$AVG_TOW_TIME*logs$NUM_OF_TOWS)/60
   
+  #In the 2025 season after verifying with log scans, there were still effort outliers >24hrs/day. Removing records with effort > 24
+  logs <- (logs[which(logs$effort_h <= 24),])
+  dim(logs)
+  
   effort.dat.subarea <- aggregate(logs$effort_h, by=list(logs$FLEET, logs$ASSIGNED_AREA), FUN=sum)
   names(effort.dat.subarea) <- c("fleet","area","effort.hr")
   
@@ -347,7 +351,7 @@
     scale_y_continuous("Catch Rate (kg/h)", limits = c(0,60), breaks = seq(0,60,10)) +
     scale_colour_manual(values = c("black", "red")) +
     facet_wrap(~area) +
-    theme(legend.title = element_blank()) + theme(legend.position=c(0.6, 0.92)) # play with the location if you want it inside the plotting panel
+    theme(legend.title = element_blank()) + theme(legend.position.inside=c(0.6, 0.92)) # play with the location if you want it inside the plotting panel
   #save
   ggsave(filename = paste0(direct, "/",assessmentyear,"/Assessment/Figures/CommercialData/SPA6_CPUE",fishingyear, ".png"), width = 24, height = 24, dpi = 400,units='cm')
      
@@ -363,7 +367,7 @@
     geom_point() +
     geom_line() +
     scale_x_discrete("Month") +
-    scale_y_continuous("Catch Rate (kg/h)", limits = c(0,60), breaks = seq(0,60,10))
+    scale_y_continuous("Catch Rate (kg/h)", limits = c(0,40), breaks = seq(0,60,10))
   #save
   ggsave(filename = paste0(direct, "/",assessmentyear,"/Assessment/Figures/CommercialData/SPA6_CPUEbyMonth",fishingyear, ".png"), width=24,height=20,dpi=400,units='cm')
   
@@ -557,7 +561,7 @@
     geom_sf(data = poly.6D, fill=NA, colour="grey55") +
     geom_sf(data = poly.VMSIN, fill=NA, colour="red") +
     coord_sf(xlim = c(-67.4,-65.8), ylim = c(44.2,45.2), expand = FALSE) +
-    scale_fill_binned(type = "viridis", direction = -1, name="Catch (kg)", breaks = c(1000, 2000, 3000, 4000)) +
+    scale_fill_binned(type = "viridis", direction = -1, name="Catch (kg)", breaks = c(2000, 4000, 6000, 8000, 10000)) +
     theme(plot.title = element_text(size = 14, hjust = 0.5), #plot title size and position
           axis.title = element_text(size = 12),
           axis.text = element_text(size = 10),
@@ -593,7 +597,7 @@
     geom_sf(data = poly.6D, fill=NA, colour="grey55") +
     geom_sf(data = poly.VMSIN, fill=NA, colour="red") +
     coord_sf(xlim = c(-67.4,-65.8), ylim = c(44.2,45.2), expand = FALSE) +
-    scale_fill_binned(type = "viridis", direction = -1, name="Effort (h)", breaks = c(50, 100, 150, 200, 250, 300)) +
+    scale_fill_binned(type = "viridis", direction = -1, name="Effort (h)", breaks = c(100, 200, 300, 400, 500)) +
     theme(plot.title = element_text(size = 14, hjust = 0.5), #plot title size and position
           axis.title = element_text(size = 12),
           axis.text = element_text(size = 10),

@@ -60,7 +60,7 @@ pwd.ID=Sys.getenv("pw.raperj") #ptran password
 
 #Date range for logs to be selected 
 start.date.logs <- "2024-10-01"  #YYYY-MM-DD use Oct 1 
-ends.date.logs <- "2024-10-01"  #YYYY-MM-DD use Oct 1 
+ends.date.logs <- "2025-10-01"  #YYYY-MM-DD use Oct 1 
 
 #### Read files ####
 
@@ -416,7 +416,7 @@ p <- pecjector(area =list(x=c(-66.2,-65.5), y=c(44.46,45), crs=4326),repo ='gith
    geom_tile(df, mapping = aes(lon, lat, fill = tot.catch), color = "grey55") +
    geom_sf(data = poly.strata, fill=NA, colour="grey55") +
    coord_sf(xlim = c(-66.2,-65.5), ylim = c(44.46,45), expand = F) +
-   scale_fill_binned(type = "viridis", direction = -1, name="Catch (kg)", breaks = c(2000, 4000, 6000)) +
+   scale_fill_binned(type = "viridis", direction = -1, name="Catch (kg)", breaks = c(1000, 2000, 3000, 4000)) +
    theme(plot.title = element_text(size = 14, hjust = 0.5), #plot title size and position
          axis.title = element_text(size = 12),
          axis.text = element_text(size = 10),
