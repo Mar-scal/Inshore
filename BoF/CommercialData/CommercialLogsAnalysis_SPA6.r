@@ -427,43 +427,17 @@
     theme(legend.position=c(0.75, 0.85)) # play with the location if you want it inside the plotting panel
   ggsave(filename = paste0(direct, "/",assessmentyear,"/Assessment/Figures/CommercialData/SPA6_TACandLandings",fishingyear, ".png"), width = 24, height = 20, dpi = 400,units='cm')
   
-  # #PA Reference Point PLOT
-  # ggplot(comm.dat.combined) +
-  #   theme_bw(base_size = 20) + theme(panel.grid=element_blank()) + 
-  #   geom_point(aes(x = year, y = cpue.kgh)) +
-  #   geom_line(aes(x = year, y = cpue.kgh)) +
-  #   scale_y_continuous("Catch rate (kg/h)", limits=c(0,30), breaks=seq(0,30,5)) +
-  #   scale_x_continuous("Year", breaks=seq(2002,fishingyear,2)) +
-  #   geom_hline(yintercept = 6.2, linetype = "dashed") +
-  #   geom_hline(yintercept = 9.1, linetype = "dashed") +
-  #   annotate("rect", xmin=-Inf, xmax = Inf, ymin = -Inf, ymax = 6.2, fill = "red", alpha = 0.3) +
-  #   annotate("rect", xmin=-Inf, xmax = Inf, ymin = 6.2, ymax = 9.1, fill = "yellow", alpha = 0.3) + 
-  #   annotate("rect", xmin=-Inf, xmax = Inf, ymin = 9.1, ymax = Inf, fill = "green", alpha = 0.3) +
-  #   annotate("text", label="Healthy", x=2018, y=11, size=7) +
-  #   annotate("text", label="Cautious", x=2018, y=7.8, size=7) +
-  #   annotate("text", label="Critical", x=2018, y=5, size=7)
-  # #save
-  # ggsave(filename = paste0(direct, "/",assessmentyear,"/Assessment/Figures/CommercialData/SPA6_RefPts",fishingyear, ".png"), width = 24, height = 20, dpi = 400,units='cm')
-  # 
-  
-  
-#PA Reference Point PLOT -- WITHOUT PA Zones - since MAY change to Biomass based PA in Dec 2022 -- being prepared here.. 
+#CPUE Fleets and Subareas combined
   ggplot(comm.dat.combined) +
     theme_bw(base_size = 20) + theme(panel.grid=element_blank()) + 
     geom_point(aes(x = year, y = cpue.kgh)) +
     geom_line(aes(x = year, y = cpue.kgh)) +
     scale_y_continuous("Catch rate (kg/h)", limits=c(0,40), breaks=seq(0,40,5)) +
-    scale_x_continuous("Year", breaks=seq(2002,fishingyear,2)) # +
-   # geom_hline(yintercept = 6.2, linetype = "dashed") +
-  #  geom_hline(yintercept = 9.1, linetype = "dashed") +
-  #  annotate("rect", xmin=-Inf, xmax = Inf, ymin = -Inf, ymax = 6.2, fill = "red", alpha = 0.3) +
-  #  annotate("rect", xmin=-Inf, xmax = Inf, ymin = 6.2, ymax = 9.1, fill = "yellow", alpha = 0.3) + 
-  #  annotate("rect", xmin=-Inf, xmax = Inf, ymin = 9.1, ymax = Inf, fill = "green", alpha = 0.3) +
-  #  annotate("text", label="Healthy", x=2018, y=11, size=7) +
-  #  annotate("text", label="Cautious", x=2018, y=7.8, size=7) +
-  #  annotate("text", label="Critical", x=2018, y=5, size=7)
+    scale_x_continuous("Year", breaks=seq(2002,fishingyear,2)) +
+    geom_hline(aes(yintercept=median(cpue.kgh[1:(dim(comm.dat.combined)[1]-1)])), linetype = "dashed") + # median line is all years except current year
+    geom_text(x = 2008, y = 16, label = "median", size = 4)
   #save
-  ggsave(filename = paste0(direct, "/",assessmentyear,"/Assessment/Figures/CommercialData/SPA6_CombinedCatchRate",fishingyear, ".png"), width = 24, height = 20, dpi = 400,units='cm')
+  ggsave(filename = paste0(direct, "/",assessmentyear,"/Assessment/Figures/CommercialData/SPA6_CPUE_combined",fishingyear, ".png"), width = 24, height = 20, dpi = 400,units='cm')
   
   
   
@@ -512,16 +486,17 @@
     geom_sf(data = poly.VMSIN, fill=NA, colour="red") +
     coord_sf(xlim = c(-67.4,-65.8), ylim = c(44.2,45.2), expand = F) +
     scale_fill_binned(type = "viridis", direction = -1, name="CPUE (kg/h)", breaks = c(25, 50, 75, 100, 125)) +
+    geom_polygon(data = shp, aes(x = long, y = lat, group = group), fill="grey55") +
     theme(plot.title = element_text(size = 14, hjust = 0.5), #plot title size and position
           axis.title = element_text(size = 12),
           axis.text = element_text(size = 10),
           legend.title = element_text(size = 10, face = "bold"), 
           legend.text = element_text(size = 10),
-          legend.position = c(.07,.72), 
-          legend.box.background = element_rect(colour = "white", fill= alpha("white", 0.7)), #Legend bkg colour and transparency
+          legend.position = c(.8,.6), 
+          legend.box.background = element_rect(colour = "grey55", fill= alpha("white", 0.7)), #Legend bkg colour and transparency
           legend.box.margin = margin(6, 8, 6, 8))
  #save
-  ggsave(filename = paste0(direct, "/",assessmentyear,"/Assessment/Figures/CommercialData/SPA6_CPUEgridplot",fishingyear, ".png"), width = 9, height = 9, dpi = 200,units='in')
+  ggsave(filename = paste0(direct, "/",assessmentyear,"/Assessment/Figures/CommercialData/SPA6_CPUEgridplot_new",fishingyear, ".png"), width = 9, height = 9, dpi = 200,units='in')
   
   
   # # Make histogram by area for distribution of cpue
