@@ -364,12 +364,13 @@ p <- pecjector(area =list(x=c(-66.2,-65.5), y=c(44.46,45), crs=4326),repo ='gith
  sf::sf_use_s2(FALSE)
  
  ##add sf objects to basemap outside of pecjector
- png(file = paste0(direct, "/",assessmentyear,"/Assessment/Figures/CommercialData/SPA4and5_CPUEgridplot",fishingyear, ".png"), 9,9,res=200,units='in')
+ png(file = paste0(direct, "/",assessmentyear,"/Assessment/Figures/CommercialData/SPA4and5_CPUEgridplot_new",fishingyear, ".png"), 9,9,res=200,units='in')
  p +
    geom_tile(df, mapping = aes(lon, lat, fill = mean.cpue), color = "grey55") +
    geom_sf(data = poly.strata, fill=NA, colour="grey55") +
    coord_sf(xlim = c(-66.2,-65.5), ylim = c(44.46,45), expand = F) +
-   scale_fill_binned(type = "viridis", direction = -1, name="CPUE (kg/h)") +
+   scale_fill_binned(type = "viridis", direction = -1, name="CPUE (kg/h)", breaks = c(25, 50, 75)) +
+   geom_polygon(data = shp, aes(x = long, y = lat, group = group), fill="grey55") +
    theme(plot.title = element_text(size = 14, hjust = 0.5), #plot title size and position
            axis.title = element_text(size = 12),
            axis.text = element_text(size = 10),
