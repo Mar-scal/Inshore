@@ -134,7 +134,7 @@ parm = c("B","R","q","K","P","sigma","S","m","kappa.tau","r", "Fmort","mu","Irep
 #parm = c("B","R","q","K","P","sigma","S","m","kappa.tau","r", "Fmort","mu","Irep","IRrep")
 
 # Bring in the data, you will need to update this with the latest numbers!
-raw.dat <- read.xlsx(paste0(direct,"/",assessmentyear,"/Assessment/Data/Model/SPA",area,"/SPA1A_ModelData_R_2025-10-20.xlsx"),sheet = "AlignedForModel",cols=1:13)
+raw.dat <- read.xlsx(paste0(direct,"/",assessmentyear,"/Assessment/Data/Model/SPA",area,"/SPA1A_ModelData_R_2025-10-29.xlsx"),sheet = "AlignedForModel",cols=1:13)
 
 str(raw.dat)
 raw.dat$C <- as.numeric(raw.dat$C)
@@ -183,7 +183,7 @@ save(list = paste0("Spa1A.", max(yrs)), file=paste0(direct,"/",assessmentyear, "
 #load(paste0(direct,"/",assessmentyear, "/Assessment/Data/Model/SPA",area,"/SPA1A_Model_",max(yrs),".RData"))
 
 #This is just to save you from wasting time changing the names of a bunch of lines below...
-#mod.res <- Spa1A.2024
+#mod.res <- Spa1A.2025
 mod.res <- Spa1A.model
 
 

@@ -185,7 +185,7 @@ save(list = paste0("Spa3.new.", max(yrs)), file=paste0(direct,"/",assessmentyear
 #load(paste0(direct,"/",assessmentyear,"/Assessment/Data/Model/SPA",area,"/SPA3_Model_",max(yrs),".RData"))
 
 # This is just to save you from wasting time changing the names of a bunch of lines below...
-#mod.res <- Spa3.new.2024
+#mod.res <- Spa3.new.2025
 mod.res <- Spa3.model
 
 
@@ -431,7 +431,7 @@ write.csv(pred.1yr.boxplot$B.next, paste0(direct,"/",assessmentyear,"/Assessment
 
 # --- Decision Tables ----
 #Finally here we have the decsion table.  This plots the decision table for all catch rates between 0 and 500 increments of 10 tonnes of catch (seq(0,500,10)).
-decision  <- predict (mod.res, Catch=c(seq(30, 160, 20)), g.parm=mod.res$data$g[mod.res$data$NY],gr.parm=mod.res$data$gR[mod.res$data$NY]) 
+decision  <- predict (mod.res, Catch=c(seq(70, 140, 10)), g.parm=mod.res$data$g[mod.res$data$NY],gr.parm=mod.res$data$gR[mod.res$data$NY]) 
 decision.table <- SSModel_predict_summary_median(decision, LRP=LRP, USR=USR, RRP=0.15)
 decision.table
 
