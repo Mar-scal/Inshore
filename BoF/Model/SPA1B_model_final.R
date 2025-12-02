@@ -182,7 +182,7 @@ save(list = paste0("Spa1B.", max(yrs)), file=paste0(direct,"/",assessmentyear, "
 #load(paste0(direct,"/",assessmentyear,"/Assessment/Data/Model/SPA",area,"/SPA1B_Model_",max(yrs),".RData"))
 
 #This is just to save you from wasting time changing the names of a bunch of lines below...
-#mod.res <- Spa1B.2024
+#mod.res <- Spa1B.2025
 mod.res <- Spa1B.model
 
 #This gives a print to screen of model results and allows you to save it

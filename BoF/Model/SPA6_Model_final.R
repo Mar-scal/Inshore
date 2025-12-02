@@ -195,7 +195,7 @@ save(list = paste0("Spa6.", max(yrs)), file=paste0(direct,"/",assessmentyear, "/
 
 # This just saves you wasting time copy/pasting an updated name everywhere below.
 mod.res <- Spa6.model
-#mod.res <- Spa6.2024
+#mod.res <- Spa6.2025
 
 
 #This gives a print to screen of model results and allows you to save it
@@ -434,7 +434,7 @@ write.csv(pred.1yr.boxplot$B.next, paste0(direct,"/",assessmentyear,"/Assessment
 
 
 #decision table with reference points 
-decision  <- predict (mod.res, Catch=c(seq(40, 140, 20)), g.parm=mod.res$data$g[mod.res$data$NY],gr.parm=mod.res$data$gR[mod.res$data$NY]) 
+decision  <- predict (mod.res, Catch=c(seq(0, 135, 15)), g.parm=mod.res$data$g[mod.res$data$NY],gr.parm=mod.res$data$gR[mod.res$data$NY]) 
 decision.table <- SSModel_predict_summary_median(decision, LRP=LRP, USR=USR, RRP=0.18)
 decision.table
 
