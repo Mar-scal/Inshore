@@ -289,6 +289,8 @@ GM.con.ts$CONDITION <- round(GM.con.ts$CONDITION,3)
 
 write.csv(GM.con.ts, paste0(path.directory, assessmentyear, "/Assessment/Data/SurveyIndices/SPA",area,"/SPA6_ConditionTimeSeries.csv"))
 
+GM.con.ts<- read.csv(paste0(path.directory, assessmentyear, "/Assessment/Data/SurveyIndices/SPA",area,"/SPA6_ConditionTimeSeries.csv"))
+
 
 #... Plot Condition Time Series Figure:
 GM.con.ts$strata.name <- NA 
@@ -304,7 +306,7 @@ condition.ts.plot <- ggplot(GM.con.ts %>% filter(STRATA %in% c("INVMS", "OUTVMS"
   #scale_x_continuous(breaks=seq(1995,2023, 2))+
   theme(axis.title = element_text(size = 15),
         axis.text = element_text(size = 12),
-        legend.position = c(.008, .20),
+        legend.position = c(.08, .9),
         legend.justification = c("left", "top"),
         legend.box.just = "left",
         legend.margin = margin(6, 6, 6, 6),

@@ -274,6 +274,17 @@ ggplot(filter(comm.dat.subarea, area != '1B'), aes(x = year, y = cpue.kgh)) +
 #save
 ggsave(filename = paste0(direct, "/",assessmentyear,"/Assessment/Figures/CommercialData/SPA1B_CPUE",fishingyear, ".png"), width = 24,height = 16,dpi=400,units='cm')
 
+#CPUE combined
+ggplot(comm.dat.combined, aes(x = year, y = cpue.kgh)) +
+  theme_bw(base_size = 16) + theme(panel.grid=element_blank()) +  
+  geom_point() +
+  geom_line() +
+  scale_x_continuous("Year", breaks = seq(2003,fishingyear,5)) +
+  scale_y_continuous("Catch Rate (kg/h)", limits = c(0,50), breaks = seq(0,50,10)) +
+  geom_hline(aes(yintercept=median(cpue.kgh[1:(dim(comm.dat.combined)[1]-1)])), linetype = "dashed") + # median line is all years except current year
+  geom_text(x = 2009, y = 23, label = "median", size = 4)
+#save
+ggsave(filename = paste0(direct, "/",assessmentyear,"/Assessment/Figures/CommercialData/SPA1B_CPUE_combined",fishingyear, ".png"), width = 24,height = 16,dpi=400,units='cm')
 
 #CPUE by month
 CPUE_month <- logs %>% 
@@ -368,7 +379,7 @@ ggsave(filename = paste0(direct, "/",assessmentyear,"/Assessment/Figures/Commerc
  
  
 #Pecjector basemap with SPA 1B boundaries
-  p <- pecjector(area =list(x=c(-66.5,-64.4), y=c(44.8,45.8), crs=4326),repo ='github',c_sys="ll", gis.repo = 'github', plot=F,plot_as = 'ggplot', add_layer = list(land = "grey", bathy = c(50,'c'), scale.bar = c('tl',0.5)))
+p <- pecjector(area =list(x=c(-66.5,-64.4), y=c(44.8,45.8), crs=4326),repo ='github',c_sys="ll", gis.repo = 'github', plot=F,plot_as = 'ggplot', add_layer = list(land = "grey", bathy = c(50,'c')))
 
  
 #CPUE Grid Plot
@@ -390,30 +401,33 @@ ggsave(filename = paste0(direct, "/",assessmentyear,"/Assessment/Figures/Commerc
    geom_tile(df, mapping = aes(lon, lat, fill = mean.cpue), color = "grey55") +
    geom_sf(data = poly.strata, fill=NA, colour="grey55") +
    coord_sf(xlim = c(-66.5,-64.4), ylim = c(44.8,45.8), expand = FALSE) +
-   scale_fill_binned(type = "viridis", direction = -1, name="CPUE (kg/h)", breaks = c(20, 40, 60, 80, 100)) +
+   scale_fill_binned(type = "viridis", direction = -1, name="CPUE (kg/h)", limits = c(0, 150), breaks = c(25, 50, 75, 100, 125)) +
+   geom_polygon(data = shp, aes(x = long, y = lat, group = group), fill="grey55") +
+   annotation_scale(location = "tl") +
+   annotation_north_arrow(location = "br") +
    theme(legend.key.size = unit(5,"mm"),
          plot.title = element_text(size = 14, hjust = 0.5), #plot title size and position
          axis.title = element_text(size = 12),
          axis.text = element_text(size = 10),
          legend.title = element_text(size = 10, face = "bold"), 
          legend.text = element_text(size = 10),
-         legend.position = c(.8, .18),
+         legend.position = c(.85, .15),
          legend.box.background = element_rect(colour = "white", fill= alpha("white", 0.7)), #Legend bkg colour and transparency
          legend.box.margin = margin(1, 1, 1, 1))
  #save
- ggsave(filename = paste0(direct, "/",assessmentyear,"/Assessment/Figures/CommercialData/SPA1B_CPUEgridplot",fishingyear, ".png"), width=9,height=9,dpi=200,units='in')
+ ggsave(filename = paste0(direct, "/",assessmentyear,"/Assessment/Figures/CommercialData/SPA1B_CPUEgridplot_new",fishingyear, ".png"), width=9,height=9,dpi=200,units='in')
  
  
  #Make histogram by area for distribution of cpue
- # histolog<-subset(logs, YEAR == fishingyear, c('ASSIGNED_AREA','CPUE_KG'))
- # 
- # cpuehisto <- ggplot (histolog, aes (x = CPUE_KG)) +
- #   geom_histogram (breaks = seq (0, 1300, by = 5), col = 'grey60') + labs (x = 'CPUE (kg/h)', y = 'Count') +
- #   facet_wrap (~ASSIGNED_AREA, ncol = 1) +
- #   scale_x_continuous(breaks = seq (0, 1300, by = 50)) +
- #   theme_bw() +
- #   theme(panel.grid=element_blank())
- # cpuehisto
+ histolog<-subset(logs, YEAR == fishingyear, c('ASSIGNED_AREA','CPUE_KG'))
+
+ cpuehisto <- ggplot (histolog, aes (x = CPUE_KG)) +
+   geom_histogram (breaks = seq (0, 200, by = 5), col = 'grey60') + labs (x = 'CPUE (kg/h)', y = 'Count') +
+   #facet_wrap (~ASSIGNED_AREA, ncol = 1) +
+   scale_x_continuous(breaks = seq (0, 200, by = 50)) +
+   theme_bw() +
+   theme(panel.grid=element_blank())
+ cpuehisto
 
  tapply(histolog$CPUE_KG, histolog$ASSIGNED_AREA, summary)
  
