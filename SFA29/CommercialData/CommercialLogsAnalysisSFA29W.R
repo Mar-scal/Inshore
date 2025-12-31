@@ -29,8 +29,8 @@ source("Y:/Inshore/BoF/Assessment_fns/convert.dd.dddd.r")
 #### DEFINE ####
 
 direct <- "Y:/Inshore/SFA29"
-fishingyear <- 2024 #most recent year of commercial fishing data to be used (e.g. if fishing season is 2019/2020, use 2020)
-assessmentyear <- 2025 #year in which you are conducting the assessment
+fishingyear <- 2025 #most recent year of commercial fishing data to be used (e.g. if fishing season is 2019/2020, use 2020)
+assessmentyear <- 2026 #year in which you are conducting the assessment
 un.ID=Sys.getenv("un.raperj") #ptran username
 pwd.ID=Sys.getenv("pw.raperj") #ptran password
 ess <- "Y" #identify ess drive
@@ -71,7 +71,7 @@ quer2 <- paste(
   "FROM scallop.scallop_log_marfis s		         ",
   "WHERE s.assigned_area in ('29A', '29B', '29C', '29D', '29E')       ",
   " 	AND  s.date_fished >= to_date('",fishingyear-1,"-10-01','YYYY-MM-DD') and s.date_fished < to_date('",fishingyear,"-10-01','YYYY-MM-DD') ",
-  "AND licence_id NOT IN ('356089', '356090', '356091', '356092', '368730', '369132', '369133', '371484')  ",
+  "AND licence_id NOT IN ('356089', '356090', '356091', '356092', '368730', '369132', '369133', '371484','375539', '376508')  ",
   "	AND (s.data_class = 1                        ",
   "OR (s.data_class = 2 AND s.quality_flag =',4' ) ",
   "OR (s.data_class = 2 AND s.quality_flag =',1,4') ",
@@ -474,3 +474,4 @@ p +
 
 #save
 ggsave(filename = paste0(direct, "/",assessmentyear,"/Assessment/Figures/CommercialData/SFA29_Effortgridplot", fishingyear, ".png"), plot = last_plot(), width =24, height = 20, dpi = 400, units = "cm", limitsize = TRUE)
+
