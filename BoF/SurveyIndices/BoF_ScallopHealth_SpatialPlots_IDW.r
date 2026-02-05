@@ -1,12 +1,14 @@
-###................................................................................###
-###                  Scallop Health - Spatial Figures (using IDW)                  ###
-###                           Full BoF and Approaches                              ###
-###                           G. English & J. Sameoto                              ###
-###                                  March 2025                                    ###
-###       (on https://github.com/Mar-scal/Inshore/tree/main/SurveyIndices)         ###
-###................................................................................###
+###...................................................................................................###
+###                  Scallop Health - Spatial Figures (using IDW) and Disease Metrics                 ###
+###                                   Full BoF and Approaches                                         ###
+###                             G. English & J. Sameoto & B. Wilson                                   ###
+###                                       March 2025                                                  ###
+###              (on https://github.com/Mar-scal/Inshore/tree/main/SurveyIndices)                     ###
+###...................................................................................................###
 
-# Spatial figures of commercial, recruit and pre-recruit scallop sizes of Survey Density, Survey Biomass, Condition, Meat count and Clappers for BoF: 
+#Plots for Proportions of myco and discoloured meats in samples by tow and by SPA
+
+#Spatial figures of commercial, recruit and pre-recruit scallop sizes of Survey Density, Survey Biomass, Condition, Meat count and Clappers for BoF: 
 #Full Bay
 #SPA 1A
 #SPA1B
@@ -45,10 +47,10 @@ require(concaveman)
 #pwd <- pw.sameotoj
 #uid <- un.raperj
 #pwd <- un.raperj
-#uid <- keyring::key_list("Oracle")[1,2]
-#pwd <- keyring::key_get("Oracle", uid)
-uid <- un.englishg
-pwd <- pw.englishg
+uid <- keyring::key_list("Oracle")[1,2]
+pwd <- keyring::key_get("Oracle", uid)
+#uid <- un.englishg
+#pwd <- pw.englishg
 
 #set year 
 survey.year <- 2025  #survey year
@@ -62,9 +64,6 @@ saveplot.dir <- paste0(path.directory,assessmentyear,"/Assessment/Figures/")
 chan <- dbConnect(dbDriver("Oracle"),username=uid, password=pwd,'ptran')
 
 # ----Import Source functions and polygons---------------------------------------------------------------------
-
-
-#source("Y:/INSHORE SCALLOP/BoF/Assessment_fns/contour.gen.r")
 
 #### Import Mar-scal functions 
 funcs <- c(#"https://raw.githubusercontent.com/Mar-scal/Assessment_fns/master/Maps/pectinid_projector_sf.R",
@@ -123,8 +122,6 @@ quer4 <- paste(
 sampled.dat <- dbGetQuery(chan, quer4)
 sampled.dat <- sampled.dat[,1:17]
 
-# -------------------------------Format for Myco plots-----------------------------------------
-
 sampled.dat <- sampled.dat %>%
   mutate(year = year(TOW_DATE)) %>%
   filter(year %in% c(2018:survey.year)) %>% 
@@ -136,7 +133,17 @@ sampled.dat <- sampled.dat %>%
   mutate(MEAT_COLOUR = as.factor(MEAT_COLOUR)) %>% 
   mutate(MEAT_COLOUR = case_when(MEAT_COLOUR == "Normal white colour" ~ "Normal", 
                                  MEAT_COLOUR == "moderate (light brown/gray)" ~ "Moderate",
-                                 MEAT_COLOUR == "severe (dark brown/gray)" ~ "Severe"))
+                                 MEAT_COLOUR == "severe (dark brown/gray)" ~ "Severe")) %>%
+  mutate(STRATA_ID = as.numeric(STRATA_ID)) %>% 
+  mutate(SPA = case_when(STRATA_ID %in% c(39,6,7,11,12,13,14,15,16,17,18,19,20,48,56) ~ "SPA1A", 
+                         STRATA_ID %in% c(54,37,38,50,51,52,53,55,35,49) ~ "SPA1B",
+                         STRATA_ID %in% c(57,26) ~ "SPA2",
+                         STRATA_ID %in% c(22,23,24) ~ "SPA3",
+                         STRATA_ID %in% c(1,2,3,4,5,8,9,10,47) ~ "SPA4",
+                         STRATA_ID %in% c(21) ~ "SPA5",
+                         STRATA_ID %in% c(30,31,32) ~ "SPA6"))
+
+# ------------------------------- MYCO PROPORTION PLOTS -----------------------------------------
 
 table(sampled.dat$MYCO_INFECTED)
 
@@ -155,7 +162,7 @@ myco.datw <- myco.datw %>%
   mutate(prop = Y/(tot)) %>% #calculates proportion of infected meats
   unite(ID, c("CRUISE", "tow"), sep = ".", remove = FALSE)
 
-tow.dat <- sampled.dat %>% group_by(ID, tow, STRATA_ID, lat, lon, year) %>% 
+tow.dat <- sampled.dat %>% group_by(ID, tow, SPA, lat, lon, year) %>% 
   summarise()
 
 myco.datw <- merge(myco.datw, tow.dat, by = "ID", all.x = TRUE) %>% 
@@ -169,7 +176,71 @@ myco.datw <- merge(myco.datw, tow.dat, by = "ID", all.x = TRUE) %>%
 # 
 # write.csv(myco.datw, "Y:/Inshore/BoF/",survey.year,"/Assessment/Data/SurveyIndices/BF2023towsdd_MYCOprop.csv")
 
-# -------------------------------Format for Discoloured scallops plots-----------------------------------------
+# Calculate total proportions
+
+proportions_data <- myco.datw %>%
+  group_by(CRUISE, SPA, year) %>%
+  summarise(tot.N = sum(N),
+            tot.Y = sum(Y),
+            tot.all = sum(tot)) %>% 
+  mutate(N.prop = tot.N/tot.all) %>%
+  mutate(Y.prop = tot.Y/tot.all) %>% 
+  mutate(prop.check = N.prop + Y.prop)
+
+table(proportions_data$prop.check)
+
+prop_data_4plot <- proportions_data %>% 
+  select(CRUISE, SPA, year, Y.prop, N.prop)
+
+
+prop_data_4plot <- reshape2::melt(prop_data_4plot, id.vars = c("year", "SPA", "CRUISE"), value.name = "value")
+
+# plot Proportions
+plot <- ggplot(prop_data_4plot) +
+  geom_bar(data=prop_data_4plot[prop_data_4plot$variable%in%c('N.prop','Y.prop'),],
+           aes(year, value, fill=factor(variable, levels = c('N.prop','Y.prop'))), colour="black", stat="identity") +
+  ylab("Proportion of samples with myco") +
+  #scale_x_continuous(breaks = seq(2018, year+3, 5),
+  # labels = c(1995, 2000, 2005, 2010, 2015, 2020, 2025))+
+  scale_fill_manual(values=c("skyblue3","salmon"), labels=c("No Myco","Myco"), name=NULL) +
+  theme_bw()+
+  theme(axis.title.x = element_blank(),
+        axis.text.x = element_text(margin = margin(t = 4)),
+        axis.title.y = element_text(margin = margin(r = 4)),
+        legend.position = "bottom",legend.direction = "horizontal",
+        legend.key.width = unit(0.7, "cm"), legend.text=element_text(size=8),
+        panel.border = element_rect(linewidth = 1, fill = NA),
+        axis.ticks = element_line(linewidth = 0.3), axis.ticks.length = unit(5, "pt"),
+        plot.margin = margin(5, 5, 5, 1, "points"))+
+  facet_wrap(~ SPA)
+plot
+
+#save
+ggsave(filename = paste0("Y:/Inshore/BoF/",assessmentyear,"/Assessment/Figures/Disease_Metrics/Proportion_of_Myco_by_SPA.png"), plot = plot, scale = 2.5, width = 6, height = 6, dpi = 300, units = "cm", limitsize = TRUE)
+
+
+#line plot:
+
+line_plot <- ggplot(proportions_data)+
+  geom_line(aes(x = year, y = Y.prop))+
+  ylim(0, 1.0)+
+  ylab("Proportion of Myco identified in samples")+
+  theme_bw()+
+  facet_wrap(~ SPA)
+line_plot
+
+#save
+ggsave(filename = paste0("Y:/Inshore/BoF/",assessmentyear,"/Assessment/Figures/Disease_Metrics/Proportion_of_Myco_in_samples_by_SPA_lineplot.png"), plot = line_plot, scale = 2.5, width = 6, height = 6, dpi = 300, units = "cm", limitsize = TRUE)
+
+#Save as .CSV-----------------------------------------
+#By Tow
+write.csv(myco.datw, paste0("Y:/Inshore/BoF/",assessmentyear,"/Assessment/Data/SurveyIndices/Disease_Metrics/Myco_in_Meats_By_Tow.csv"))
+#By SPA
+proportions_data <- proportions_data %>% 
+  select(-N.prop, -prop.check)
+write.csv(proportions_data, paste0("Y:/Inshore/BoF/",assessmentyear,"/Assessment/Data/SurveyIndices/Disease_metrics/Myco_in_Meats_By_SPA.csv"))
+
+# -------------------------------DISCOLOURED PROPORTION PLOTS-----------------------------------------
 
 greymeat.dat <- sampled.dat %>% 
   group_by(CRUISE, tow) %>% 
@@ -197,6 +268,73 @@ greymeat.datw <- merge(greymeat.datw, tow.dat, by = "ID", all.x = TRUE) %>%
 #  }
 # 
 # write.csv(greymeat.datw, "Y:/Inshore/BoF/",survey.year,"/Assessment/Data/SurveyIndices/BI2021towsdd_QUALITY.csv")
+
+# Calculate proportions
+proportions_data <- greymeat.datw %>%
+  group_by(CRUISE, SPA, year) %>%
+  summarise(tot.Normal = sum(Normal),
+            tot.greymeat = sum(NUM_GREYMEAT),
+            tot.all = sum(Normal + Moderate + Severe)) %>% 
+  mutate(Normal.prop = tot.Normal/tot.all) %>%
+  mutate(greymeat.prop = tot.greymeat/tot.all) %>% 
+  mutate(prop.check = Normal.prop + greymeat.prop)
+
+table(proportions_data$prop.check)
+
+prop_data_4plot <- proportions_data %>% 
+  select(CRUISE, SPA, year, Normal.prop , greymeat.prop)
+
+
+prop_data_4plot <- reshape2::melt(prop_data_4plot, id.vars = c("year", "SPA", "CRUISE"), value.name = "value")
+
+# plot without pattern
+plot <- ggplot(prop_data_4plot) +
+  geom_bar(data=prop_data_4plot[prop_data_4plot$variable%in%c('Normal.prop' , 'greymeat.prop'),],
+           aes(year, value, fill=factor(variable, levels = c('Normal.prop' , 'greymeat.prop'))), colour="black", stat="identity") +
+  ylab("Proportion of samples with discoloured meats") +
+  #scale_x_continuous(breaks = seq(2018, year+3, 5),
+  # labels = c(1995, 2000, 2005, 2010, 2015, 2020, 2025))+
+  scale_fill_manual(values=c("skyblue3", "grey"), labels=c("Normal", "Discoloured"), name=NULL) +
+  theme_bw()+
+  theme(axis.title.x = element_blank(),
+        axis.text.x = element_text(margin = margin(t = 4)),
+        axis.title.y = element_text(margin = margin(r = 4)),
+        legend.position = "bottom",legend.direction = "horizontal",
+        legend.key.width = unit(0.7, "cm"), legend.text=element_text(size=8),
+        panel.border = element_rect(linewidth = 1, fill = NA),
+        axis.ticks = element_line(linewidth = 0.3), axis.ticks.length = unit(5, "pt"),
+        plot.margin = margin(5, 5, 5, 1, "points"))+
+  facet_wrap(~ SPA)
+plot
+
+#save
+ggsave(filename = paste0("Y:/Inshore/BoF/",assessmentyear,"/Assessment/Figures/Disease_Metrics/Proportion_of_Discolouredmeats_by_SPA.png"), plot = plot, scale = 2.5, width = 6, height = 6, dpi = 300, units = "cm", limitsize = TRUE)
+
+
+#line plot:
+line_plot <- ggplot(proportions_data)+
+  geom_line(aes(x = year, y = greymeat.prop))+
+  ylim(0, 1.0)+
+  ylab("Proportion of discoloured meats")+
+  theme_bw()+
+  facet_wrap(~ SPA)
+line_plot
+
+#save
+ggsave(filename = paste0("Y:/Inshore/BoF/",assessmentyear,"/Assessment/Figures/Disease_Metrics/Proportion_of_Discolouredmeats_by_SPA_lineplot.png"), plot = line_plot, scale = 2.5, width = 6, height = 6, dpi = 300, units = "cm", limitsize = TRUE)
+
+
+#Save as .CSV-----------------------------------------
+#By Tow
+write.csv(greymeat.datw, paste0("Y:/Inshore/BoF/",assessmentyear,"/Assessment/Data/SurveyIndices/Disease_Metrics/Discoloured_Meats_By_Tow.csv"))
+#By SPA
+proportions_data <- proportions_data %>% 
+  select(-Normal.prop, -prop.check)
+write.csv(proportions_data, paste0("Y:/Inshore/BoF/",assessmentyear,"/Assessment/Data/SurveyIndices/Disease_metrics/Discoloured_Meats_By_SPA.csv"))
+          
+
+# SPATIAL PLOTS -----------------------------------------------------------
+
 
 # ----------- Making a custom boundary for IDW analysis based off survey tows ---------------
 #Db Query:
