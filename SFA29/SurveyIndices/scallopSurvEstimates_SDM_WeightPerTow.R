@@ -38,9 +38,9 @@ pwd <- pw.sameotoj
 #uid <- keyring::key_list("Oracle")[1,2]
 #pwd <- keyring::key_get("Oracle", uid)
 
-surveyyear <- 2024  #This is the last survey year for which you want to include  - not should match year of cruise below 
-cruise <- "SFA292024"  #note should match year for surveyyear set above 
-assessmentyear <- 2025 #year in which you are conducting the survey 
+surveyyear <- 2025  #This is the last survey year for which you want to include  - not should match year of cruise below 
+cruise <- "SFA292025"  #note should match year for surveyyear set above 
+assessmentyear <- 2026 #year in which you are conducting the survey 
 path.directory <- "Y:/Inshore/SFA29/"
 years <- c(2001:surveyyear) #when have 2021 data ready with SDM value then can use line of code below 
 #yr.crnt <- surveyyear-1
@@ -891,7 +891,7 @@ ggsave(filename = paste0(path.directory,assessmentyear,"/Assessment/Figures/SFA2
 	E.weight.per.tow <- ggplot(data = out.e, aes(x=YEAR, y=yst)) + 
 	  geom_point() + 
 	  geom_line() + 
-	  scale_x_continuous(limits = c(2013, (survey.year+1)), breaks = seq(2013, (survey.year+1), by = 4)) +
+	  scale_x_continuous(limits = c(2013, (surveyyear+1)), breaks = seq(2013, (surveyyear+1), by = 4)) +
 	  facet_wrap(~group, ncol=1, labeller = size_names, scales = "free") + 
 	  theme_bw() + ylab("Mean weight/tow (kg)") + xlab("Year") + 
 	  theme(legend.position = c(0.1, 0.9),panel.grid.minor = element_blank()) + 

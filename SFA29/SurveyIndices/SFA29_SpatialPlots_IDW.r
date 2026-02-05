@@ -41,14 +41,14 @@ require(ggspatial)
 #pwd <- pw.sameotoj
 #uid <- un.raperj
 #pwd <- un.raperj
-# uid <- keyring::key_list("Oracle")[1,2]
-# pwd <- keyring::key_get("Oracle", uid)
-uid <- un.englishg
-pwd <- pw.englishg
+ uid <- keyring::key_list("Oracle")[1,2]
+ pwd <- keyring::key_get("Oracle", uid)
+#uid <- un.englishg
+#pwd <- pw.englishg
 
-survey.year <- 2025  #This is the last survey year 
-assessmentyear <- 2026 #year in which you are providing advice for - (e.g. 2017 survey is 2018 assessment) - Save to folder year
-cruise <- "'SFA292025'"
+survey.year <- 2024  #This is the last survey year 
+assessmentyear <- 2025 #year in which you are providing advice for - (e.g. 2017 survey is 2018 assessment) - Save to folder year
+cruise <- "'SFA292024'"
 
 #for multiple cruises:
 #cruise <- c('SFA292018','SFA292019') 
@@ -408,7 +408,7 @@ summary(Surv.sf$com)
 ##### BIOMASS (ENGLISH) ----
 bathy + #Plot survey data and format figure.
   geom_sf(data = preds_idw2, aes(fill = prediction),  colour = NA) + 
-  scale_fill_viridis_c(option = "H",  trans = "sqrt", name = "Commercial \nbiomass \n(kg/Tow)", limits = c(0,max(preds_idw2$prediction))) + 
+  scale_fill_viridis_c(option = "H",  trans = "sqrt", name = "Commercial \nbiomass \n(kg/Tow)", limits = c(0,35), breaks = c(0,10,20,30)) + 
   p(mgmt_zone, Surv.sf, Land) +
   coord_sf(xlim = c(-66.50,-65.45), ylim = c(43.10,43.80), expand = FALSE)+
   labs(#title = paste(survey.year, "", "SFA29W Biomass (>= 80mm)"), 
@@ -453,7 +453,7 @@ summary(Surv.sf$Condition)
 ##### CONDITION (ENGLISH) ----
 bathy + #Plot survey data and format figure.
   geom_sf(data = preds_idw2, aes(fill = prediction),  colour = NA) + 
-  scale_fill_viridis_c(option = "G", direction = -1,  trans = "sqrt", name = "Condition (g)", limits = c(6,max(preds_idw2$prediction))) + 
+  scale_fill_viridis_c(option = "G", direction = -1,  trans = "sqrt", name = "Condition (g)", limits = c(6,13), breaks = c(6, 8,10,12)) + 
   p(mgmt_zone, Surv.sf, Land) +
   coord_sf(xlim = c(-66.50,-65.45), ylim = c(43.10,43.80), expand = FALSE)+
   labs(#title = paste(survey.year, "", "SFA29W Condition"), 
@@ -630,7 +630,7 @@ summary(Surv.sf$rec)
 ##### DENSITY (ENGLISH) ----
 bathy + #Plot survey data and format figure.
   geom_sf(data = preds_idw2, aes(fill = prediction),  colour = NA) + 
-  scale_fill_viridis_c(option = "H",  trans = "sqrt", name = "Recruit \nabundance \n(N/Tow)", limits = c(0,max(preds_idw2$prediction))) + 
+  scale_fill_viridis_c(option = "H",  trans = "sqrt", name = "Recruit \nabundance \n(N/Tow)", limits = c(0,400), breaks = c(0,100,200,300)) + 
   p(mgmt_zone, Surv.sf, Land) +
   coord_sf(xlim = c(-66.50,-65.45), ylim = c(43.10,43.80), expand = FALSE)+
   labs(#title = paste(survey.year, "", "SFA29W Density (65-79mm)"), 
@@ -709,7 +709,7 @@ Surv.sf$log_rec[which(Surv.sf$log_rec==-Inf)] <- log(0.0001)
 #Overlay a grid over the survey area, as it is required to interpolate (smaller cellsize will take more time to run than larger. both here and during interpolation)
 grid <- st_make_grid(idw_sf, cellsize=500) %>% st_intersection(idw_sf)
 #Doing the inverse distance weighted interpolation
-preds_idw2 <- gstat::idw(log_rec~1,Surv.sf,grid,idp=3)
+preds_idw2 <- gstat::idw(Surv.sf$log_rec~1,Surv.sf,grid,idp=3)
 
 preds_idw2$prediction <- exp(preds_idw2$var1.pred)
 summary(preds_idw2$prediction)
@@ -718,7 +718,7 @@ summary(Surv.sf$rec)
 ##### CLAPPERS (ENGLISH) ----
 bathy + #Plot survey data and format figure.
   geom_sf(data = preds_idw2, aes(fill = prediction),  colour = NA) + 
-  scale_fill_viridis_c(option = "H",  trans = "sqrt", name = "Recruit \nclappers \n(N/Tow)", limits = c(0,max(preds_idw2$prediction))) + 
+  scale_fill_viridis_c(option = "H",  trans = "sqrt", name = "Recruit \nclappers \n(N/Tow)", breaks = c(0,1), limits = c(0,1)) + 
   p(mgmt_zone, Surv.sf, Land) +
   coord_sf(xlim = c(-66.50,-65.45), ylim = c(43.10,43.80), expand = FALSE)+
   labs(#title = paste(survey.year, "", "SFA29W Clappers (65-79mm)"), 
@@ -808,7 +808,7 @@ summary(Surv.sf$pre)
 ##### DENSITY (ENGLISH) ----
 bathy + #Plot survey data and format figure.
   geom_sf(data = preds_idw2, aes(fill = prediction),  colour = NA) + 
-  scale_fill_viridis_c(option = "H",  trans = "sqrt", name = "Pre-recruit \nabundance \n(N/Tow)", limits = c(0,max(preds_idw2$prediction))) + 
+  scale_fill_viridis_c(option = "H",  trans = "sqrt", name = "Pre-recruit \nabundance \n(N/Tow)", limits = c(0,1200), breaks = c(0,300,600,900,1200)) + 
   p(mgmt_zone, Surv.sf, Land) +
   coord_sf(xlim = c(-66.50,-65.45), ylim = c(43.10,43.80), expand = FALSE)+
   labs(#title = paste(survey.year, "", "SFA29W Density (65-79mm)"), 

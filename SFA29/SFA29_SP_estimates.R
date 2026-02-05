@@ -8,16 +8,16 @@ library(tidyverse)
 
 ### EDITS TO DO - kill off first and then grow up -- more precautionary 
 
-surveyyear <- 2024  #This is the last survey year for which you want to include  - note should match year of cruise below 
-cruise <- "SFA292024"  #note should match year for surveyyear set above 
-assessmentyear <- 2025 #year in which you are conducting the survey 
+surveyyear <- 2025  #This is the last survey year for which you want to include  - note should match year of cruise below 
+cruise <- "SFA292025"  #note should match year for surveyyear set above 
+assessmentyear <- 2026 #year in which you are conducting the survey 
 path.directory <- "Y:/Inshore/SFA29/"
 
 
 
 #### Import data ####
 ### lbar -- ie commercial shell heights current year (See SHF field) and predicted one year ahead (field SHF.pred )
-lbar <- read.csv("Y:/Inshore/SFA29/2025/Assessment/Data/Growth/SFA29.SHobj.2024.csv")
+lbar <- read.csv(paste0("Y:/Inshore/SFA29/",assessmentyear,"/Assessment/Data/Growth/SFA29.SHobj.",surveyyear,".csv"))
 head(lbar)
 unique(lbar$size)
 lbar <- lbar[,2:dim(lbar)[2]]
@@ -33,8 +33,8 @@ head(lbar.nextyr)
 
 
 
-## stratitied estimates 
-numbers <- read.csv("Y:/Inshore/SFA29/2025/Assessment/Data/SurveyIndices/SDM.StratifiedEstimates.2001to2024.Numbers.csv")
+## stratified estimates 
+numbers <- read.csv(paste0("Y:/Inshore/SFA29/",assessmentyear,"/Assessment/Data/SurveyIndices/SDM.StratifiedEstimates.2001to",surveyyear,".Numbers.csv"))
 head(numbers)
 unique(numbers$size)
 numbers <- numbers[,2:dim(numbers)[2]]
@@ -147,17 +147,17 @@ lbar.nextyr <- lbar.nextyr %>% select(SUBAREA, year.pred, size, wgt.g.lbar.yrt)
 head(lbar.nextyr)
 
 ### Percent change in commercial meat weight based on assumed shell height growth (from VonB) and assuming no change in condition from 2024 to 2025 ####
-wgt.lbar.2024 <- lbar.currentyr %>% filter(year == 2024)
+wgt.lbar.2025 <- lbar.currentyr %>% filter(year == surveyyear)
 
-wgt.lbar.2025 <- lbar.nextyr %>% filter(year.pred == 2025)
-names(wgt.lbar.2025)[4] <- "wgt.g.labr.yrtplust1"
+wgt.lbar.2026 <- lbar.nextyr %>% filter(year.pred == assessmentyear)
+names(wgt.lbar.2026)[4] <- "wgt.g.labr.yrtplust1"
 
-wgt.2024to2025 <- merge(wgt.lbar.2024, wgt.lbar.2025, by = c("SUBAREA", "size"))
-wgt.2024to2025$prop.chage <- (wgt.2024to2025$wgt.g.labr.yrtplust1 - wgt.2024to2025$wgt.g.lbar.yrt)/wgt.2024to2025$wgt.g.lbar.yrt
-wgt.2024to2025$ratio.prop.change <- wgt.2024to2025$prop.chage+1
-wgt.2024to2025
+wgt.2025to2026 <- merge(wgt.lbar.2025, wgt.lbar.2026, by = c("SUBAREA", "size"))
+wgt.2025to2026$prop.chage <- (wgt.2025to2026$wgt.g.labr.yrtplust1 - wgt.2025to2026$wgt.g.lbar.yrt)/wgt.2025to2026$wgt.g.lbar.yrt
+wgt.2025to2026$ratio.prop.change <- wgt.2025to2026$prop.chage+1
+wgt.2025to2026
 
-write.csv(wgt.2024to2025, paste0("Y:/Inshore/SFA29/",assessmentyear,"/Assessment/Data/SurveyIndices/expected.prop.change.by.growthonly.csv"))
+write.csv(wgt.2025to2026, paste0("Y:/Inshore/SFA29/",assessmentyear,"/Assessment/Data/SurveyIndices/expected.prop.change.by.growthonly.csv"))
 
 
 ## Bump stratified numbers by tow to area of medium and high area 
@@ -198,18 +198,18 @@ a.numbers$biomass.mt <- a.numbers$biomass.kg/1000
 tail(a.numbers)  
 
 # current year biomass estimates 
-current.yr.biomass.a <- a.numbers %>% filter(year == 2024)
+current.yr.biomass.a <- a.numbers %>% filter(year == surveyyear)
 current.yr.biomass.a
 
 # grow up biomass based on mt wt - SH & vonB expectations 
 current.yr.biomass.a
-gain.growth.a <- wgt.2024to2025 %>% filter(SUBAREA == "SFA29A" ) %>% select(year, SUBAREA, size, ratio.prop.change)
+gain.growth.a <- wgt.2025to2026 %>% filter(SUBAREA == "SFA29A" ) %>% select(year, SUBAREA, size, ratio.prop.change)
 current.yr.biomass.a <- merge(current.yr.biomass.a, gain.growth.a, by = c("year", "SUBAREA", "size"))
 current.yr.biomass.a$biomass.mt.tplus1 <- current.yr.biomass.a$biomass.mt * current.yr.biomass.a$ratio.prop.change
 
 ## percent increase in commerical biomass expected from recruitment after growth (before any mortality applied)
 (current.yr.biomass.a$biomass.mt.tplus1[current.yr.biomass.a$size == "recruit"] / current.yr.biomass.a$biomass.mt.tplus1[current.yr.biomass.a$size == "commercial"]) * 100
-# 0.9983808
+# 0.6615363
 
 
 ## Apply assumed mortality; assume 15% 
@@ -220,19 +220,19 @@ current.yr.biomass.a$biomass.mt.tplus1minusM <- current.yr.biomass.a$biomass.mt.
 # add recruitment to commercial biomass 
 current.yr.biomass.a$biomass.mt.tplus1minusM.final[current.yr.biomass.a$size == "commercial"] <- current.yr.biomass.a$biomass.mt.tplus1minusM[current.yr.biomass.a$size == "commercial"] + current.yr.biomass.a$biomass.mt.tplus1minusM[current.yr.biomass.a$size == "recruit"]
 
-current.yr.biomass.a$Biomass.change.mt.24to25 <-  current.yr.biomass.a$biomass.mt.tplus1minusM.final - current.yr.biomass.a$biomass.mt
+current.yr.biomass.a$Biomass.change.mt.25to26 <-  current.yr.biomass.a$biomass.mt.tplus1minusM.final - current.yr.biomass.a$biomass.mt
 current.yr.biomass.a
-#expect decline of  -7.120376 mt 
+#expect decline of  -11.30143 mt 
 
 
 #as percent decline from 2024 value  
-(current.yr.biomass.a$Biomass.change.mt.24to25/ current.yr.biomass.a$biomass.mt)*100
-#-8.340631 % 
+(current.yr.biomass.a$Biomass.change.mt.25to26/ current.yr.biomass.a$biomass.mt)*100
+#-8.721517 % 
 
 #removals 
-catch.2025 <- c(0,10,20,30,40,50)
-catch.2025/current.yr.biomass.a$biomass.mt.tplus1minusM.final[1]
-# 0.0000000 0.1277965 0.2555931 0.3833896 0.5111861 0.6389827
+catch.2026 <- c(0,10,20,30,40,50)
+catch.2026/current.yr.biomass.a$biomass.mt.tplus1minusM.final[1]
+# 0.00000000 0.08454541 0.16909083 0.25363624 0.33818166 0.42272707
 
 
 ### B ####
@@ -256,18 +256,18 @@ b.numbers$biomass.mt <- b.numbers$biomass.kg/1000
 tail(b.numbers)  
 
 # current year biomass estimates 
-current.yr.biomass.b <- b.numbers %>% filter(year == 2024)
+current.yr.biomass.b <- b.numbers %>% filter(year == surveyyear)
 current.yr.biomass.b
 
 # grow up biomass based on mt wt - SH & vonB expectations 
 current.yr.biomass.b
-gain.growth.b <- wgt.2024to2025 %>% filter(SUBAREA == "SFA29B" ) %>% select(year, SUBAREA, size, ratio.prop.change)
+gain.growth.b <- wgt.2025to2026 %>% filter(SUBAREA == "SFA29B" ) %>% select(year, SUBAREA, size, ratio.prop.change)
 current.yr.biomass.b <- merge(current.yr.biomass.b, gain.growth.b, by = c("year", "SUBAREA", "size"))
 current.yr.biomass.b$biomass.mt.tplus1 <- current.yr.biomass.b$biomass.mt * current.yr.biomass.b$ratio.prop.change
 
 ## percent increase in commerical biomass expected from recruitment after growth (before any mortality applied)
 (current.yr.biomass.b$biomass.mt.tplus1[current.yr.biomass.b$size == "recruit"] / current.yr.biomass.b$biomass.mt.tplus1[current.yr.biomass.b$size == "commercial"]) * 100
-# 0.2166036
+# 1.080928
 
 
 ## Apply assumed mortality; assume 15% 
@@ -280,16 +280,16 @@ current.yr.biomass.b$biomass.mt.tplus1minusM.final[current.yr.biomass.b$size == 
 
 current.yr.biomass.b$Biomass.change.mt.24to25 <-  current.yr.biomass.b$biomass.mt.tplus1minusM.final - current.yr.biomass.b$biomass.mt
 current.yr.biomass.b
-#expect decline of    -47.20042 mt 
+#expect decline of     -56.64815 mt 
 
 #as percent decline from 2024 value  
 (current.yr.biomass.b$Biomass.change.mt.24to25/ current.yr.biomass.b$biomass.mt)*100
-#-5.825991 % 
+#-6.7847 % 
 
 #removals 
-catch.2025 <- c(0,10,20,30,40, 50)
-catch.2025/current.yr.biomass.b$biomass.mt.tplus1minusM.final[1]
-#  0.00000000 0.01310669 0.02621337 0.03932006 0.05242674 0.06553343
+catch.2026 <- c(0,10,20,30,40, 50)
+catch.2026/current.yr.biomass.b$biomass.mt.tplus1minusM.final[1]
+#  0.00000000 0.01284866 0.02569731 0.03854597 0.05139462 0.06424328
 
 
 
@@ -316,17 +316,17 @@ c.numbers$biomass.mt <- c.numbers$biomass.kg/1000
 tail(c.numbers)  
 
 # current year biomass estimates 
-current.yr.biomass.c <- c.numbers %>% filter(year == 2024)
+current.yr.biomass.c <- c.numbers %>% filter(year == surveyyear)
 
 # grow up biomass based on mt wt - SH & vonB expectations 
 current.yr.biomass.c
-gain.growth.c <- wgt.2024to2025 %>% filter(SUBAREA == "SFA29C" ) %>% select(year, SUBAREA, size, ratio.prop.change)
+gain.growth.c <- wgt.2025to2026 %>% filter(SUBAREA == "SFA29C" ) %>% select(year, SUBAREA, size, ratio.prop.change)
 current.yr.biomass.c <- merge(current.yr.biomass.c, gain.growth.c, by = c("year", "SUBAREA", "size"))
 current.yr.biomass.c$biomass.mt.tplus1 <- current.yr.biomass.c$biomass.mt * current.yr.biomass.c$ratio.prop.change
 
 ## percent increase in commerical biomass expected from recruitment after growth (before any mortality applied)
 (current.yr.biomass.c$biomass.mt.tplus1[current.yr.biomass.c$size == "recruit"] / current.yr.biomass.c$biomass.mt.tplus1[current.yr.biomass.c$size == "commercial"]) * 100
-# 0.7761133
+# 8.356926
 
 
 ## Apply assumed mortality; assume 15% 
@@ -337,18 +337,18 @@ current.yr.biomass.c$biomass.mt.tplus1minusM <- current.yr.biomass.c$biomass.mt.
 # add recruitment to commercial biomass 
 current.yr.biomass.c$biomass.mt.tplus1minusM.final[current.yr.biomass.c$size == "commercial"] <- current.yr.biomass.c$biomass.mt.tplus1minusM[current.yr.biomass.c$size == "commercial"] + current.yr.biomass.c$biomass.mt.tplus1minusM[current.yr.biomass.c$size == "recruit"]
 
-current.yr.biomass.c$Biomass.change.mt.24to25 <-  current.yr.biomass.c$biomass.mt.tplus1minusM.final - current.yr.biomass.c$biomass.mt
+current.yr.biomass.c$Biomass.change.mt.25to26 <-  current.yr.biomass.c$biomass.mt.tplus1minusM.final - current.yr.biomass.c$biomass.mt
 current.yr.biomass.c
-#expect decline of  -8.065164 mt 
+#expect increae of  0.6060878 mt 
 
-#as percent decline from 2024 value  
-(current.yr.biomass.c$Biomass.change.mt.24to25/ current.yr.biomass.c$biomass.mt)*100
-#-4.936291  % 
+#as percent increase from 2025 value  
+(current.yr.biomass.c$Biomass.change.mt.25to26/ current.yr.biomass.c$biomass.mt)*100
+#0.606767  % 
 
 #removals 
-catch.2025 <- c(0,10,20,30,40, 50)
-catch.2025/current.yr.biomass.c$biomass.mt.tplus1minusM.final[1]
-#0.00000000 0.06438324 0.12876647 0.19314971 0.25753294 0.32191618
+catch.2026 <- c(0,10,20,30,40, 50)
+catch.2026/current.yr.biomass.c$biomass.mt.tplus1minusM.final[1]
+#0.00000000 0.09950828 0.19901657 0.29852485 0.39803313 0.49754142
 
 
 
@@ -375,17 +375,17 @@ d.numbers$biomass.mt <- d.numbers$biomass.kg/1000
 tail(d.numbers)  
 
 # current year biomass estimates 
-current.yr.biomass.d <- d.numbers %>% filter(year == 2024)
+current.yr.biomass.d <- d.numbers %>% filter(year == surveyyear)
 
 # grow up biomass based on mt wt - SH & vonB expectations 
 current.yr.biomass.d
-gain.growth.d <- wgt.2024to2025 %>% filter(SUBAREA == "SFA29D" ) %>% select(year, SUBAREA, size, ratio.prop.change)
+gain.growth.d <- wgt.2025to2026 %>% filter(SUBAREA == "SFA29D" ) %>% select(year, SUBAREA, size, ratio.prop.change)
 current.yr.biomass.d <- merge(current.yr.biomass.d, gain.growth.d, by = c("year", "SUBAREA", "size"))
 current.yr.biomass.d$biomass.mt.tplus1 <- current.yr.biomass.d$biomass.mt * current.yr.biomass.d$ratio.prop.change
 
 ## percent increase in commerical biomass expected from recruitment after growth (before any mortality applied)
 (current.yr.biomass.d$biomass.mt.tplus1[current.yr.biomass.d$size == "recruit"] / current.yr.biomass.d$biomass.mt.tplus1[current.yr.biomass.d$size == "commercial"]) * 100
-# 0.1398434
+# 3.627486
 
 
 ## Apply assumed mortality; assume 15% 
@@ -396,18 +396,18 @@ current.yr.biomass.d$biomass.mt.tplus1minusM <- current.yr.biomass.d$biomass.mt.
 # add recruitment to commercial biomass 
 current.yr.biomass.d$biomass.mt.tplus1minusM.final[current.yr.biomass.d$size == "commercial"] <- current.yr.biomass.d$biomass.mt.tplus1minusM[current.yr.biomass.d$size == "commercial"] + current.yr.biomass.d$biomass.mt.tplus1minusM[current.yr.biomass.d$size == "recruit"]
 
-current.yr.biomass.d$Biomass.change.mt.24to25 <-  current.yr.biomass.d$biomass.mt.tplus1minusM.final - current.yr.biomass.d$biomass.mt
+current.yr.biomass.d$Biomass.change.mt.25to26 <-  current.yr.biomass.d$biomass.mt.tplus1minusM.final - current.yr.biomass.d$biomass.mt
 current.yr.biomass.d
-#expect decline of -32.58199 mt 
+#expect decline of -21.74817 mt 
 
 #as percent decline from 2024 value  
-(current.yr.biomass.d$Biomass.change.mt.24to25/ current.yr.biomass.d$biomass.mt)*100
-#-9.485427 % 
+(current.yr.biomass.d$Biomass.change.mt.25to26/ current.yr.biomass.d$biomass.mt)*100
+#-7.159027 % 
 
 #removals 
-catch.2025 <- c(0,10,20,30,40, 50)
-catch.2025/current.yr.biomass.d$biomass.mt.tplus1minusM.final[1]
-#0.00000000 0.03216331 0.06432662 0.09648993 0.12865324 0.16081655
+catch.2026 <- c(0,10,20,30,40, 50)
+catch.2026/current.yr.biomass.d$biomass.mt.tplus1minusM.final[1]
+#0.00000000 0.03545614 0.07091229 0.10636843 0.14182458 0.17728072
 
 
 
@@ -417,7 +417,7 @@ catch.2025/current.yr.biomass.d$biomass.mt.tplus1minusM.final[1]
 # Mu = (biomass in year t + catch in year t)/ catch in year t
 
 ## import landings by subarea 
-landings <- read.csv("Y:/Inshore/SFA29/2025/Assessment/Data/CommercialData/SFA29_totalLandings_YearSubarea.csv")
+landings <- read.csv(paste0("Y:/Inshore/SFA29/",assessmentyear,"/Assessment/Data/CommercialData/SFA29_totalLandings_YearSubarea.csv"))
 landings$SUBAREA <- paste0("SFA",landings$Area )
 landings$year <- landings$YEAR
 
@@ -467,13 +467,13 @@ landings.d$Subarea <- "Subarea D"
 exploitation.atod <- rbind(landings.a, landings.b, landings.c, landings.d)
 
 #LTM 
-mu.LTM <- exploitation.atod %>% group_by(Subarea) %>% filter(year < 2024) %>% summarise(LTM = median(mu, na.rm = TRUE))
+mu.LTM <- exploitation.atod %>% group_by(Subarea) %>% filter(year < surveyyear) %>% summarise(LTM = median(mu, na.rm = TRUE))
 #Subarea      LTM
 #<chr>      <dbl>
-#1 Subarea A 0.0255
-#2 Subarea B 0.0949
-#3 Subarea C 0.175 
-#4 Subarea D 0.105 
+#1 Subarea A 0.0315
+#2 Subarea B 0.107 
+#3 Subarea C 0.216 
+#4 Subarea D 0.127 
 
 ggplot(data = exploitation.atod, aes(x = year, y = mu)) + 
   geom_point() + 

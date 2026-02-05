@@ -29,8 +29,8 @@ names(SFA292005to2007sediment ) <- c("uid","Start.Bottom")
 
 #DEFINE:
 path.directory <- "Y:/Inshore/SFA29/"
-assessmentyear <- 2025 #year in which you are conducting the assessment 
-surveyyear <- 2024  #last year of survey data you are using, e.g. if max year of survey is survey from summer 2019, this would be 2019 
+assessmentyear <- 2026 #year in which you are conducting the assessment 
+surveyyear <- 2025  #last year of survey data you are using, e.g. if max year of survey is survey from summer 2019, this would be 2019 
 uid <- un.sameotoj
 pwd <- pw.sameotoj
 #uid <- keyring::key_list("Oracle")[1,2]
@@ -127,11 +127,20 @@ cruise.list <- paste(cruise.list,collapse="','")
 
 	strata.group <- SDMareas #SDM stratified estimates 
 	
-# Only use regular survey tows for estimation (TOW_TYPE_ID = 1)
-	data.obj.all <- data.obj 
+	#In 2024 did tows outside 29W and also in non-MBES covered part of B; remove these so apples and apples with previous estimates 
+	data.obj %>% filter(CRUISE == "SFA292024" & is.na(SDM) == TRUE)
+	dim(data.obj)
+	
+	data.obj <- data.obj[!(data.obj$CRUISE == "SFA292024" & is.na(data.obj$SDM) == TRUE),]
+	dim(data.obj)
+	
+	data.obj.all <- data.obj
+	
 	#data.obj <- data.obj[data.obj$TOW_TYPE_ID==1,] #Need to add tow_type_id in bycatch view if want to use just tow type 1 ; for now are using all tows assuming they're all type 1 - good enough for what this analysis is it's used for 
 	dim(data.obj)
 	head(data.obj)
+	
+
 	
 ###... For Years:  2001-2004 Calculate Stratified Random Survey Estimate - SDM strata ...###
 # NOTE: entries for Subarea in strata.group and STRATA in data.obj must be equal #

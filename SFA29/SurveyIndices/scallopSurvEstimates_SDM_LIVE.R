@@ -39,9 +39,9 @@ pwd <- pw.sameotoj
 #uid <- keyring::key_list("Oracle")[1,2]
 #pwd <- keyring::key_get("Oracle", uid)
 
-surveyyear <- 2024  #This is the last survey year for which you want to include  - not should match year of cruise below 
-cruise <- "SFA292024"  #note should match year for surveyyear set above 
-assessmentyear <- 2025 #year in which you are conducting the survey 
+surveyyear <- 2025  #This is the last survey year for which you want to include  - not should match year of cruise below 
+cruise <- "SFA292025"  #note should match year for surveyyear set above 
+assessmentyear <- 2026 #year in which you are conducting the survey 
 path.directory <- "Y:/Inshore/SFA29/"
 years <- c(2001:surveyyear) #when have 2021 data ready with SDM value then can use line of code below 
 #yr.crnt <- surveyyear-1
@@ -1744,7 +1744,7 @@ E.number.per.tow <- ggplot(data = out.e, aes(x=YEAR, y=yst)) +
   geom_point() + 
   geom_line() + 
   facet_wrap(~group, ncol=1, labeller = size_names) + 
-  scale_x_continuous(limits = c(2001, (survey.year+1)), breaks = seq(2001, (survey.year+1), by = 4)) +
+  scale_x_continuous(limits = c(2001, (surveyyear+1)), breaks = seq(2001, (surveyyear+1), by = 4)) +
   theme_bw() + ylab("Survey mean no./tow") + xlab("Year") + 
   theme(legend.position = c(0.1, 0.9),panel.grid.minor = element_blank()) + 
  # geom_pointrange(data = out.e, aes(ymin=(yst-se.yst), ymax=(yst - se.yst))) 
@@ -1795,8 +1795,8 @@ E.number.per.tow <- ggplot(data = out.e %>% filter(YEAR %in% c(2012:surveyyear))
   facet_wrap(~group, ncol=1, labeller = size_names) + 
   theme_bw() + ylab("Survey mean no./tow") + xlab("Year") + 
   theme(legend.position = c(0.1, 0.9),panel.grid.minor = element_blank()) + 
-  geom_pointrange(aes(ymin=out.e$yst-out.e$se.yst, ymax=out.e$yst+out.e$se.yst)) + 
-  scale_x_continuous(breaks = seq(2001,2026,by=4), limits = c(2001,2026))
+  geom_pointrange(aes(ymin=yst-se.yst, ymax=yst+se.yst)) 
+  #scale_x_continuous(breaks = seq(2001,2026,by=4), limits = c(2001,2026))
 #geom_ribbon(aes(ymin=out.e$yst-out.e$se.yst, ymax=out.e$yst+out.e$se.yst), 
 #           alpha=0.1,       #transparency
 #           linetype=1,      #solid, dashed or other line types
@@ -1991,7 +1991,7 @@ ggsave(paste0(path.directory,assessmentyear,"/Assessment/Figures/SFA29.AtoD.stra
 # 40% of 50% Bmax where Bmax proxy for Bo
 
 #Commerical biomass time series median of the yearly median values 
-LTM.comm <-  sdm.strat.est %>% filter(size == "comm" & YEAR < surveyyear) %>% group_by(subarea) %>% summarise(LTM = median(yst   ))
+LTM.comm <-  sdm.strat.est %>% filter(size == "comm" & YEAR < surveyyear) %>% group_by(subarea) %>% summarise(LTM = median(yst   , na.rm = TRUE))
 LTM.comm
 #subarea     LTM
 #<chr>     <dbl>
@@ -2020,7 +2020,7 @@ ggsave(paste0(path.directory,assessmentyear,"/Assessment/Figures/Com_timeseries_
 
 
 ##... LRP Plot - 40% of 50% Bmax where Bmax proxy for Bo ####
-max.val <- sdm.strat.est %>% filter(size == "comm") %>% group_by(subarea) %>% summarize(Bo = max(yst))
+max.val <- sdm.strat.est %>% filter(size == "comm") %>% group_by(subarea) %>% summarize(Bo = max(yst, na.rm = TRUE))
 
 max.val$Bmsy <- max.val$Bo*0.5
 max.val
@@ -2044,7 +2044,7 @@ ggsave(paste0(path.directory,assessmentyear,"/Assessment/Figures/Com_timeseries_
 
 
 ##... LRP Plot - 20% of Bo (i.e. Bmax ) ####
-max.val <- sdm.strat.est %>% filter(size == "comm") %>% group_by(subarea) %>% summarize(Bo = max(yst))
+max.val <- sdm.strat.est %>% filter(size == "comm") %>% group_by(subarea) %>% summarize(Bo = max(yst, na.rm = TRUE))
 max.val$LRP <- max.val$Bo*0.2
 max.val
 #subarea      Bo   LRP
@@ -2070,7 +2070,7 @@ ggplot(data = sdm.strat.est %>% filter(size == "comm"), aes(x=YEAR, y=yst)) +
 ggsave(paste0(path.directory,assessmentyear,"/Assessment/Figures/Com_timeseries_LRP.20.of.Bmax.ie.Bo.",surveyyear,".png"),width=15,height=10,units = "in",dpi=300)
 
 ## min biomass "B recover" in timeseries ####
-Brec.comm <-  sdm.strat.est %>% filter(size == "comm" & YEAR < surveyyear) %>% group_by(subarea) %>% summarise(min = min(yst   ))
+Brec.comm <-  sdm.strat.est %>% filter(size == "comm" & YEAR < surveyyear) %>% group_by(subarea) %>% summarise(min = min(yst , na.rm = TRUE))
 Brec.comm
 #subarea     min
 #<chr>     <dbl>
@@ -2104,7 +2104,7 @@ Brec.comm
 #### USR Options #### 
 ##... USR Plot - 80% of Bavg (Bavg ~ Bmsy)
 #Commerical biomass time series median of the yearly median values 
-LTM.comm <-  sdm.strat.est %>% filter(size == "comm" & YEAR < surveyyear) %>% group_by(subarea) %>% summarise(LTM = median(yst   ))
+LTM.comm <-  sdm.strat.est %>% filter(size == "comm" & YEAR < surveyyear) %>% group_by(subarea) %>% summarise(LTM = median(yst   , na.rm = TRUE))
 LTM.comm
 
 LTM.comm$USR <- LTM.comm$LTM*0.8
@@ -2141,7 +2141,7 @@ ggsave(paste0(path.directory,assessmentyear,"/Assessment/Figures/Com_timeseries_
 
 ##... USR Plot - 80% of 50% Bmax where Bmax proxy for Bo
 #Commerical biomass time series median of the yearly median values 
-max.val <- sdm.strat.est %>% filter(size == "comm") %>% group_by(subarea) %>% summarize(Bo = max(yst))
+max.val <- sdm.strat.est %>% filter(size == "comm") %>% group_by(subarea) %>% summarize(Bo = max(yst, na.rm = TRUE))
 max.val$Bmsy <- max.val$Bo*0.5
 max.val
 
@@ -2171,7 +2171,7 @@ ggsave(paste0(path.directory,assessmentyear,"/Assessment/Figures/Com_timeseries_
 
 
 ##... USR Plot - Median stock size 
-LTM.comm <-  sdm.strat.est %>% filter(size == "comm" & YEAR < surveyyear) %>% group_by(subarea) %>% summarise(USR = median(yst   ))
+LTM.comm <-  sdm.strat.est %>% filter(size == "comm" & YEAR < surveyyear) %>% group_by(subarea) %>% summarise(USR = median(yst, na.rm = TRUE))
 LTM.comm
 
 PA.limits <- merge(LTM.comm, Brec.comm, by = "subarea")

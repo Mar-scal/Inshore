@@ -25,10 +25,10 @@ pwd <- pw.sameotoj
 #uid <- keyring::key_list("Oracle")[1,2]
 #pwd <- keyring::key_get("Oracle", uid)
 
-surveyyear <- 2024  #This is the last survey year for which you want to include  - not should match year of cruise below 
-cruise <- "SFA292024"  #note should match year for surveyyear set above 
+surveyyear <- 2025  #This is the last survey year for which you want to include  - not should match year of cruise below 
+cruise <- "SFA292025"  #note should match year for surveyyear set above 
 
-assessmentyear <- 2025 #year in which you are conducting the assessment (surveyyear+1)
+assessmentyear <- 2026 #year in which you are conducting the assessment (surveyyear+1)
 path.directory <- "Y:/Inshore/SFA29/"
 
 weight.by.tow.previous.yrs <- read.csv(paste0("Y:/Inshore/SFA29/",assessmentyear-1,"/Assessment/Data/SurveyIndices/SFA29liveweight2014to",assessmentyear-2,".csv"))

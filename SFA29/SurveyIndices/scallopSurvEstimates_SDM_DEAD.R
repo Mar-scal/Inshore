@@ -36,9 +36,9 @@ pwd <- pw.sameotoj
 #uid <- keyring::key_list("Oracle")[1,2]
 #pwd <- keyring::key_get("Oracle", uid)
 
-surveyyear <- 2024  #This is the last survey year for which you want to include  - not should match year of cruise below 
-cruise <- "SFA292024"  #note should match year for surveyyear set above 
-assessmentyear <- 2025 #year in which you are conducting the survey 
+surveyyear <- 2025  #This is the last survey year for which you want to include  - not should match year of cruise below 
+cruise <- "SFA292025"  #note should match year for surveyyear set above 
+assessmentyear <- 2026 #year in which you are conducting the survey 
 path.directory <- "Y:/Inshore/SFA29/"
 years <- c(2001:surveyyear) #when have 2021 data ready with SDM value then can use line of code below 
 #yr.crnt <- surveyyear-1
@@ -1817,7 +1817,7 @@ dim(data.obj.all)
 dim(data.live)
 
 # Left join survey tows to surficial substrate tows on uid
-data.join <- merge(data.obj.all %>% select(uid, CRUISE,TOW_NO,START_LAT, START_LONG,STRATA,YEAR, dead.prerec=prerec, dead.rec=rec, dead.comm= comm), data.live %>% select(uid,live.prerec=prerec, live.rec=rec, live.comm= comm ), by.x='uid', by.y='uid', all.x=TRUE)
+data.join <- merge(data.obj.all %>% dplyr::select(uid, CRUISE,TOW_NO,START_LAT, START_LONG,STRATA,YEAR, dead.prerec=prerec, dead.rec=rec, dead.comm= comm), data.live %>% dplyr::select(uid,live.prerec=prerec, live.rec=rec, live.comm= comm ), by.x='uid', by.y='uid', all.x=TRUE)
 dim(data.join)
 head(data.join)
 
