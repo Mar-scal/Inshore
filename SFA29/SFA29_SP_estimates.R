@@ -478,15 +478,17 @@ mu.LTM <- exploitation.atod %>% group_by(Subarea) %>% filter(year < surveyyear) 
 ggplot(data = exploitation.atod, aes(x = year, y = mu)) + 
   geom_point() + 
   geom_line() + 
-  facet_wrap(~Subarea ) + 
+  facet_wrap(~Subarea, scales = "free") + 
   geom_hline(data = mu.LTM, aes(yintercept = LTM), color = "blue", linetype = "dashed") + 
-  theme_bw(base_size = 12) + 
+  theme_bw() + 
   ylab("Relative exploitation (proportion)") + 
   xlab("Year") + 
-  xlim(c(2002,2026)) + 
-  scale_x_continuous(breaks=seq(2002,2026,by=4))
+  xlim(c(2002,2026)) + ylim(c(0.0,0.8))+
+  scale_x_continuous(breaks=seq(2002,2026,by=6))+
+  theme(axis.title = element_text(size = 16), strip.text = element_text(size = 12), axis.text = element_text(size = 12),
+        plot.margin = margin(t = 0.1, r = 0.8, b = 0.1, l = 0.1, unit = "cm"))
   
-ggsave(filename = "Y:/Inshore/SFA29/2025/Assessment/Figures/relative.exploitation.survey.png" , plot = last_plot(), scale = 2.5, width =8, height = 7, dpi = 300, units = "cm", limitsize = TRUE)
+ggsave(filename = paste0("Y:/Inshore/SFA29/",assessmentyear,"/Assessment/Figures/relative.exploitation.survey.png") , plot = last_plot(), scale = 2.5, width =8, height = 7, dpi = 300, units = "cm", limitsize = TRUE)
 
 
 

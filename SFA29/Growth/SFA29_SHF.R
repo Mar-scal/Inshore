@@ -322,7 +322,7 @@ lbar.comm <- ggplot(comm.size, aes(year,SHF,colour=SDM)) + geom_point(aes(shape 
   #guides(linetype=guide_legend(keywidth = 2.5, keyheight = 1.5))
 lbar.comm
 
-ggsave(filename = paste0(path.directory,assessmentyear,"/Assessment/Figures/Growth/SFA29.lbar.comm.",surveyyear,".png"), plot = lbar.comm, scale = 2.5, width = 6, height = 6, dpi = 300, units = "cm", limitsize = TRUE)
+ggsave(filename = paste0(path.directory,assessmentyear,"/Assessment/Figures/Growth/SFA29.lbar.comm.",surveyyear,".png"), plot = lbar.comm, scale = 2.5, width = 8, height = 6, dpi = 300, units = "cm", limitsize = TRUE)
 
 #png(paste0(path.directory,assessmentyear,"/Assessment/Figures/Growth/SFA29.lbar.comm.",surveyyear,".png"),width=11,height=11,units = "in",res=300)
 #lbar.comm

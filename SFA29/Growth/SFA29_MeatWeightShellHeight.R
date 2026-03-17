@@ -330,7 +330,7 @@ SFA29.condition.ts.plot <- ggplot(SFA29.con.ts,
         legend.title = element_blank(),
         text = element_text(size=20)) +
   guides(linetype=guide_legend(keywidth = 2.5, keyheight = 1.5)) +
-  scale_x_continuous(breaks = seq(2000,2026,by=4), limits = c(2000,2026)) 
+  scale_x_continuous(breaks = seq(1998,2026,by=4), limits = c(2000,2026)) 
 
 SFA29.condition.ts.plot
 

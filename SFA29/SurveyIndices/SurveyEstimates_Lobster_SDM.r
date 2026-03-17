@@ -568,9 +568,11 @@ cruise.list <- paste(cruise.list,collapse="','")
 		  geom_line() +
 		  scale_x_continuous(limits = c(2000, (surveyyear+1)), breaks = seq(2004, (surveyyear+1), by = 4)) +
 		  theme_bw() +
+	    theme(text = element_text(size=15), axis.title = element_text(size =15),axis.text = element_text(size = 12))+
 		  facet_wrap(~SUBAREA) + 
 		  ylab("Mean number of Lobster per standarized tow ") + 
-		  xlab("Year") 
+		  xlab("Year") +
+	    scale_x_continuous(limits = c(2000, (surveyyear+1)), breaks = seq(2002, (surveyyear+1), by = 6))
 #save
 ggsave(filename = paste0(path.directory,assessmentyear,'/Assessment/Figures/LobsterSurvey_NumPerTow_SDM',surveyyear, '.png'), plot = last_plot(), scale = 2.5, width =9, height = 6, dpi = 300, units = "cm", limitsize = TRUE)	
 		

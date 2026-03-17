@@ -738,15 +738,15 @@ sdm.levels.est.all
 	  geom_line(aes(linetype = Strata)) + 
 	  facet_wrap(~SUBAREA, ncol=2) + 
 	  theme_bw() + ylab("Mean weight/tow (kg)") + xlab("Year") + 
-	  theme(legend.position = c(0.1, 0.85),panel.grid.minor = element_blank(),legend.title = element_blank()) + 
+	  theme(legend.position = c(0.1, 0.85),panel.grid.minor = element_blank(),legend.title = element_blank(), text = element_text(size=15), axis.title = element_text(size =15),axis.text = element_text(size = 12)) + 
 	  scale_color_manual(values=colors.sdm, breaks = c("high", "med", "low"),labels = c("high"="High", "med"="Medium", "low"="Low"))+
 	  scale_linetype_manual(values = c(1,2,3),breaks = c("high", "med", "low"),labels = c("high"="High", "med"="Medium", "low"="Low"))+
 	  scale_shape_manual(values = c(15:17),breaks = c("high", "med", "low"),labels = c("high"="High", "med"="Medium", "low"="Low")) + 
-	  scale_x_continuous(breaks = seq(2001,2026,by=4), limits = c(2001,2026)) #+ 
+	  scale_x_continuous(limits = c(2000, (surveyyear+1)), breaks = seq(2002, (surveyyear+1), by = 4))
 	AtoD.per.tow.comm
 	
 #save
-ggsave(filename = paste0(path.directory,assessmentyear,"/Assessment/Figures/SFA29AtoD.Weightpertow.Commercial.",surveyyear,".png"), plot = AtoD.per.tow.comm, scale = 2.5, width =6, height = 6, dpi = 300, units = "cm", limitsize = TRUE)
+ggsave(filename = paste0(path.directory,assessmentyear,"/Assessment/Figures/SFA29AtoD.Weightpertow.Commercial.",surveyyear,".png"), plot = AtoD.per.tow.comm, scale = 2.5, width =8, height = 6, dpi = 300, units = "cm", limitsize = TRUE)
 	
 ### --- Extra - Plots weight per tow A to D Recruit size ---- 
 #can't plot full time series for recruits for weight bc don't have that pre-2014 time series from Stephen -- but recruit weights not used in the model; numbers with avg weight is 

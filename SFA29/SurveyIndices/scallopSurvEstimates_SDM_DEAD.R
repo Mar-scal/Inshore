@@ -9,6 +9,9 @@
 ## NO LONGER REQUIRED: Bring in library but then bring in PEDstrata function manually from file: PEDStrata.txt under: Y:\Jessica\SFA29\2014\r
 ## PEDstrata v 1.0.1 updated
 
+
+###NOTE:: ADD STRATIFIED CLAPPER INDEX FOR 2027####
+
 options(stringsAsFactors=FALSE)
 library(PEDstrata)
 library(lubridate)
@@ -1515,8 +1518,8 @@ AtoD.number.per.tow.prerec <- ggplot(data = sdm.levels %>% filter(!(SUBAREA == "
   scale_shape_manual(values = c(15:17),breaks = c("high", "med", "low"),labels = c("high"="High", "med"="Medium", "low"="Low"))+
   facet_wrap(~SUBAREA, ncol=2) + 
   theme_bw() + ylab("Survey mean no./tow") + xlab("Year") + 
-  theme(legend.position = c(0.1, 0.85),panel.grid.minor = element_blank(),legend.title = element_blank())  + 
-  scale_x_continuous(breaks = seq(2001,2026,by=4), limits = c(2001,2026)) #+ #+ 
+  theme(legend.position = c(0.1, 0.85),panel.grid.minor = element_blank(),legend.title = element_blank(), text = element_text(size=15), axis.title = element_text(size =15),axis.text = element_text(size = 12))  + 
+  scale_x_continuous(limits = c(2000, (surveyyear+1)), breaks = seq(2002, (surveyyear+1), by = 4)) #+ #+ 
 # geom_ribbon(aes(ymin=out.e$yst-out.e$se.yst, ymax=out.e$yst+out.e$se.yst), 
 #             alpha=0.1,       #transparency
 #             linetype=1,      #solid, dashed or other line types
@@ -1525,7 +1528,7 @@ AtoD.number.per.tow.prerec <- ggplot(data = sdm.levels %>% filter(!(SUBAREA == "
 #             fill="grey70") 
 AtoD.number.per.tow.prerec
 
-ggsave(filename = paste0(path.directory, assessmentyear, "/Assessment/Figures/SFA29AtoD.Numberspertow.Clappers.Prerecruit.",surveyyear,".png"), plot = AtoD.number.per.tow.prerec, scale = 2.5, width = 6, height = 6, dpi = 300, units = "cm", limitsize = TRUE)
+ggsave(filename = paste0(path.directory, assessmentyear, "/Assessment/Figures/SFA29AtoD.Numberspertow.Clappers.Prerecruit.",surveyyear,".png"), plot = AtoD.number.per.tow.prerec, scale = 2.5, width = 8, height = 6, dpi = 300, units = "cm", limitsize = TRUE)
 
 #png(paste0(path.directory,assessmentyear,"/Assessment/Figures/SFA29AtoD.Numberspertow.Clappers.Prerecruit.",surveyyear,".png"),width=11,height=11#,units = "in",res=300)
 #AtoD.number.per.tow.prerec
@@ -1540,8 +1543,8 @@ AtoD.number.per.tow.rec <- ggplot(data = sdm.levels %>% filter(!(SUBAREA == "Sub
   scale_linetype_manual(values = c(1,2,3),breaks = c("high", "med", "low"),labels = c("high"="High", "med"="Medium", "low"="Low"))+
   scale_shape_manual(values = c(15:17),breaks = c("high", "med", "low"),labels = c("high"="High", "med"="Medium", "low"="Low"))+
   theme_bw() + ylab("Survey mean no./tow") + xlab("Year") + 
-  theme(legend.position = c(0.1, 0.85),panel.grid.minor = element_blank(),legend.title = element_blank())  + 
-  scale_x_continuous(breaks = seq(2001,2026,by=4), limits = c(2001,2026)) #+ #+ 
+  theme(legend.position = c(0.1, 0.85),panel.grid.minor = element_blank(),legend.title = element_blank(), text = element_text(size=15), axis.title = element_text(size =15),axis.text = element_text(size = 12))  + 
+  scale_x_continuous(limits = c(2000, (surveyyear+1)), breaks = seq(2002, (surveyyear+1), by = 4)) #+ #+ 
 # geom_ribbon(aes(ymin=out.e$yst-out.e$se.yst, ymax=out.e$yst+out.e$se.yst), 
 #             alpha=0.1,       #transparency
 #             linetype=1,      #solid, dashed or other line types
@@ -1550,7 +1553,7 @@ AtoD.number.per.tow.rec <- ggplot(data = sdm.levels %>% filter(!(SUBAREA == "Sub
 #             fill="grey70") 
 AtoD.number.per.tow.rec
 
-ggsave(filename = paste0(path.directory, assessmentyear, "/Assessment/Figures/SFA29AtoD.Numberspertow.Clappers.Recruit.",surveyyear,".png"), plot = AtoD.number.per.tow.rec, scale = 2.5, width = 6, height = 6, dpi = 300, units = "cm", limitsize = TRUE)
+ggsave(filename = paste0(path.directory, assessmentyear, "/Assessment/Figures/SFA29AtoD.Numberspertow.Clappers.Recruit.",surveyyear,".png"), plot = AtoD.number.per.tow.rec, scale = 2.5, width = 8, height = 6, dpi = 300, units = "cm", limitsize = TRUE)
 
 #png(paste0(path.directory,assessmentyear,"/Assessment/Figures/SFA29AtoD.Numberspertow.Clappers.Recruit.",surveyyear,".png"),width=11,height=11,units = "in",res=300)
 #AtoD.number.per.tow.rec
@@ -1567,8 +1570,8 @@ AtoD.number.per.tow.comm <- ggplot(data = sdm.levels %>% filter(!(SUBAREA == "Su
   scale_linetype_manual(values = c(1,2,3),breaks = c("high", "med", "low"),labels = c("high"="High", "med"="Medium", "low"="Low"))+
   scale_shape_manual(values = c(15:17),breaks = c("high", "med", "low"),labels = c("high"="High", "med"="Medium", "low"="Low"))+
   theme_bw() + ylab("Survey mean no./tow") + xlab("Year") + 
-  theme(legend.position = c(0.85, 0.85),panel.grid.minor = element_blank(),legend.title = element_blank())  + 
-  scale_x_continuous(breaks = seq(2001,2026,by=4), limits = c(2001,2026)) #+ #+ 
+  theme(legend.position = c(0.1, 0.85),panel.grid.minor = element_blank(),legend.title = element_blank(), text = element_text(size=15), axis.title = element_text(size =15),axis.text = element_text(size = 12))  + 
+  scale_x_continuous(limits = c(2000, (surveyyear+1)), breaks = seq(2002, (surveyyear+1), by = 4)) #+ #+ 
 # geom_ribbon(aes(ymin=out.e$yst-out.e$se.yst, ymax=out.e$yst+out.e$se.yst), 
 #             alpha=0.1,       #transparency
 #             linetype=1,      #solid, dashed or other line types
@@ -1577,7 +1580,7 @@ AtoD.number.per.tow.comm <- ggplot(data = sdm.levels %>% filter(!(SUBAREA == "Su
 #             fill="grey70") 
 AtoD.number.per.tow.comm
 
-ggsave(filename = paste0(path.directory, assessmentyear, "/Assessment/Figures/SFA29AtoD.Numberspertow.Clappers.Commercial.",surveyyear,".png"), plot = AtoD.number.per.tow.comm, scale = 2.5, width = 6, height = 6, dpi = 300, units = "cm", limitsize = TRUE)
+ggsave(filename = paste0(path.directory, assessmentyear, "/Assessment/Figures/SFA29AtoD.Numberspertow.Clappers.Commercial.",surveyyear,".png"), plot = AtoD.number.per.tow.comm, scale = 2.5, width = 8, height = 6, dpi = 300, units = "cm", limitsize = TRUE)
 
 #png(paste0(path.directory,assessmentyear,"/Assessment/Figures/SFA29AtoD.Numberspertow.Clappers.Commercial.",surveyyear,".png"),width=11,height=11,units = "in",res=300)
 #AtoD.number.per.tow.comm
@@ -1733,14 +1736,14 @@ clap.prop.comm <- ggplot(data=XX, aes(x=YEAR, y=prop.dead.no.NAs, col= Strata, s
 	  scale_linetype_manual(values = c(1,2,3),breaks = c("high", "med", "low"),labels = c("high"="High", "med"="Medium", "low"="Low"))+
 	  scale_shape_manual(values = c(15:17),breaks = c("high", "med", "low"),labels = c("high"="High", "med"="Medium", "low"="Low"))+
 	  facet_wrap(~SUBAREA) + theme_bw() + 
-  theme(legend.position = c(0.85, 0.85),panel.grid.minor = element_blank(),legend.title = element_blank()) + 
+  theme(legend.position = c(0.85, 0.85),panel.grid.minor = element_blank(),legend.title = element_blank(), text = element_text(size=15), axis.title = element_text(size =15),axis.text = element_text(size = 12)) + 
 	  ylab("Commercial (>=100mm) Clappers (proportion)") + 
 	  xlab("Year")  + 
-  scale_x_continuous(breaks = seq(2001,2026,by=4), limits = c(2001,2026)) #+ 
+  scale_x_continuous(limits = c(2000, (surveyyear+1)), breaks = seq(2002, (surveyyear+1), by = 4))
 clap.prop.comm
 	
 #save
-	ggsave(filename = paste0(path.directory,assessmentyear,"/Assessment/Figures/SFA29AtoD.Clappers.Prop.Commercial.",surveyyear,".png"), plot = clap.prop.comm, scale = 2.5, width =6, height = 6, dpi = 300, units = "cm", limitsize = TRUE)
+	ggsave(filename = paste0(path.directory,assessmentyear,"/Assessment/Figures/SFA29AtoD.Clappers.Prop.Commercial.",surveyyear,".png"), plot = clap.prop.comm, scale = 2.5, width =8, height = 6, dpi = 300, units = "cm", limitsize = TRUE)
 	
 #dev.off()
 

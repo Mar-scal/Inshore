@@ -46,9 +46,9 @@ require(ggspatial)
 #uid <- un.englishg
 #pwd <- pw.englishg
 
-survey.year <- 2024  #This is the last survey year 
-assessmentyear <- 2025 #year in which you are providing advice for - (e.g. 2017 survey is 2018 assessment) - Save to folder year
-cruise <- "'SFA292024'"
+survey.year <- 2025  #This is the last survey year 
+assessmentyear <- 2026 #year in which you are providing advice for - (e.g. 2017 survey is 2018 assessment) - Save to folder year
+cruise <- "'SFA292025'"
 
 #for multiple cruises:
 #cruise <- c('SFA292018','SFA292019') 
@@ -292,8 +292,9 @@ st_crs(idw_sf) <- 32620
 
 #Set standard layers: bathymetry on bottom layer, and land, survey tows, etc above IDW layer
 bathy <-   ggplot() + #goes before IDW layer
-  geom_sf(data = bathy_sf, color = "steelblue", alpha = 0.1, size = 0.5) +
-  coord_sf(xlim = c(-66.50,-64.30), ylim = c(44.25,45.80), expand = FALSE)
+  geom_sf(data = bathy_sf, color = "steelblue", alpha = 0.05, size = 0.5) +
+  coord_sf(xlim = c(-66.50,-64.30), ylim = c(44.25,45.80), expand = FALSE)+
+  theme_bw()
 
 # Function to generate map layers to go after IDW layer
 p <- function(mgmt_zone, surv_sf, land) {
@@ -942,7 +943,8 @@ ggplot() + #Plot survey data and format figure.
   scale_y_continuous(labels = scales::label_number(accuracy = 0.01))+
   annotation_scale(location = "bl", width_hint = 0.5, pad_x = unit(0.35, "cm"), pad_y = unit(0.35, "cm")) + # Add scale bar with selectable location
   annotation_north_arrow(location = "bl", which_north = "true", height = unit(1.25, "cm"), width = unit(1, "cm"),
-                         pad_x = unit(0.35, "cm"), pad_y = unit(0.75, "cm"),style = north_arrow_fancy_orienteering) + # Add north arrow with selectable location
+                         pad_x = unit(0.35, "cm"), pad_y = unit(0.75, "cm"),style = north_arrow_fancy_orienteering) + # Add north arrow with selectable location+
+  theme_bw()+
   theme(legend.key.size = unit(6,"mm"),
         plot.title = element_text(size = 14, hjust = 0.5), #plot title size and position
         axis.title = element_text(size = 12),

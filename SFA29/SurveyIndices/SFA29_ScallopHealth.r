@@ -43,10 +43,10 @@ require(ggspatial)
 #uid <- un.englishg
 #pwd <- pw.englishg
 #set year 
-survey.year <- 2025  #removed maxyear in script and changed to survey year
-assessmentyear <- 2026 #year in which you are providing advice for- determines where to save files to
+survey.year <- 2024  #removed maxyear in script and changed to survey year
+assessmentyear <- 2025 #year in which you are providing advice for- determines where to save files to
 path.directory <- "Y:/Inshore/SFA29/"
-cruise <- "'SFA292025'"
+cruise <- "'SFA292024'"
 
 #set up directory to save plot
 saveplot.dir <- paste0(path.directory,assessmentyear,"/Assessment/Figures/") 
@@ -350,8 +350,9 @@ st_crs(idw_sf) <- 32620
 
 #Set standard layers: bathymetry on bottom layer, and land, survey tows, etc above IDW layer
 bathy <-   ggplot() + #goes before IDW layer
-  geom_sf(data = bathy_sf, color = "steelblue", alpha = 0.1, size = 0.5) +
-  coord_sf(xlim = c(-66.50,-64.30), ylim = c(44.25,45.80), expand = FALSE)
+  geom_sf(data = bathy_sf, color = "steelblue", alpha = 0.05, size = 0.5) +
+  coord_sf(xlim = c(-66.50,-64.30), ylim = c(44.25,45.80), expand = FALSE)+
+  theme_bw()
 
 # Function to generate map layers to go after IDW layer
 p <- function(mgmt_zone, surv_sf, land) {
