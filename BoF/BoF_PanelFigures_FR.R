@@ -43,7 +43,7 @@ direct_out <- paste0("Y:/Inshore/BoF/", year,"/Assessment/")
 # Reference points
 RR.tab <- data.frame(
   SPA = c("SPA 1A", "SPA 1B", "SPA 3", "SPA 4", "SPA 6"),
-  RR  = c(0.15, 0.15, 0.15, 0.15, 0.18),
+  TER  = c(0.15, 0.15, 0.15, 0.15, 0.18),
   stringsAsFactors = FALSE)
 # To find RR for specific area: rp.tab$RR[rp.tab$SPA==paste0("SPA ", area)]
 
@@ -243,7 +243,7 @@ showtext_auto(TRUE)
 e.m.plot <- ggplot() +
   # exploitation (prop): mu
   geom_ribbon(aes(ymin=mu$`2.5%`,ymax=mu$`97.5%`,x=Years.ribbon[-1]-1), alpha=0.2,fill="grey10") +
-  geom_hline(aes(yintercept=RR.tab$RR[RR.tab$SPA==paste0("SPA ", area)],col="RR"), lty="dotted", alpha=0.7, linewidth=0.8)+ # RR
+  geom_hline(aes(yintercept=RR.tab$TER[RR.tab$SPA==paste0("SPA ", area)],col="TER"), name = "TER", lty="dotted", alpha=0.7, linewidth=0.8)+ # RR
   geom_line(aes(x=Years[-1]-1, y=mu$median), col="black", linewidth = 0.4) +
   geom_point(aes(x=Years[-1]-1, y=mu$median), col="black", size=1) +
   #styling

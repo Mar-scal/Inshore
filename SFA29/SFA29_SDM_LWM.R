@@ -50,8 +50,8 @@ sdm <- raster("Y:/Inshore/Databases/Scallsur/SFA29BottomTypes/SDM/sdm_sfa29/w001
 chan <- dbConnect(dbDriver("Oracle"),username=uid, password=pwd,'ptran')
 
 #set survey.year and cruise - *Note: requires single quotations within double quotations*
-survey.year <- "'2024'"
-cruise <- "'SFA292024'"
+survey.year <- "'2025'"
+cruise <- "'SFA292025'"
 
 #Db Query:
 quer2 <- paste(
@@ -164,7 +164,7 @@ mapview::mapview(check)+ #Change TOW_NO
 #Take the average of the sdm values for each tow
 sdm.mean <- sdm.val@data %>% 
   group_by(TOW_NO) %>%
-  summarize(sdmval_LWM = mean(sdm_sfa29))
+  summarize(sdmval_LWM = mean(sdm_sfa29, na.rm = TRUE))
 
 # ---formatting data to match previous years ----------------------------------------------------------------------
 
