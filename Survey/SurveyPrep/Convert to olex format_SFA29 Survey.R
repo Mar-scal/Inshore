@@ -1,6 +1,6 @@
 source("Y:/Inshore/BoF/Assessment_fns/convert.dd.dddd.r")
 
-year <- 2025
+year <- 2026
 
 SFA29tows.dat = read.csv(file.path(paste0("Y:/Inshore/Survey/SurveyPrep/", year, " Survey Prep/SFA29W/SFA29",year,"_olex.csv" )))
 
