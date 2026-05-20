@@ -10,8 +10,8 @@ library(gridtext)
 
 setwd("Y:/")
 
-surveyyear <- 2024
-assessmentyear <- 2025 
+surveyyear <- 2025
+assessmentyear <- 2026 
 
 # SFA29A ---- 
 numbers.A <- read.csv(paste0("/Inshore/SFA29/",assessmentyear,"/Assessment/Data/SurveyIndices/SDM.HighMedLow.2001to",surveyyear,".Numbers.csv"))

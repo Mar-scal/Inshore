@@ -38,9 +38,9 @@ pwd <- pw.sameotoj
 #uid <- keyring::key_list("Oracle")[1,2]
 #pwd <- keyring::key_get("Oracle", uid)
 
-surveyyear <- 2024  #This is the last survey year for which you want to include  - not should match year of cruise below 
-cruise <- "SFA292024"  #note should match year for surveyyear set above 
-assessmentyear <- 2025 #year in which you are conducting the survey 
+surveyyear <- 2025  #This is the last survey year for which you want to include  - not should match year of cruise below 
+cruise <- "SFA292025"  #note should match year for surveyyear set above 
+assessmentyear <- 2026 #year in which you are conducting the survey 
 path.directory <- "Y:/Inshore/SFA29/"
 years <- c(2001:surveyyear) #when have 2021 data ready with SDM value then can use line of code below 
 #yr.crnt <- surveyyear-1
@@ -738,15 +738,15 @@ sdm.levels.est.all
 	  geom_line(aes(linetype = Strata)) + 
 	  facet_wrap(~SUBAREA, ncol=2) + 
 	  theme_bw() + ylab("Mean weight/tow (kg)") + xlab("Year") + 
-	  theme(legend.position = c(0.1, 0.85),panel.grid.minor = element_blank(),legend.title = element_blank()) + 
+	  theme(legend.position = c(0.1, 0.85),panel.grid.minor = element_blank(),legend.title = element_blank(), text = element_text(size=15), axis.title = element_text(size =15),axis.text = element_text(size = 12)) + 
 	  scale_color_manual(values=colors.sdm, breaks = c("high", "med", "low"),labels = c("high"="High", "med"="Medium", "low"="Low"))+
 	  scale_linetype_manual(values = c(1,2,3),breaks = c("high", "med", "low"),labels = c("high"="High", "med"="Medium", "low"="Low"))+
 	  scale_shape_manual(values = c(15:17),breaks = c("high", "med", "low"),labels = c("high"="High", "med"="Medium", "low"="Low")) + 
-	  scale_x_continuous(breaks = seq(2001,2026,by=4), limits = c(2001,2026)) #+ 
+	  scale_x_continuous(limits = c(2000, (surveyyear+1)), breaks = seq(2002, (surveyyear+1), by = 4))
 	AtoD.per.tow.comm
 	
 #save
-ggsave(filename = paste0(path.directory,assessmentyear,"/Assessment/Figures/SFA29AtoD.Weightpertow.Commercial.",surveyyear,".png"), plot = AtoD.per.tow.comm, scale = 2.5, width =6, height = 6, dpi = 300, units = "cm", limitsize = TRUE)
+ggsave(filename = paste0(path.directory,assessmentyear,"/Assessment/Figures/SFA29AtoD.Weightpertow.Commercial.",surveyyear,".png"), plot = AtoD.per.tow.comm, scale = 2.5, width =8, height = 6, dpi = 300, units = "cm", limitsize = TRUE)
 	
 ### --- Extra - Plots weight per tow A to D Recruit size ---- 
 #can't plot full time series for recruits for weight bc don't have that pre-2014 time series from Stephen -- but recruit weights not used in the model; numbers with avg weight is 
@@ -891,7 +891,7 @@ ggsave(filename = paste0(path.directory,assessmentyear,"/Assessment/Figures/SFA2
 	E.weight.per.tow <- ggplot(data = out.e, aes(x=YEAR, y=yst)) + 
 	  geom_point() + 
 	  geom_line() + 
-	  scale_x_continuous(limits = c(2013, (survey.year+1)), breaks = seq(2013, (survey.year+1), by = 4)) +
+	  scale_x_continuous(limits = c(2013, (surveyyear+1)), breaks = seq(2013, (surveyyear+1), by = 4)) +
 	  facet_wrap(~group, ncol=1, labeller = size_names, scales = "free") + 
 	  theme_bw() + ylab("Mean weight/tow (kg)") + xlab("Year") + 
 	  theme(legend.position = c(0.1, 0.9),panel.grid.minor = element_blank()) + 
