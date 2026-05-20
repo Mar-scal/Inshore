@@ -35,8 +35,14 @@ con.yr.tminus1 <- condition %>% filter(YEAR == YR-1 & STRATA == "SFA29D") %>% se
 ((con.yr.tminus1$CONDITION - con.yr.t$CONDITION) / (con.yr.tminus1$CONDITION))*100
 # -8.497028
 
+## Subarea E
+con.yr.t <- condition %>% filter(YEAR == YR & STRATA == "SFA29E") %>% select(CONDITION)
+con.yr.tminus1 <- condition %>% filter(YEAR == YR-1 & STRATA == "SFA29E") %>% select(CONDITION)
+((con.yr.tminus1$CONDITION - con.yr.t$CONDITION) / (con.yr.tminus1$CONDITION))*100
+# 
 
-##### change in relative exploitaion #####
+
+##### change in relative exploitation #####
 
 YR <- 2025
 

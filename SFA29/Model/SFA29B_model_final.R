@@ -83,7 +83,7 @@ SFA29.parms <- c("Bh","BBh","Ph","Rh" ,"Kh" , "m" , "sigma","q" , "S" , "log.Kh"
 # the relationship between fishing intensity and density; unique to subarea
 e.parms.29B <- c(4.431782e-04, 1.740606e-03, 4.411668e-03, 2.332540e-01, 8.747000e+01 )
 
-# The area of each strata in B, I think...
+# The area of each strata in B
 B.areas <- c(248.8925, 244.3425, 52.3925)
 num.areas <- length(B.areas) # The number of strata in the area...
 

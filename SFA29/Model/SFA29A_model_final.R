@@ -215,7 +215,6 @@ write.csv(A.mod.res$summary,file=paste0(file = paste0(path.directory,assessmenty
  length(low.CPUE)
  
 # # The dataframe with the results.  Note this is set up as Catch(2015) / (Catch2015 + Biomass2015)
-# # This isn't entirely correct since we pull catch from an intermediate biomass, but it's pretty good!
  dat <- data.frame(Year = rep(yrs,2),Catch = c(med.cat,low.cat),Biomass = c(med.bm,low.bm),
                    nat.m = c(med.nat.m,low.nat.m),
                    CPUE = c(med.CPUE,low.CPUE),

@@ -410,6 +410,12 @@ catch.2026/current.yr.biomass.d$biomass.mt.tplus1minusM.final[1]
 #0.00000000 0.03545614 0.07091229 0.10636843 0.14182458 0.17728072
 
 
+##### Save out all areas #####
+
+est.all <- rbind(a.numbers, b.numbers, c.numbers, d.numbers)
+
+write.csv(est.all, paste0("Y:/Inshore/SFA29/",assessmentyear,"/Assessment/Data/SurveyIndices/Stratified_est_DeterministicApproach.csv"), row.names = F)
+
 
 
 ##### Relative Exploitation from stratified survey number converted to weights using lbar and avg meat weight, combined with landings #####
