@@ -9,13 +9,15 @@ library(openxlsx)
 
 assessment.year <- 2025
 
+direct <- "Z:/Inshore/Assessment/BoF/"
+
 
 #PROPORTIONAL NATRUAL MORTALITY -------------------------
 
 #SPA1A---------------------------
 
-    modfile.1A <- read.xlsx("Y:/Inshore/BoF/",assessment.year,"/Assessment/Data/Model/SPA1A/SPA1A_ModelData_R_2025-10-29.xlsx",sheet = "AlignedForModel", cols=1:13) #CHECK FILE NAME
-    mod.sum.1A <- read.csv("Y:/Inshore/BoF/",assessment.year,"/Assessment/Data/Model/SPA1A/Spa1AModelOutput.csv")
+    modfile.1A <- read.xlsx(paste0(direct,assessment.year,"/Assessment/Data/Model/SPA1A/SPA1A_ModelData_R_2025-10-29.xlsx"),sheet = "AlignedForModel", cols=1:13) #CHECK FILE NAME
+    mod.sum.1A <- read.csv(paste0(direct,assessment.year,"/Assessment/Data/Model/SPA1A/Spa1AModelOutput.csv")
     
     colnames(mod.sum.1A) <- c("vars", "mean", "sd", "2.5%", "25%", "median", "75%", "97.5%", "Rhat", "n.eff")
     m.rows.1A <- grep("^m\\[", mod.sum.1A$vars)
@@ -34,8 +36,8 @@ assessment.year <- 2025
     
 #SPA1B---------------------------   
   
-    modfile.1B <- read.xlsx("Y:/Inshore/BoF/",assessment.year,"/Assessment/Data/Model/SPA1B/SPA1B_ModelData_R_2025-10-30.xlsx",sheet = "AlignedForModel", cols=1:13)#CHECK FILE NAME
-    mod.sum.1B <- read.csv("Y:/Inshore/BoF/",assessment.year,"/Assessment/Data/Model/SPA1B/Spa1BModelOutput.csv")
+    modfile.1B <- read.xlsx(paste0(direct,assessment.year,"/Assessment/Data/Model/SPA1B/SPA1B_ModelData_R_2025-10-30.xlsx",sheet = "AlignedForModel", cols=1:13)#CHECK FILE NAME
+    mod.sum.1B <- read.csv(paste0(direct,assessment.year,"/Assessment/Data/Model/SPA1B/Spa1BModelOutput.csv")
   
     colnames(mod.sum.1B) <- c("vars", "mean", "sd", "2.5%", "25%", "median", "75%", "97.5%", "Rhat", "n.eff")
     m.rows.1B <- grep("^m\\[", mod.sum.1B$vars)
@@ -54,8 +56,8 @@ assessment.year <- 2025
     
   #SPA3---------------------------      
     
-    modfile.3 <- read.xlsx("Y:/Inshore/BoF/",assessment.year,"/Assessment/Data/Model/SPA3/SPA3_ModelData_R_2025-10-20.xlsx",sheet = "AlignedForModel", cols=1:13)#CHECK FILE NAME
-    mod.sum.3 <- read.csv("Y:/Inshore/BoF/",assessment.year,"/Assessment/Data/Model/SPA3/Spa3ModelOutput.csv")
+    modfile.3 <- read.xlsx(paste0(direct,assessment.year,"/Assessment/Data/Model/SPA3/SPA3_ModelData_R_2025-10-20.xlsx",sheet = "AlignedForModel", cols=1:13)#CHECK FILE NAME
+    mod.sum.3 <- read.csv(paste0(direct,assessment.year,"/Assessment/Data/Model/SPA3/Spa3ModelOutput.csv")
     
     colnames(mod.sum.3) <- c("vars", "mean", "sd", "2.5%", "25%", "median", "75%", "97.5%", "Rhat", "n.eff")
     m.rows.3 <- grep("^m\\[", mod.sum.3$vars)
@@ -74,8 +76,8 @@ assessment.year <- 2025
     
   #SPA4--------------------------- 
     
-    modfile.4 <- read.xlsx("Y:/Inshore/BoF/",assessment.year,"/Assessment/Data/Model/SPA4/SPA4_ModelData_R_2025-10-20.xlsx",sheet = "AlignedForModel", cols=1:13)#CHECK FILE NAME
-    mod.sum.4 <- read.csv("Y:/Inshore/BoF/",assessment.year,"/Assessment/Data/Model/SPA4/Spa4ModelOutput.csv")
+    modfile.4 <- read.xlsx(paste0(direct,assessment.year,"/Assessment/Data/Model/SPA4/SPA4_ModelData_R_2025-10-20.xlsx",sheet = "AlignedForModel", cols=1:13)#CHECK FILE NAME
+    mod.sum.4 <- read.csv(paste0(direct,assessment.year,"/Assessment/Data/Model/SPA4/Spa4ModelOutput.csv")
     
     colnames(mod.sum.4) <- c("vars", "mean", "sd", "2.5%", "25%", "median", "75%", "97.5%", "Rhat", "n.eff")
     m.rows.4 <- grep("^m\\[", mod.sum.4$vars)
@@ -94,8 +96,8 @@ assessment.year <- 2025
     
 #SPA6---------------------------  
 
-    modfile.6 <- read.xlsx("Y:/Inshore/BoF/",assessment.year,"/Assessment/Data/Model/SPA6/SPA6_ModelData_R_2025-10-16.xlsx",sheet = "AlignedForModel", cols=1:13)#CHECK FILE NAME
-    mod.sum.6 <- read.csv("Y:/Inshore/BoF/",assessment.year,"/Assessment/Data/Model/SPA6/Spa6ModelOutput.csv")
+    modfile.6 <- read.xlsx(paste0(direct,assessment.year,"/Assessment/Data/Model/SPA6/SPA6_ModelData_R_2025-10-16.xlsx",sheet = "AlignedForModel", cols=1:13)#CHECK FILE NAME
+    mod.sum.6 <- read.csv(paste0(direct,assessment.year,"/Assessment/Data/Model/SPA6/Spa6ModelOutput.csv")
   
     colnames(mod.sum.6) <- c("vars", "mean", "sd", "2.5%", "25%", "median", "75%", "97.5%", "Rhat", "n.eff")
     m.rows.6 <- grep("^m\\[", mod.sum.6$vars)
@@ -116,7 +118,7 @@ assessment.year <- 2025
   
 all.mort <- rbind(mort.1A, mort.1B, mort.3, mort.4, mort.6)
     
-write.csv(all.mort, paste0("Y:/Inshore/BoF/",assessment.year,"/Assessment/Data/Model/BoF_Proportional_Natural_Mortality_",assessment.year,".csv"), row.names = F)
+write.csv(all.mort, paste0(paste0(direct,assessment.year,"/Assessment/Data/Model/BoF_Proportional_Natural_Mortality_",assessment.year,".csv"), row.names = F)
     
 ###########################################################################################################################################################
 
@@ -124,7 +126,7 @@ write.csv(all.mort, paste0("Y:/Inshore/BoF/",assessment.year,"/Assessment/Data/M
 
 #SPA1A---------------------------
 
-mu.1A <- read.csv(paste0(dir,year,"/Assessment/Data/Model/SPA1A/spa1aModelOutput.csv"), header=T)
+mu.1A <- read.csv(paste0(direct,assessment.year,"/Assessment/Data/Model/SPA1A/spa1aModelOutput.csv"), header=T)
 mu.1A <- mu.1A %>%
   filter(str_detect(X, "mu")) %>%
   mutate(X = parse_number(X)) %>%
@@ -136,7 +138,7 @@ mu.1A$X <- c((1997):(1996+nrow(mu.1A)))
 
 #SPA1B---------------------------   
 
-mu.1B <- read.csv(paste0(dir,year,"/Assessment/Data/Model/SPA1B/spa1BModelOutput.csv"), header=T)
+mu.1B <- read.csv(paste0(direct,assessment.year,"/Assessment/Data/Model/SPA1B/spa1BModelOutput.csv"), header=T)
 mu.1B <- mu.1B %>%
   filter(str_detect(X, "mu")) %>%
   mutate(X = parse_number(X)) %>%
@@ -148,7 +150,7 @@ mu.1B$X <- c((1997):(1996+nrow(mu.1B)))
 
 #SPA3---------------------------      
 
-mu.3 <- read.csv(paste0(dir,year,"/Assessment/Data/Model/SPA3/spa3ModelOutput.csv"), header=T)
+mu.3 <- read.csv(paste0(paste0(direct,assessment.year,"/Assessment/Data/Model/SPA3/spa3ModelOutput.csv"), header=T)
 mu.3 <- mu.3 %>%
   filter(str_detect(X, "mu")) %>%
   mutate(X = parse_number(X)) %>%
@@ -160,7 +162,7 @@ mu.3$X <- c((1996):(1995+nrow(mu.3)))
 
 #SPA4--------------------------- 
 
-mu.4 <- read.csv(paste0(dir,year,"/Assessment/Data/Model/SPA4/spa4ModelOutput.csv"), header=T)
+mu.4 <- read.csv(paste0(paste0(direct,assessment.year,"/Assessment/Data/Model/SPA4/spa4ModelOutput.csv"), header=T)
 mu.4 <- mu.4 %>%
   filter(str_detect(X, "mu")) %>%
   mutate(X = parse_number(X)) %>%
@@ -172,7 +174,7 @@ mu.4$X <- c((1983):(1982+nrow(mu.4)))
 
 #SPA6---------------------------  
 
-mu.6 <- read.csv(paste0(dir,year,"/Assessment/Data/Model/SPA6/spa6ModelOutput.csv"), header=T)
+mu.6 <- read.csv(paste0(paste0(direct,assessment.year,"/Assessment/Data/Model/SPA6/spa6ModelOutput.csv"), header=T)
 mu.6 <- mu.6 %>%
   filter(str_detect(X, "mu")) %>%
   mutate(X = parse_number(X)) %>%
@@ -186,39 +188,39 @@ mu.6$X <- c((2006):(2005+nrow(mu.6)))
 
 all.mu <- rbind(mu.1A, mu.1B, mu.3, mu.4, mu.6)
 
-write.csv(all.mu, paste0("Y:/Inshore/BoF/",assessment.year,"/Assessment/Data/Model/BoF_Exploitation_timeseries_",assessment.year,".csv"), row.names = F)
+write.csv(all.mu, paste0(direct,assessment.year,"/Assessment/Data/Model/BoF_Exploitation_timeseries_",assessment.year,".csv"), row.names = F)
 
 ###############################################################################################################################################################
 
 ##### change in condition as percent #####
 
-condition.1A <- read.csv(paste0("Y:/Inshore/BoF/",assessment.year,"/Assessment/Data/SurveyIndices/SPA1A1B4and5/BoF_ConditionTimeSeries.csv"))
+condition.1A <- read.csv(paste0(direct,assessment.year,"/Assessment/Data/SurveyIndices/SPA1A1B4and5/BoF_ConditionTimeSeries.csv"))
 
 condition.1A <- condition.1A %>% filter(STRATA == "SPA1A") %>% mutate(AREA = "SPA1A")
 condition.1A
 #median(condition.1A %>% filter(YEAR != 2020) %>% select(CONDITION) %>% pull())
 
-condition.1B <- read.csv(paste0("Y:/Inshore/BoF/",assessment.year,"/Assessment/Data/SurveyIndices/SPA1A1B4and5/BoF_ConditionTimeSeries.csv"))
+condition.1B <- read.csv(paste0(direct,assessment.year,"/Assessment/Data/SurveyIndices/SPA1A1B4and5/BoF_ConditionTimeSeries.csv"))
 condition.1B <- condition.1B %>% filter(STRATA == "SPA1B") %>% mutate(AREA = "SPA1B")
 condition.1B
 #median(condition.1B %>% filter(YEAR != 2020) %>% select(CONDITION) %>% pull())
 
-condition.3 <- read.csv(paste0("Y:/Inshore/BoF/",assessment.year,"/Assessment/Data/SurveyIndices/SPA3/SPA3_ConditionTimeSeries.csv"))
+condition.3 <- read.csv(paste0(direct,assessment.year,"/Assessment/Data/SurveyIndices/SPA3/SPA3_ConditionTimeSeries.csv"))
 condition.3 <- condition.3 %>% filter(STRATA == "InVMS_SMB") %>% select(!X) %>% mutate(AREA = "SPA3")
 condition.3
 #median(condition.3 %>% filter(YEAR != 2020) %>% select(CONDITION) %>% pull())
 
-condition.4 <- read.csv(paste0("Y:/Inshore/BoF/",assessment.year,"/Assessment/Data/SurveyIndices/SPA1A1B4and5/BoF_ConditionTimeSeries.csv"))
+condition.4 <- read.csv(paste0(direct,assessment.year,"/Assessment/Data/SurveyIndices/SPA1A1B4and5/BoF_ConditionTimeSeries.csv"))
 condition.4 <- condition.4 %>% filter(STRATA == "SPA4") %>% mutate(AREA = "SPA4")
 condition.4
 #median(condition.4 %>% filter(YEAR != 2020) %>% select(CONDITION) %>% pull())
 
-condition.6 <- read.csv(paste0("Y:/Inshore/BoF/",assessment.year,"/Assessment/Data/SurveyIndices/SPA6/SPA6_ConditionTimeSeries.csv"))
+condition.6 <- read.csv(paste0(direct,assessment.year,"/Assessment/Data/SurveyIndices/SPA6/SPA6_ConditionTimeSeries.csv"))
 condition.6 <- condition.6 %>% filter(STRATA == "INVMS" & YEAR >= 2006) %>% select(!X) %>% mutate(AREA = "SPA6")
 condition.6
 #median(condition.6 %>% filter(YEAR != 2020) %>% select(CONDITION) %>% pull())
 
 condition.all <- rbind(condition.1A, condition.1B, condition.3, condition.4, condition.6)
 
-write.csv(condition.all, paste0("Y:/Inshore/BoF/",assessment.year,"/Assessment/Data/Model/BoF_condition_timeseries_",assessment.year,".csv"), row.names = F)
+write.csv(condition.all, paste0(direct,assessment.year,"/Assessment/Data/Model/BoF_condition_timeseries_",assessment.year,".csv"), row.names = F)
 

@@ -37,7 +37,8 @@ pwd <- pw.sameotoj
 surveyyear <- 2025  #This is the last survey year 
 assessmentyear <- 2025 #year in which you are conducting the survey 
 area <- "3"  #SPA assessing recall SPA 1A, 1B, and 4 are grouped; options: "1A1B4and5", "3", "6"
-path.directory <- "Y:/Inshore/BoF/"
+path.directory <- "Z:/Inshore/Assessment/BoF/"
+#path.directory <- "Y:/Inshore/BoF/"
 
 
 #Query shell height data from database
@@ -79,7 +80,8 @@ table(BIliveweight$YEAR)
 # ---- post-stratify SPA3 for VMS strata ----
 #polygon to for assigning new strata to data
 #spa3area <- read.csv("Y:/Offshore scallop/Assessment/Data/Maps/approved/Other_Borders/SPA3_VMSpoly.csv")
-spa3area <- read.csv("Y:/Inshore/Databases/Scallsur/SPA3/SPA3_VMSpoly.csv")
+#spa3area <- read.csv("Y:/Inshore/Databases/Scallsur/SPA3/SPA3_VMSpoly.csv")
+spa3area <- read.csv("Z:/Inshore/Databases/Scallsur/SPA3/SPA3_VMSpoly.csv")
 
 #adjust data files for subsequent analysis
 BIlivefreq.dat$lat<-convert.dd.dddd(BIlivefreq.dat$START_LAT)

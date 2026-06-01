@@ -31,8 +31,6 @@
 # perform spatial checks of SPA6 logs: plot and check logs where coordinates fall on land or areas not normally fished, correct positions in SCALLOP db if necessary
 # update SPA6_TACandLandings_YYYY.xlsx with TAC and landings from area cap monitoring report and save in the current assessment folder: Y:\Inshore\BoF\YYYY\Assessment\Data\CommercialData
 # ensure date format in your SQL Developer profile is set to YYYY-MM-DD
-
-
 	
 library(ROracle)
 library (PBSmapping)
@@ -72,8 +70,10 @@ library(lubridate)
 	CPUE_spa6_combined <- read.csv(paste0(direct,"/",(assessmentyear-1),"/Assessment/Data/CommercialData/CPUE_spa6_combined_", (fishingyear-1), ".csv")) 	
 
 	#polygons for assigning VMS strata to data
-	spa6IN<-read.csv("Y:/Inshore/Databases/Scallsur/SPA6_SurveyStrata/2015/SPA6_VMS_IN_R_final.csv")
-	spa6OUT<-read.csv("Y:/Inshore/Databases/Scallsur/SPA6_SurveyStrata/2015/SPA6_VMS_OUT_R_final.csv")	
+	spa6IN<-read.csv("Z:/Inshore/Databases/Scallsur/SPA6_SurveyStrata/2015/SPA6_VMS_IN_R_final.csv")
+	spa6OUT<-read.csv("Z:/Inshore/Databases/Scallsur/SPA6_SurveyStrata/2015/SPA6_VMS_OUT_R_final.csv")
+	#spa6IN<-read.csv("Y:/Inshore/Databases/Scallsur/SPA6_SurveyStrata/2015/SPA6_VMS_IN_R_final.csv")
+	#spa6OUT<-read.csv("Y:/Inshore/Databases/Scallsur/SPA6_SurveyStrata/2015/SPA6_VMS_OUT_R_final.csv")
 	attr(spa6IN,"projection") <- "LL"
 	attr(spa6OUT,"projection") <- "LL"
 	
@@ -622,19 +622,4 @@ library(lubridate)
 #   #save
 #   ggsave(filename = paste0(direct, "/",assessmentyear,"/Assessment/Figures/CommercialData/SPA6_RefPts",fishingyear, "_FR",".png"), width = 24, height = 20, dpi = 400,units='cm')
     
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
 

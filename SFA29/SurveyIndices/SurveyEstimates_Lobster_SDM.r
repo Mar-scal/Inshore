@@ -12,7 +12,7 @@ library(tidyverse)
 library(ggplot2)
 library(ROracle)
 
-setwd('Y:/Inshore/BoF/Assessment_fns/SFA29W')
+setwd('Z:/Inshore/Assessment/BoF/Assessment_fns/SFA29W')
 source('Geophysicalareas.R')
 source('SedimentareasSFA29.R')
 source('Domainestimates.R')
@@ -28,7 +28,7 @@ SFA292005to2007sediment  <- SFA292005to2007sediment [,c("uid","surf")]
 names(SFA292005to2007sediment ) <- c("uid","Start.Bottom")
 
 #DEFINE:
-path.directory <- "Y:/Inshore/SFA29/"
+path.directory <- "Z:/Inshore/Assessment/SFA29/"
 assessmentyear <- 2026 #year in which you are conducting the assessment 
 surveyyear <- 2025  #last year of survey data you are using, e.g. if max year of survey is survey from summer 2019, this would be 2019 
 uid <- un.sameotoj
@@ -37,7 +37,7 @@ pwd <- pw.sameotoj
 #pwd <- keyring::key_get("Oracle", uid)
 
 #Bring in survey tow data with SDM value (note - SFA29_SDM_LWM.R script must be run to get updated survey tows with SDM values prior to runnint this script)
-sdmtows <- read.csv("Y:/Inshore/SFA29/ScalSurv_SDM/SFA29Tows_SDM.csv")
+sdmtows <- read.csv("Z:/Inshore/Assessment/SFA29/ScalSurv_SDM/SFA29Tows_SDM.csv")
 table(sdmtows$CRUISE)
 sdmtows$uid <- paste(sdmtows$CRUISE, sdmtows$TOW_NO, sep=".")
 sdmtows <- sdmtows[,c("uid","SDM")]

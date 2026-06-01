@@ -59,10 +59,10 @@ cruise <- "'SFA292025'"
 #yr.crnt <- yr-1
 #years <- c(2001:(yr-1))
 
-path.directory <- "Y:/Inshore/SFA29/"
+path.directory <- "Z:/Inshore/Assessment/SFA29/"
 
 #set up directory to save plot
-saveplot.dir <- paste0("Y:/Inshore/SFA29/",assessmentyear,"/Assessment/Figures/") 
+saveplot.dir <- paste0("Z:/Inshore/Assessment/SFA29/",assessmentyear,"/Assessment/Figures/") 
 #set up a directory for french figures
 saveplot.dir.fr <- paste0(saveplot.dir,"FrenchFigures_indicies/")
 
@@ -190,7 +190,7 @@ sampled.dat <- dbGetQuery(chan, quer3)
 #ScallopSurv.kg <- read.csv(paste0("Y:/INSHORE SCALLOP/SFA29/",assessmentyear,"/dataoutput/SFA29liveweight",survey.year,".csv"))
 
 #Multiple years - DEFINE
-ScallopSurv.kg <- read.csv(paste0("Y:/Inshore/SFA29/",assessmentyear,"/Assessment/Data/SurveyIndices/SFA29liveweight2014to",survey.year,".csv"))  
+ScallopSurv.kg <- read.csv(paste0("Z:/Inshore/Assessment/SFA29/",assessmentyear,"/Assessment/Data/SurveyIndices/SFA29liveweight2014to",survey.year,".csv"))  
 #ScallopSurv.kg <- read.csv("Y:/Inshore/SFA29/2020/dataoutput/SFA29liveweight2014to2019.csv")  
 
 # 2014 to current year
@@ -207,7 +207,7 @@ ScallopSurv.kg <- ScallopSurv.kg %>% dplyr::select(-X) %>%  #removes index colum
 
 #Condition data is read in from the previously generated "ConditionforMapYYYY.csv" files in Y:\INSHORE SCALLOP\SFA29\YYYY\dataoutput directories.
 
-con.dat <- read.csv(paste0("Y:/Inshore/SFA29/",assessmentyear,"/Assessment/Data/SurveyIndices/SFA29ConditionforMap",survey.year,".csv")) #NOTE: 2014 file made by Jessica (..._JS.csv), will be slightly different than for 2015 assessment since Stephen calculated this using smaller dataset for mtwt sh model
+con.dat <- read.csv(paste0("Z:/Inshore/Assessment/SFA29/",assessmentyear,"/Assessment/Data/SurveyIndices/SFA29ConditionforMap",survey.year,".csv")) #NOTE: 2014 file made by Jessica (..._JS.csv), will be slightly different than for 2015 assessment since Stephen calculated this using smaller dataset for mtwt sh model
 #con.dat <- read.csv("Y:/Inshore/SFA29/2020/dataoutput/ConditionforMap2019.csv") 
 
 con.dat <- con.dat %>% dplyr::select(-X) %>%  #removes index column X

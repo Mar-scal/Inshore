@@ -45,7 +45,7 @@ require(ggspatial)
 #set year 
 survey.year <- 2024  #removed maxyear in script and changed to survey year
 assessmentyear <- 2025 #year in which you are providing advice for- determines where to save files to
-path.directory <- "Y:/Inshore/SFA29/"
+path.directory <- "Z:/Inshore/Assessment/SFA29/"
 cruise <- "'SFA292024'"
 
 #set up directory to save plot
@@ -284,7 +284,7 @@ plot <- ggplot(prop_data_4plot) +
 plot
 
 #save
-ggsave(filename = paste0("Y:/Inshore/SFA29/",assessmentyear,"/Assessment/Figures/Disease_Metrics/Proportion_of_DiscolouredSamples_by_SUBAREA.png"), plot = plot, scale = 2.5, width = 6, height = 6, dpi = 300, units = "cm", limitsize = TRUE)
+ggsave(filename = paste0("Z:/Inshore/Assessment/SFA29/",assessmentyear,"/Assessment/Figures/Disease_Metrics/Proportion_of_DiscolouredSamples_by_SUBAREA.png"), plot = plot, scale = 2.5, width = 6, height = 6, dpi = 300, units = "cm", limitsize = TRUE)
 
 #line plot:
 
@@ -297,15 +297,15 @@ line_plot <- ggplot(proportions_data)+
 line_plot
 
 #save
-ggsave(filename = paste0("Y:/Inshore/SFA29/",assessmentyear,"/Assessment/Figures/Disease_Metrics/Proportion_of_discolouredmeats_by_SUBAREA_lineplot.png"), plot = line_plot, scale = 2.5, width = 6, height = 6, dpi = 300, units = "cm", limitsize = TRUE)
+ggsave(filename = paste0("Z:/Inshore/Assessment/SFA29/",assessmentyear,"/Assessment/Figures/Disease_Metrics/Proportion_of_discolouredmeats_by_SUBAREA_lineplot.png"), plot = line_plot, scale = 2.5, width = 6, height = 6, dpi = 300, units = "cm", limitsize = TRUE)
 
 #Save as .CSV-----------------------------------------
 #By Tow
-write.csv(greymeat.datw, paste0("Y:/Inshore/SFA29/",assessmentyear,"/Assessment/Data/SurveyIndices/Disease_Metrics/Discoloured_Meats_By_Tow.csv"))
+write.csv(greymeat.datw, paste0("Z:/Inshore/Assessment/SFA29/",assessmentyear,"/Assessment/Data/SurveyIndices/Disease_Metrics/Discoloured_Meats_By_Tow.csv"))
 #By SPA
 proportions_data <- proportions_data %>% 
   select(-Normal.prop, -prop.check)
-write.csv(proportions_data, paste0("Y:/Inshore/SFA29/",assessmentyear,"/Assessment/Data/SurveyIndices/Disease_metrics/Discoloured_Meats_By_SUBAREA.csv"))
+write.csv(proportions_data, paste0("Z:/Inshore/Assessment/SFA29/",assessmentyear,"/Assessment/Data/SurveyIndices/Disease_metrics/Discoloured_Meats_By_SUBAREA.csv"))
 
 # SPATIAL PLOTS -----------------------------------------------------------
 

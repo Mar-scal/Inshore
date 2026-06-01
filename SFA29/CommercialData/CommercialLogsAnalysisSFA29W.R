@@ -23,7 +23,8 @@ require(openxlsx)
 require(sf)
 
 
-source("Y:/Inshore/BoF/Assessment_fns/convert.dd.dddd.r")
+source("Z:/Inshore/Assessment/BoF/Assessment_fns/convert.dd.dddd.r")
+#source("Y:/Inshore/BoF/Assessment_fns/convert.dd.dddd.r")
 
 
 #### DEFINE ####
@@ -33,7 +34,7 @@ fishingyear <- 2025 #most recent year of commercial fishing data to be used (e.g
 assessmentyear <- 2026 #year in which you are conducting the assessment
 un.ID=Sys.getenv("un.raperj") #ptran username
 pwd.ID=Sys.getenv("pw.raperj") #ptran password
-ess <- "Y" #identify ess drive
+sky <- "Z" #identify Sky drive
 
 #### Import Mar-scal functions for Pectinid Projector
 
@@ -61,8 +62,8 @@ CPUE_byYrAreaFleet <- read.csv(paste0(direct,"/", (assessmentyear-1), "/Assessme
 CPUE_bySubarea <- read.csv(paste0(direct, "/", (assessmentyear-1), "/Assessment/Data/CommercialData/SFA29_CPUE_bySubarea_", (fishingyear-1), ".csv"))
 
 #Polygons for spatial plots
-poly.sf <- st_read(paste0(ess,":/Inshore/Databases/Scallsur/SFA29BottomTypes/SFA29_shp"),layer = "SFA29_BoundariesFollowing12nmDD_NoSubareas_WGS84")
-poly.subareas <- st_read(paste0(ess,":/Inshore/Databases/Scallsur/SFA29BottomTypes/SFA29_shp"),layer = "SFA29_subareas_utm19N")
+poly.sf <- st_read(paste0(sky,":/Inshore/Databases/Scallsur/SFA29BottomTypes/SFA29_shp"),layer = "SFA29_BoundariesFollowing12nmDD_NoSubareas_WGS84")
+poly.subareas <- st_read(paste0(sky,":/Inshore/Databases/Scallsur/SFA29BottomTypes/SFA29_shp"),layer = "SFA29_subareas_utm19N")
 
 #### Select data #### 
 
