@@ -1,6 +1,6 @@
 ## 29 Bycatch calculations 2023 (for 2020-2021 fishery)
 
-direct <- "Y:/Inshore/SFA29/2026/Assessment/Data/CommercialData/Bycatch/"
+direct <- "Z:/Inshore/Assessment/SFA29/2026/Assessment/Data/CommercialData/Bycatch/"
 
 discards <- read.csv(paste0(direct, "discard sums from sql_2025.csv"))
 names(discards)

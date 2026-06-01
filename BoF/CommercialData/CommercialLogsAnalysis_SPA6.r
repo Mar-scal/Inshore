@@ -46,7 +46,7 @@ library(lubridate)
 
 #### DEFINE ####
 	
-	direct <- "Y:/Inshore/BoF"
+	direct <- "Z:/Inshore/Assessment/BoF"
 	fishingyear <- 2026 #most recent year of commercial fishing data to be used (e.g. if fishing season is 2019/2020, use 2020)
 	assessmentyear <- 2026 #year in which you are conducting the assessment
 	un.ID=Sys.getenv("un.raperj") #ptran username
@@ -78,12 +78,12 @@ library(lubridate)
 	attr(spa6OUT,"projection") <- "LL"
 	
 	 #polygons for spatial plots
-	 poly.sf <- st_read("Y:/Inshore/Databases/Scallsur/SPA6_SurveyStrata/SPA6_all", layer = "SPA6_wgs84")
-	 poly.VMSIN <- st_read("Y:/Inshore/Databases/Scallsur/SPA6_SurveyStrata/2015", layer = "SPA6_VMSStrata_IN_2015")
-	 poly.6A <- st_read("Y:/Inshore/BoFBoundaries/SPABoundaries_Redrawn2014/SPA New Polys/shp polygons", layer = "SPA6A_polygon_NAD83")
-	 poly.6B <- st_read("Y:/Inshore/BoFBoundaries/SPABoundaries_Redrawn2014/SPA New Polys/shp polygons", layer = "SPA6B_polygon_NAD83")
-	 poly.6C <- st_read("Y:/Inshore/BoFBoundaries/SPABoundaries_Redrawn2014/SPA New Polys/shp polygons", layer = "SPA6C_polygon_NAD83")
-	 poly.6D <- st_read("Y:/Inshore/BoFBoundaries/SPABoundaries_Redrawn2014/SPA New Polys/shp polygons", layer = "SPA6D_polygon_NAD83")
+	 poly.sf <- st_read("Z:/Inshore/Databases/Scallsur/SPA6_SurveyStrata/SPA6_all", layer = "SPA6_wgs84")
+	 poly.VMSIN <- st_read("Z:/Inshore/Databases/Scallsur/SPA6_SurveyStrata/2015", layer = "SPA6_VMSStrata_IN_2015")
+	 poly.6A <- st_read("Z:/GISdata/Private/BoFBoundaries/SPABoundaries_Redrawn2014/SPA New Polys/shp polygons", layer = "SPA6A_polygon_NAD83")
+	 poly.6B <- st_read("Z:/GISdata/Private/BoFBoundaries/SPABoundaries_Redrawn2014/SPA New Polys/shp polygons", layer = "SPA6B_polygon_NAD83")
+	 poly.6C <- st_read("Z:/GISdata/Private/BoFBoundaries/SPABoundaries_Redrawn2014/SPA New Polys/shp polygons", layer = "SPA6C_polygon_NAD83")
+	 poly.6D <- st_read("Z:/GISdata/Private/BoFBoundaries/SPABoundaries_Redrawn2014/SPA New Polys/shp polygons", layer = "SPA6D_polygon_NAD83")
 	 Land <- st_read("Z:/GISdata/Private/AtlanticUSCdnCoast", layer = "MAR_Maine")
 
 
