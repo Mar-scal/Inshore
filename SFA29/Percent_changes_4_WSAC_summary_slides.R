@@ -3,7 +3,7 @@ library(tidyverse)
 
 #Percent changes
 
-condition <- read.csv("Y:/Inshore/SFA29/2026/Assessment/Data/SurveyIndices/SFA29W_ConditionTimeSeries2001to2025.csv")
+condition <- read.csv("Z:/Inshore/Assessment/SFA29/2026/Assessment/Data/SurveyIndices/SFA29W_ConditionTimeSeries2001to2025.csv")
 
 
 
@@ -46,7 +46,7 @@ con.yr.tminus1 <- condition %>% filter(YEAR == YR-1 & STRATA == "SFA29E") %>% se
 
 YR <- 2025
 
-rel.exp <- read.csv("Y:/Inshore/SFA29/2026/Assessment/Data/SurveyIndices/expected.rel.exploitation.csv")
+rel.exp <- read.csv("Z:/Inshore/Assessment/SFA29/2026/Assessment/Data/SurveyIndices/expected.rel.exploitation.csv")
 
 ## Subarea A
 rel.exp.yr.t <- rel.exp %>% filter(YEAR == YR & SUBAREA == "SFA29A") %>% select(mu)

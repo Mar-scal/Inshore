@@ -31,11 +31,13 @@ library(lubridate)
 library(readxl)
 library(tidyverse)
 #library(SSModel) #v 1.0-5
-source("Y:/Inshore/SFA29/2017/model/SFA29model9-2015.R") #contains the SFA29model model (BUGS) 
+source("Z:/Inshore/Assessment/SFA29/2017/model/SFA29model9-2015.R") #contains the SFA29model model (BUGS) 
+#source("Y:/Inshore/SFA29/2017/model/SFA29model9-2015.R") #contains the SFA29model model (BUGS)
 
 
 #DEFINE:
-path.directory <- "Y:/Inshore/SFA29/"
+path.directory <- "Z:/Inshore/Assessment/SFA29/"
+#path.directory <- "Y:/Inshore/SFA29/"
 assessmentyear <- 2026 #year in which you are conducting the assessment 
 surveyyear <- 2025  #last year of survey data you are using, e.g. if max year of survey is survey from summer 2019, this would be 2019 
 area <- "SFA29A"  
@@ -385,7 +387,7 @@ save(pe.pred,file=paste0(path.directory,assessmentyear,"/Assessment/Data/Model/S
 # Assuming you haven't re-run everything above and wasted several hours of you life
 # we need to bring in all the prediction evaluation data we have....
 # Now load all the old pe.pred results, first identify where to find the data...
-direct <- "Y:/Inshore/SFA29/"
+direct <- "Z:/Inshore/Assessment/SFA29/"
 #direct <- "D:/r/Inshore/SFA29W"
 pe.all <- NULL
 for(i in 2016:pe.years) {

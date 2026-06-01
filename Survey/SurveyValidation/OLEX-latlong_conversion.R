@@ -5,7 +5,7 @@
 ###  VERIFY THE COORDINATES MATCH THE RECORDS IN FIELD NOTEBOOK  ##
 
 #CONSIDERATIONS 
-# - Data points for large pelagics - how are these formatted in olex output? - may be entered as "Grønnramme" in between tracklines
+# - Data points for large pelagics - how are these formatted in olex output? - may be entered as "Gr?nnramme" in between tracklines
 # - Tracklines that are ended during a tow and started again will need to be identified and start and end coords will need to be checked.
 # - if anything is entered during the survey that are not tracklines - will need to check (i.e. notes of whales etc.)
 # - check number of tows and number of track logs match
@@ -101,14 +101,15 @@ strata <- st_read(paste0(temp2, "/PolygonSCSTRATAINFO_rm46-26-57.shp"))
 #Import olex data:
 
 #Norwegian translation according to Google:
-#Grønnramme - basic framework
+#Gr?nnramme - basic framework
 #Navn - name
 #Rute uten navn- Route without name
 #Garnstart - start
 #Garnstopp - stop
 #Brunsirkel - brown circle (points along trackline?)
 
-zz <- read.csv(gzfile('Y:/Inshore/Survey/OLEX tow tracks/2023/20230711.gz'))
+zz <- read.csv(gzfile('Z:/Inshore/Survey/OLEX tow tracks/2023/20230711.gz'))
+#zz <- read.csv(gzfile('Y:/Inshore/Survey/OLEX tow tracks/2023/20230711.gz'))
 
 str(zz)
 zz$Ferdig.forenklet <- as.character(zz$Ferdig.forenklet)
@@ -121,16 +122,16 @@ zz <- cSplit(zz, "Ferdig.forenklet", sep = " ", type.convert = FALSE)
 #  mutate(Latitude = as.numeric(Ferdig.forenklet_1)/60) %>% 
 #  mutate(Longitude = as.numeric(Ferdig.forenklet_2)/60)
 
-#Occasionally a "Grønnramme" occurs where a "Garnstopp" should be or between tow tracks. 
+#Occasionally a "Gr?nnramme" occurs where a "Garnstopp" should be or between tow tracks. 
 #RUN but Check if number of "Garnstart" == "Garnstopp"!! 
-zz <- zz %>% filter(Ferdig.forenklet_4 %in% c("Garnstart", "Garnstopp", "Grønnramme")) %>% 
+zz <- zz %>% filter(Ferdig.forenklet_4 %in% c("Garnstart", "Garnstopp", "Gr?nnramme")) %>% 
   dplyr::select(Ferdig.forenklet_1, Ferdig.forenklet_2, Ferdig.forenklet_4) %>% 
   mutate(Latitude = as.numeric(Ferdig.forenklet_1)/60) %>% 
   mutate(Longitude = as.numeric(Ferdig.forenklet_2)/60)
 
 View(zz)
 
-#Select the row where the track data starts (i.e. the first "Garnstart"). Check for "Grønnramme".
+#Select the row where the track data starts (i.e. the first "Garnstart"). Check for "Gr?nnramme".
 zz <- zz[120:nrow(zz)] #[Row# where "Garnstart" first occurs: to end of data]  #Most likely its however many stations there are, but could be more if observations were added.
 
 #Convert decimal degrees to decimal minutes seconds.
@@ -146,7 +147,7 @@ zz.start <- zz %>% filter(Ferdig.forenklet_4 == "Garnstart") %>%
 zz.start$Start_lat <- trunc(zz.start$Start_lat*10^3)/10^3
 zz.start$Start_long <- trunc(zz.start$Start_long*10^3)/10^3
 
-zz.end <- zz %>% filter(Ferdig.forenklet_4 %in% c("Garnstopp")) %>% #"Grønnramme"
+zz.end <- zz %>% filter(Ferdig.forenklet_4 %in% c("Garnstopp")) %>% #"Gr?nnramme"
   dplyr::rename(End_lat = Latitude.deg) %>% 
   dplyr::rename(End_long = Longitude.deg) %>% 
   dplyr::select(End_lat, End_long, End_lat_dec = Latitude, End_long_dec = Longitude)
@@ -181,7 +182,7 @@ coords.sf <- coords.sf %>%
 strata.match <- st_intersection(SFA29 , coords.sf)
 strata.match <- strata.match %>% dplyr::select(ET_ID, ID)
 
-#SFA29W - All points should have strata, and spa matches. If there are discrepincies - check 
+#SFA29W - All points should have strata, and spa matches. If there are discrepancies - check 
 coords.sf <- coords.sf %>% 
   st_join(strata.match,by = "ID", suffix = c("", ".y")) %>% 
   dplyr::select(ID, Start_lat, Start_long, End_lat, End_long, ET_ID)
@@ -203,12 +204,12 @@ mapview::mapview(coords.sf) + #%>% filter(ID %in% c(96,98)) #option to filter ou
 coords.sf <- coords.sf%>% 
   st_drop_geometry()
 
-write.csv(coords.sf, "Y:/Inshore/Survey/OLEX tow tracks/Olex-latlong_conversion/GM2023_coords_check.csv")
+write.csv(coords.sf, "Z:/Inshore/Survey/OLEX tow tracks/Olex-latlong_conversion/GM2023_coords_check.csv")
 
 ###########################################################################################################
 
 #check file
-tow <- read.csv("Y:/Inshore/Survey/2023/DataEntry/GM2023/GM2023tow_CONVERTED.csv")
+tow <- read.csv("Z:/Inshore/Survey/2023/DataEntry/GM2023/GM2023tow_CONVERTED.csv")
 
 #Convert decimal degrees to decimal minutes seconds.
 tow$Start_Latitude <- convert.dd.dddd(tow$Start_lat, format = 'dec.deg')

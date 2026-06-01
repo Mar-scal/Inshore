@@ -55,7 +55,8 @@ pwd <- keyring::key_get("Oracle", uid)
 #set year 
 survey.year <- 2025  #survey year
 assessmentyear <- 2025 #year in which you are providing advice for- determines where to save files to
-path.directory <- "Y:/Inshore/BoF/"
+path.directory <- "Z:/Inshore/Assessment/BoF/"
+#path.directory <- "Y:/Inshore/BoF/"
 
 #set up directory to save plot
 saveplot.dir <- paste0(path.directory,assessmentyear,"/Assessment/Figures/")
@@ -171,7 +172,7 @@ myco.datw <- merge(myco.datw, tow.dat, by = "ID", all.x = TRUE) %>%
  
 # #Saves files by cruise
 # for(i in unique(myco.datw$CRUISE)){
-#   write.csv(myco.datw %>% filter(year == survey.year & CRUISE == i), paste0("Y:/Inshore/BoF/",survey.year,"/Assessment/Data/SurveyIndices/",i,"towsdd_MYCOprop.csv"))
+#   write.csv(myco.datw %>% filter(year == survey.year & CRUISE == i), paste0(path.directory,survey.year,"/Assessment/Data/SurveyIndices/",i,"towsdd_MYCOprop.csv"))
 # }
 # 
 # write.csv(myco.datw, "Y:/Inshore/BoF/",survey.year,"/Assessment/Data/SurveyIndices/BF2023towsdd_MYCOprop.csv")
@@ -216,7 +217,9 @@ plot <- ggplot(prop_data_4plot) +
 plot
 
 #save
-ggsave(filename = paste0("Y:/Inshore/BoF/",assessmentyear,"/Assessment/Figures/Disease_Metrics/Proportion_of_Myco_by_SPA.png"), plot = plot, scale = 2.5, width = 6, height = 6, dpi = 300, units = "cm", limitsize = TRUE)
+ggsave(filename = paste0(path.directory,assessmentyear,"/Assessment/Figures/Disease_Metrics/Proportion_of_Myco_by_SPA.png"), plot = plot, scale = 2.5, width = 6, height = 6, dpi = 300, units = "cm", limitsize = TRUE)
+
+#ggsave(filename = paste0("Y:/Inshore/BoF/",assessmentyear,"/Assessment/Figures/Disease_Metrics/Proportion_of_Myco_by_SPA.png"), plot = plot, scale = 2.5, width = 6, height = 6, dpi = 300, units = "cm", limitsize = TRUE)
 
 
 #line plot:
@@ -230,15 +233,15 @@ line_plot <- ggplot(proportions_data)+
 line_plot
 
 #save
-ggsave(filename = paste0("Y:/Inshore/BoF/",assessmentyear,"/Assessment/Figures/Disease_Metrics/Proportion_of_Myco_in_samples_by_SPA_lineplot.png"), plot = line_plot, scale = 2.5, width = 6, height = 6, dpi = 300, units = "cm", limitsize = TRUE)
+ggsave(filename = paste0(path.directory,assessmentyear,"/Assessment/Figures/Disease_Metrics/Proportion_of_Myco_in_samples_by_SPA_lineplot.png"), plot = line_plot, scale = 2.5, width = 6, height = 6, dpi = 300, units = "cm", limitsize = TRUE)
 
 #Save as .CSV-----------------------------------------
 #By Tow
-write.csv(myco.datw, paste0("Y:/Inshore/BoF/",assessmentyear,"/Assessment/Data/SurveyIndices/Disease_Metrics/Myco_in_Meats_By_Tow.csv"))
+write.csv(myco.datw, paste0(path.directory,assessmentyear,"/Assessment/Data/SurveyIndices/Disease_Metrics/Myco_in_Meats_By_Tow.csv"))
 #By SPA
 proportions_data <- proportions_data %>% 
   select(-N.prop, -prop.check)
-write.csv(proportions_data, paste0("Y:/Inshore/BoF/",assessmentyear,"/Assessment/Data/SurveyIndices/Disease_metrics/Myco_in_Meats_By_SPA.csv"))
+write.csv(proportions_data, paste0(path.directory,assessmentyear,"/Assessment/Data/SurveyIndices/Disease_metrics/Myco_in_Meats_By_SPA.csv"))
 
 # -------------------------------DISCOLOURED PROPORTION PLOTS-----------------------------------------
 
@@ -264,7 +267,7 @@ greymeat.datw <- merge(greymeat.datw, tow.dat, by = "ID", all.x = TRUE) %>%
 
 # Saves files by cruise
 #  for(i in unique(greymeat.datw$CRUISE)){
-#    write.csv(greymeat.datw %>% filter(year == survey.year & CRUISE == i), paste0("Y:/Inshore/BoF/",survey.year,"/Assessment/Data/SurveyIndices/",i,"towsdd_QUALITYprop.csv"))
+#    write.csv(greymeat.datw %>% filter(year == survey.year & CRUISE == i), paste0(path.directory,survey.year,"/Assessment/Data/SurveyIndices/",i,"towsdd_QUALITYprop.csv"))
 #  }
 # 
 # write.csv(greymeat.datw, "Y:/Inshore/BoF/",survey.year,"/Assessment/Data/SurveyIndices/BI2021towsdd_QUALITY.csv")
@@ -308,7 +311,7 @@ plot <- ggplot(prop_data_4plot) +
 plot
 
 #save
-ggsave(filename = paste0("Y:/Inshore/BoF/",assessmentyear,"/Assessment/Figures/Disease_Metrics/Proportion_of_Discolouredmeats_by_SPA.png"), plot = plot, scale = 2.5, width = 6, height = 6, dpi = 300, units = "cm", limitsize = TRUE)
+ggsave(filename = paste0(path.directory,assessmentyear,"/Assessment/Figures/Disease_Metrics/Proportion_of_Discolouredmeats_by_SPA.png"), plot = plot, scale = 2.5, width = 6, height = 6, dpi = 300, units = "cm", limitsize = TRUE)
 
 
 #line plot:
@@ -321,16 +324,16 @@ line_plot <- ggplot(proportions_data)+
 line_plot
 
 #save
-ggsave(filename = paste0("Y:/Inshore/BoF/",assessmentyear,"/Assessment/Figures/Disease_Metrics/Proportion_of_Discolouredmeats_by_SPA_lineplot.png"), plot = line_plot, scale = 2.5, width = 6, height = 6, dpi = 300, units = "cm", limitsize = TRUE)
+ggsave(filename = paste0(path.directory,assessmentyear,"/Assessment/Figures/Disease_Metrics/Proportion_of_Discolouredmeats_by_SPA_lineplot.png"), plot = line_plot, scale = 2.5, width = 6, height = 6, dpi = 300, units = "cm", limitsize = TRUE)
 
 
 #Save as .CSV-----------------------------------------
 #By Tow
-write.csv(greymeat.datw, paste0("Y:/Inshore/BoF/",assessmentyear,"/Assessment/Data/SurveyIndices/Disease_Metrics/Discoloured_Meats_By_Tow.csv"))
+write.csv(greymeat.datw, paste0(path.directory,assessmentyear,"/Assessment/Data/SurveyIndices/Disease_Metrics/Discoloured_Meats_By_Tow.csv"))
 #By SPA
 proportions_data <- proportions_data %>% 
   select(-Normal.prop, -prop.check)
-write.csv(proportions_data, paste0("Y:/Inshore/BoF/",assessmentyear,"/Assessment/Data/SurveyIndices/Disease_metrics/Discoloured_Meats_By_SPA.csv"))
+write.csv(proportions_data, paste0(path.directory,assessmentyear,"/Assessment/Data/SurveyIndices/Disease_metrics/Discoloured_Meats_By_SPA.csv"))
           
 
 # SPATIAL PLOTS -----------------------------------------------------------

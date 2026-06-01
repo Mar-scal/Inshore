@@ -43,7 +43,7 @@ for(fun in funcs)
 
 # ---Read in SDM and data query ----------------------------------------------------------------------
 
-sdm <- raster("Y:/Inshore/Databases/Scallsur/SFA29BottomTypes/SDM/sdm_sfa29/w001001.adf") #UTM zone 19
+sdm <- raster("Z:/Inshore/Databases/Scallsur/SFA29BottomTypes/SDM/sdm_sfa29/w001001.adf") #UTM zone 19
 #projectRaster(crs = "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs")
 
 #Pull survey data from database - ROracle
@@ -194,14 +194,14 @@ sdmtows$SDM[sdmtows$sdmval_LWM >= 0.6] <- "high"
 
 # ---Bring in the previous survey tow details and stitch them all together ----------------------------------------------------------------------
 
-sdmtows.old <- read.csv("Y:/Inshore/SFA29/ScalSurv_SDM/SFA29Tows_SDM.csv")
+sdmtows.old <- read.csv("Z:/Inshore/Assessment/SFA29/ScalSurv_SDM/SFA29Tows_SDM.csv")
 sdmtows.updt <- rbind(sdmtows.old,sdmtows)
 sdmtows.updt <-sdmtows.updt %>% arrange(CRUISE, TOW_NO)
 summary(sdmtows.updt)
 
 # ---Save updated dataframe ----------------------------------------------------------------------
 
-write.csv(sdmtows.updt, "Y:/Inshore/SFA29/ScalSurv_SDM/SFA29Tows_SDM.csv", row.names = F)
+write.csv(sdmtows.updt, "Z:/Inshore/Assessment/SFA29/ScalSurv_SDM/SFA29Tows_SDM.csv", row.names = F)
 
 #save single year to archive folder for records
 #write.csv(sdmtows, paste0("Y:/Inshore/SFA29/ScalSurv_SDM/Archived/SFA29",survey.year,"Tows_SDM.csv")) #save out file with year

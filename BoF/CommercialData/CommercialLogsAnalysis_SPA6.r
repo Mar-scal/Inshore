@@ -43,12 +43,13 @@
 	library(sf)
 	library(lubridate)
 
-	source("Y:/Inshore/BoF/Assessment_fns/convert.dd.dddd.r")
-	
+	source("Z:/Inshore/Assessment/BoF/Assessment_fns/convert.dd.dddd.r")
+	#source("Y:/Inshore/BoF/Assessment_fns/convert.dd.dddd.r")
 
 #### DEFINE ####
 	
-	direct <- "Y:/Inshore/BoF"
+	direct <- "Z:/Inshore/Assessment/BoF"
+	#direct <- "Y:/Inshore/BoF"
 	fishingyear <- 2025 #most recent year of commercial fishing data to be used (e.g. if fishing season is 2019/2020, use 2020)
 	assessmentyear <- 2025 #year in which you are conducting the assessment
 	un.ID=Sys.getenv("un.raperj") #ptran username
@@ -72,18 +73,26 @@
 	CPUE_spa6_combined <- read.csv(paste0(direct,"/",(assessmentyear-1),"/Assessment/Data/CommercialData/CPUE_spa6_combined_", (fishingyear-1), ".csv")) 	
 
 	#polygons for assigning VMS strata to data
-	spa6IN<-read.csv("Y:/Inshore/Databases/Scallsur/SPA6_SurveyStrata/2015/SPA6_VMS_IN_R_final.csv")
-	spa6OUT<-read.csv("Y:/Inshore/Databases/Scallsur/SPA6_SurveyStrata/2015/SPA6_VMS_OUT_R_final.csv")	
+	spa6IN<-read.csv("Z:/Inshore/Databases/Scallsur/SPA6_SurveyStrata/2015/SPA6_VMS_IN_R_final.csv")
+	spa6OUT<-read.csv("Z:/Inshore/Databases/Scallsur/SPA6_SurveyStrata/2015/SPA6_VMS_OUT_R_final.csv")
+	#spa6IN<-read.csv("Y:/Inshore/Databases/Scallsur/SPA6_SurveyStrata/2015/SPA6_VMS_IN_R_final.csv")
+	#spa6OUT<-read.csv("Y:/Inshore/Databases/Scallsur/SPA6_SurveyStrata/2015/SPA6_VMS_OUT_R_final.csv")
 	attr(spa6IN,"projection") <- "LL"
 	attr(spa6OUT,"projection") <- "LL"
 	
 	#polygons for spatial plots
-	poly.sf <- st_read("Y:/Inshore/Databases/Scallsur/SPA6_SurveyStrata/SPA6_all", layer = "SPA6_wgs84")
-	poly.VMSIN <- st_read("Y:/Inshore/Databases/Scallsur/SPA6_SurveyStrata/2015", layer = "SPA6_VMSStrata_IN_2015")
-	poly.6A <- st_read("Y:/Inshore/BoFBoundaries/SPABoundaries_Redrawn2014/SPA New Polys/shp polygons", layer = "SPA6A_polygon_NAD83")
-	poly.6B <- st_read("Y:/Inshore/BoFBoundaries/SPABoundaries_Redrawn2014/SPA New Polys/shp polygons", layer = "SPA6B_polygon_NAD83")
-	poly.6C <- st_read("Y:/Inshore/BoFBoundaries/SPABoundaries_Redrawn2014/SPA New Polys/shp polygons", layer = "SPA6C_polygon_NAD83")
-	poly.6D <- st_read("Y:/Inshore/BoFBoundaries/SPABoundaries_Redrawn2014/SPA New Polys/shp polygons", layer = "SPA6D_polygon_NAD83")
+	poly.sf <- st_read("Z:/Inshore/Databases/Scallsur/SPA6_SurveyStrata/SPA6_all", layer = "SPA6_wgs84")
+	poly.VMSIN <- st_read("Z:/Inshore/Databases/Scallsur/SPA6_SurveyStrata/2015", layer = "SPA6_VMSStrata_IN_2015")
+	poly.6A <- st_read("Z:/GISdata/Private/BoFBoundaries/SPABoundaries_Redrawn2014/SPA New Polys/shp polygons", layer = "SPA6A_polygon_NAD83")
+	poly.6B <- st_read("Z:/GISdata/Private/BoFBoundaries/SPABoundaries_Redrawn2014/SPA New Polys/shp polygons", layer = "SPA6B_polygon_NAD83")
+	poly.6C <- st_read("Z:/GISdata/Private/BoFBoundaries/SPABoundaries_Redrawn2014/SPA New Polys/shp polygons", layer = "SPA6C_polygon_NAD83")
+	poly.6D <- st_read("Z:/GISdata/Private/BoFBoundaries/SPABoundaries_Redrawn2014/SPA New Polys/shp polygons", layer = "SPA6D_polygon_NAD83")
+	#poly.sf <- st_read("Y:/Inshore/Databases/Scallsur/SPA6_SurveyStrata/SPA6_all", layer = "SPA6_wgs84")
+	#poly.VMSIN <- st_read("Y:/Inshore/Databases/Scallsur/SPA6_SurveyStrata/2015", layer = "SPA6_VMSStrata_IN_2015")
+	#poly.6A <- st_read("Y:/Inshore/BoFBoundaries/SPABoundaries_Redrawn2014/SPA New Polys/shp polygons", layer = "SPA6A_polygon_NAD83")
+	#poly.6B <- st_read("Y:/Inshore/BoFBoundaries/SPABoundaries_Redrawn2014/SPA New Polys/shp polygons", layer = "SPA6B_polygon_NAD83")
+	#poly.6C <- st_read("Y:/Inshore/BoFBoundaries/SPABoundaries_Redrawn2014/SPA New Polys/shp polygons", layer = "SPA6C_polygon_NAD83")
+	#poly.6D <- st_read("Y:/Inshore/BoFBoundaries/SPABoundaries_Redrawn2014/SPA New Polys/shp polygons", layer = "SPA6D_polygon_NAD83")
 	
 
 #### Import Mar-scal functions for Pectinid Projector
@@ -607,19 +616,4 @@
 #   #save
 #   ggsave(filename = paste0(direct, "/",assessmentyear,"/Assessment/Figures/CommercialData/SPA6_RefPts",fishingyear, "_FR",".png"), width = 24, height = 20, dpi = 400,units='cm')
     
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
 

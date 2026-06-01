@@ -32,7 +32,7 @@ for(fun in funcs)
 
 
 #define
-direct <- "Y:/Inshore/Survey/"
+direct <- "Z:/Inshore/Survey/"
 year <- 2025 #For years prior to 2023, the directory name is different! Will need to adjust if running for previous years - year/data entry templates and examples/
 CRUISE <- "GM" # "BI", BF", "GM", "SFA29"
 #uid = Sys.getenv("un.raperj") #ptran username
@@ -82,7 +82,7 @@ SFA29 <- st_read(paste0(temp2, "/SFA29_subareas_utm19N.shp")) %>% mutate(ID = se
 
 # tow_CONVERTED.csv ----------------------------------------------------------------
 
-num.tows <- read.csv(paste0("Y:/Inshore/Survey/", year,"/DataEntry/",CRUISE, year,"/",CRUISE,year,"_tow_CONVERTED.csv"))
+num.tows <- read.csv(paste0("Z:/Inshore/Survey/", year,"/DataEntry/",CRUISE, year,"/",CRUISE,year,"_tow_CONVERTED.csv"))
 
 #Check for missing tow lengths:
 table(is.na(num.tows$Tow_len))
@@ -116,7 +116,7 @@ num.tows[num.tows$num_unlined_freq < 7,]
 
 # HGTWGT.csv ----------------------------------------------------------------
 
-mwsh <- read.csv(paste0("Y:/Inshore/Survey/", year,"/DataEntry/",CRUISE, year,"/",CRUISE,year,"_HGTWGT.csv"))
+mwsh <- read.csv(paste0("Z:/Inshore/Survey/", year,"/DataEntry/",CRUISE, year,"/",CRUISE,year,"_HGTWGT.csv"))
 str(mwsh)
 
 mwsh$Weight <- as.numeric(as.character(mwsh$Weight))
@@ -177,7 +177,7 @@ ggplot() + geom_text(data=mwsh[mwsh$Tow==207,], aes(Height, Weight, colour=as.fa
 
 # bycatch.csv ----------------------------------------------------------------
 
-bycatch <- read.csv(paste0("Y:/Inshore/Survey/", year,"/DataEntry/",CRUISE, year,"/",CRUISE,year,"_bycatch.csv"))
+bycatch <- read.csv(paste0("Z:/Inshore/Survey/", year,"/DataEntry/",CRUISE, year,"/",CRUISE,year,"_bycatch.csv"))
 
 ## NO NA's ALLOWED! REPLACE THESE WITH APPROPRIATE CODES (unknown sex=0!)
 print(bycatch[is.na(bycatch$Species_code) & !is.na(bycatch$Tow_num) |
@@ -253,7 +253,7 @@ ggplot() + geom_point(data=bycatch, aes(as.factor(Sex), Measurement)) + facet_wr
 
 # dhf.csv ----------------------------------------------------------------
 
-dhf <-  read.csv(paste0("Y:/Inshore/Survey/", year,"/DataEntry/",CRUISE, year,"/",CRUISE,year,"_dhf.csv"))
+dhf <-  read.csv(paste0("Z:/Inshore/Survey/", year,"/DataEntry/",CRUISE, year,"/",CRUISE,year,"_dhf.csv"))
 
 #Check for duplicated rows from columns X0 and X95, grouped by tow
 dhf.sh.bins <- dhf |> dplyr::select(TOW,X0:X95)
@@ -279,7 +279,7 @@ View(dhf.dup.check |> filter(TOW == 114)) #enter tow
 
 ### REPEAT THIS SECTION FOR LIVE AND THEN FOR DEAD #######
 
-dhf <-  read.csv(paste0("Y:/Inshore/Survey/", year,"/DataEntry/",CRUISE, year,"/",CRUISE,year,"_dhf.csv"))
+dhf <-  read.csv(paste0("Z:/Inshore/Survey/", year,"/DataEntry/",CRUISE, year,"/",CRUISE,year,"_dhf.csv"))
 
 #Check for duplicated rows from columns X0 and X95, grouped by tow
 dhf.sh.bins <- dhf |> dplyr::select(TOW,X0:X95)
@@ -391,7 +391,7 @@ ggplot(dhf22, aes(as.numeric(bin), value)) + geom_bar(fill = "aquamarine3", stat
 
 # horsemussellive.csv---------------------
 
-hm.live <- read.csv(paste0("Y:/Inshore/Survey/", year,"/DataEntry/",CRUISE, year,"/",CRUISE,year,"_horsemussellivefreq.csv"))
+hm.live <- read.csv(paste0("Z:/Inshore/Survey/", year,"/DataEntry/",CRUISE, year,"/",CRUISE,year,"_horsemussellivefreq.csv"))
 
 #Species Code must be "4332"
 table(hm.live$SPECIES.CODE)
@@ -453,7 +453,7 @@ hm.live %>%
 
 # Horsemusseldead.csv ---------------------
 
-hm.dead <- read.csv(paste0("Y:/Inshore/Survey/", year,"/DataEntry/",CRUISE, year,"/",CRUISE,year,"_horsemusseldeadfreq.csv"))
+hm.dead <- read.csv(paste0("Z:/Inshore/Survey/", year,"/DataEntry/",CRUISE, year,"/",CRUISE,year,"_horsemusseldeadfreq.csv"))
 
 #Species Code must be "4332"
 table(hm.dead$SPECIES.CODE)
@@ -833,7 +833,7 @@ ggplot() +
 
 # ----temperature data matching to tows------------------------------------------------------------
 
-source("Y:/Inshore/Survey/TemperatureDataScripts/Extract_survey_temperatures_function.r")
+source("Z:/Inshore/Survey/TemperatureDataScripts/Extract_survey_temperatures_function.r")
 survey.bottom.temps(direct = "Y:/Inshore scallop/Survey/2019/", cruise = "BI2019", num.temps=4,
                     survey_time = "start", tow_duration=19, fig="pdf", export=T)
 survey.bottom.temps(direct = "Y:/Inshore scallop/Survey/2019/", cruise = "BF2019", num.temps=4,
