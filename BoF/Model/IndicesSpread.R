@@ -15,7 +15,7 @@ library(xfun)
 
 assessmentyear <- 2025
 
-direct <- "Z:/Inshore/Assessment/BoF/"
+direct <- "Y:/Inshore/Assessment/BoF/"
 
 
 # SPA 1A ---- 
@@ -549,7 +549,7 @@ B.yr.tminus1 <- all.dat.6[all.dat.6$YEAR == YR-1,]
 
 ##### change in Modelled Biomass as percent #####
 
-setwd(paste0("Z:/Inshore/Assessment/BoF/",assessment.year,"/Assessment/Data/Model/"))
+setwd(paste0("Y:/Inshore/Assessment/BoF/",assessment.year,"/Assessment/Data/Model/"))
 #setwd("Y:/Inshore/BoF/2024/Assessment/Data/Model/")
 
 #current/most recent year 

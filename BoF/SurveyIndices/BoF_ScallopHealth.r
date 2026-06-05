@@ -55,7 +55,7 @@ pwd <- keyring::key_get("Oracle", uid)
 #set year 
 survey.year <- 2025  #survey year
 assessmentyear <- 2025 #year in which you are providing advice for- determines where to save files to
-path.directory <- "Z:/Inshore/Assessment/BoF/"
+path.directory <- "Y:/Inshore/Assessment/BoF/"
 #path.directory <- "Y:/Inshore/BoF/"
 
 #set up directory to save plot

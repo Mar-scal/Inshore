@@ -9,7 +9,7 @@ library(ggplot2)
 library(ggrepel)
 library(openxlsx)
 
-direct <- "Z:/Inshore/Assessment/BoF/"
+direct <- "Y:/Inshore/Assessment/BoF/"
 area <- "4" #"1A", "1B", "3", "4", "6"
 
 if(area == "1A"){
