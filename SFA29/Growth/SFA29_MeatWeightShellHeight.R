@@ -29,10 +29,10 @@ surveyyear <- 2025  #This is the last survey year for which you want to include 
 cruise <- "SFA292025"  #note should match year for surveyyear set above 
 
 assessmentyear <- 2026 #year in which you are conducting the assessment (surveyyear+1)
-path.directory <- "Z:/Inshore/Assessment/SFA29/"
+path.directory <- "Y:/Inshore/Assessment/SFA29/"
 #path.directory <- "Y:/Inshore/SFA29/"
 
-weight.by.tow.previous.yrs <- read.csv(paste0("Z:/Inshore/Assessment/SFA29/",assessmentyear-1,"/Assessment/Data/SurveyIndices/SFA29liveweight2014to",assessmentyear-2,".csv"))
+weight.by.tow.previous.yrs <- read.csv(paste0("Y:/Inshore/Assessment/SFA29/",assessmentyear-1,"/Assessment/Data/SurveyIndices/SFA29liveweight2014to",assessmentyear-2,".csv"))
 weight.by.tow.previous.yrs <- weight.by.tow.previous.yrs[,2:dim(weight.by.tow.previous.yrs)[2]]
 
 ####
@@ -83,7 +83,7 @@ SFA29livefreq.dat$YEAR <- as.numeric(substr(SFA29livefreq.dat$CRUISE,6,9))
 SFA29detail.dat$ID <- paste(SFA29detail.dat$CRUISE,SFA29detail.dat$TOW_NO,sep='.')
 uniqueID <- unique(SFA29detail.dat$ID)
 
-OlexTows_all <- read.csv("Z:/Inshore/Assessment/StandardDepth/towsdd_StdDepth.csv")
+OlexTows_all <- read.csv("Y:/Inshore/Assessment/StandardDepth/towsdd_StdDepth.csv")
 names(OlexTows_all)[which(colnames(OlexTows_all)=="RASTERVALU")] <- "OLEXDEPTH_M"   #rename "RASTERVALU" column
 OlexTows_all$OLEXDEPTH_M[OlexTows_all$OLEXDEPTH_M==-9999] <- NA
 OlexTows_all$ID <- paste(OlexTows_all$CRUISE,OlexTows_all$TOW_NO,sep='.')

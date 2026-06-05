@@ -53,7 +53,7 @@ rm(list=ls(all=T))
 options(stringsAsFactors = FALSE)
 
 #DEFINE:
-direct <- "Z:/Inshore/Assessment/BoF"
+direct <- "Y:/Inshore/Assessment/BoF"
 #direct <- "Y:/Inshore/BoF"
 assessmentyear <- 2025 #year in which you are conducting the assessment 
 surveyyear <- 2025  #last year of survey data you are using, e.g. if max year of survey is survey from summer 2019, this would be 2019 
@@ -435,7 +435,7 @@ write.csv(decision.table, paste0(direct,"/",assessmentyear,"/Assessment/Data/Mod
 #Produces files: summary stats temporal_1B_2019.csv ; summary stats_1B_2019.csv
 # Be sure to set assessmentyear and surveyyear and RDatafile appropriately !!
 #stats.output <- BoF.model.stats(area = "1B", assessmentyear=2024, surveyyear=2024, direct = "Y:/Inshore/BoF/", RDatafile = "SPA1B_Model_2024")
-stats.output <- BoF.model.stats(area = "1B", assessmentyear=assessmentyear, surveyyear=surveyyear, direct = "Z:/Inshore/Assessment/BoF/", RDatafile = paste0("SPA1B_Model_",surveyyear))
+stats.output <- BoF.model.stats(area = "1B", assessmentyear=assessmentyear, surveyyear=surveyyear, direct = "Y:/Inshore/Assessment/BoF/", RDatafile = paste0("SPA1B_Model_",surveyyear))
 
 
 # Probability that current year commercial biomass estimate is in the Healthy zone (i.e. above the USR), and in the cautious zone (ie. interpret as being above the LRP  and below the USR (i.e. 1- prob>USR): 

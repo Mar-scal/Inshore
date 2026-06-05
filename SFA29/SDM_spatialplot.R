@@ -48,7 +48,7 @@ sfa29strata <- st_read(paste0(temp2, "/SFA29_BoundariesFollowing12nmDD_NoSubarea
 #Load SDM Layer 
 
 #raster (not binned)
-sdm <-read_stars("Z:/Inshore/Databases/Scallsur/SFA29BottomTypes/SDM/sdm_sfa29/w001001.adf", NA_value = NA)
+sdm <-read_stars("Y:/Inshore/Databases/Scallsur/SFA29BottomTypes/SDM/sdm_sfa29/w001001.adf", NA_value = NA)
 sdm <- st_warp(sdm, crs = 4326)
 
 bin.sdm <- cut(sdm, c(0,0.3,0.6,1.0), right = FALSE)
@@ -99,7 +99,7 @@ p2
         plot.margin = margin(0,0.5,0,0, "cm"))
 
 #save
-ggsave(filename = paste0("Z:/Inshore/Assessment/SFA29/", assessment.year,"/Assessment/Figures/ScallopSDM_binned_coloured.png"), plot = last_plot(), scale = 2.5, width = 7, height = 5, dpi = 300, units = "cm", limitsize = TRUE)
+ggsave(filename = paste0("Y:/Inshore/Assessment/SFA29/", assessment.year,"/Assessment/Figures/ScallopSDM_binned_coloured.png"), plot = last_plot(), scale = 2.5, width = 7, height = 5, dpi = 300, units = "cm", limitsize = TRUE)
 
 # Coloured FR Version -------------------------------------------------------
 
@@ -135,7 +135,7 @@ p3 +
         plot.margin = margin(0,0.5,0,0, "cm"))
 
 #save
-ggsave(filename = paste0("Z:/Inshore/Assessment/SFA29/", assessment.year,"/Assessment/Figures/ScallopSDM_binned_coloured_FR.png"), plot = last_plot(), scale = 2.5, width = 7, height = 5, dpi = 300, units = "cm", limitsize = TRUE)
+ggsave(filename = paste0("Y:/Inshore/Assessment/SFA29/", assessment.year,"/Assessment/Figures/ScallopSDM_binned_coloured_FR.png"), plot = last_plot(), scale = 2.5, width = 7, height = 5, dpi = 300, units = "cm", limitsize = TRUE)
 
 # Greyscale EN Version -------------------------------------------------------
 
@@ -246,4 +246,4 @@ p3 +
  #                      pad_x = unit(xpad + 1.5, "cm"), pad_y = unit(ypad+1.9, "cm"),style = north_arrow_fancy_orienteering)+
 
 #save
-ggsave(filename = paste0("Z:/Inshore/Assessment/SFA29/", assessment.year,"/Assessment/Figures/ScallopSDM_binned_greyscale_FR.png"), plot = last_plot(), scale = 2.5, width = 7, height = 5, dpi = 300, units = "cm", limitsize = TRUE)
+ggsave(filename = paste0("Y:/Inshore/Assessment/SFA29/", assessment.year,"/Assessment/Figures/ScallopSDM_binned_greyscale_FR.png"), plot = last_plot(), scale = 2.5, width = 7, height = 5, dpi = 300, units = "cm", limitsize = TRUE)

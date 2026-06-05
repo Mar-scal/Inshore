@@ -965,5 +965,5 @@ ggsave(paste0("SFA29vms_",yy,"v",xx,"_filtered.png"), path=paste0(sky,path.direc
 	rm(pw.sameotoj)
 	
 	### UPDATE BEFORE SAVING 
-save.image(file = paste0("Z:/Inshore/Assessment/SFA29/",assessmentyear,"/Assessment/Data/CommercialData/VMS/vms_temp.RData"))	
+save.image(file = paste0("Y:/Inshore/Assessment/SFA29/",assessmentyear,"/Assessment/Data/CommercialData/VMS/vms_temp.RData"))	
 	

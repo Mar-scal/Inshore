@@ -18,7 +18,7 @@ library(ROracle)
 library(tidyverse)
 library(ggplot2)
 
-setwd('Z:/Inshore/Assessment/BoF/Assessment_fns/SFA29W')
+setwd('Y:/Inshore/Assessment/BoF/Assessment_fns/SFA29W')
 source('Geophysicalareas.R')
 source('SedimentareasSFA29.R')
 source('Domainestimates.R')
@@ -42,12 +42,12 @@ pwd <- pw.sameotoj
 surveyyear <- 2025  #This is the last survey year for which you want to include  - not should match year of cruise below 
 cruise <- "SFA292025"  #note should match year for surveyyear set above 
 assessmentyear <- 2026 #year in which you are conducting the survey 
-path.directory <- "Z:/Inshore/Assessment/SFA29/"
+path.directory <- "Y:/Inshore/Assessment/SFA29/"
 years <- c(2001:surveyyear) #when have 2021 data ready with SDM value then can use line of code below 
 #yr.crnt <- surveyyear-1
 
 #Bring in survey tow data with SDM value (note - SFA29_SDM_LWM.R script must be run to get updated survey tows with SDM values prior to running this script)
-sdmtows <- read.csv("Z:/Inshore/Assessment/SFA29/ScalSurv_SDM/SFA29Tows_SDM.csv")
+sdmtows <- read.csv("Y:/Inshore/Assessment/SFA29/ScalSurv_SDM/SFA29Tows_SDM.csv")
 table(sdmtows$CRUISE)
 sdmtows$uid <- paste(sdmtows$CRUISE, sdmtows$TOW_NO, sep=".")
 sdmtows <- sdmtows[,c("uid","SDM")]

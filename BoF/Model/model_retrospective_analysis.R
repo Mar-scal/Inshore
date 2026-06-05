@@ -6,7 +6,7 @@ library(readr)
 
 
 #define:
-dir <- "Z:/Inshore/Assessment/BoF/"
+dir <- "Y:/Inshore/Assessment/BoF/"
 #dir <- "Y:/Inshore/BoF/"
 dir.area <-  "SPA6"#"SPA3" #"SPA4", "SPA6", "SPA1A", "SPA1B"
 file.area <- "spa6"#"spa3" #"spa4", "spa6", "spa1A", "spa1B"

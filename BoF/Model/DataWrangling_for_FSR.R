@@ -9,7 +9,7 @@ library(openxlsx)
 
 assessment.year <- 2025
 
-direct <- "Z:/Inshore/Assessment/BoF/"
+direct <- "Y:/Inshore/Assessment/BoF/"
 
 
 #PROPORTIONAL NATRUAL MORTALITY -------------------------

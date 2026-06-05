@@ -34,8 +34,8 @@ for(fun in funcs)
 }
 
 #Load poly data
-VMS.poly<-read.csv("Y:/Inshore/BoF/2015/SPA6/Survey/SPA6_VMS_IN_R_final_MOD.csv")
-OUT.poly<-read.csv("Y:/Inshore/BoF/2015/SPA6/Survey/SPA6_VMS_OUT_R_final_MOD.csv")
+VMS.poly<-read.csv("Y:/Inshore/Assessment/BoF/2015/SPA6/Survey/SPA6_VMS_IN_R_final_MOD.csv")
+OUT.poly<-read.csv("Y:/Inshore/Assessment/BoF/2015/SPA6/Survey/SPA6_VMS_OUT_R_final_MOD.csv")
 surv.poly <-rbind(VMS.poly,OUT.poly)
 surv.poly <- as.PolySet(surv.poly, projection="LL")
 poly.VMSIN <- st_read("Y:/Inshore/Databases/Scallsur/SPA6_SurveyStrata/2015", layer = "SPA6_VMSStrata_IN_2015")
