@@ -19,7 +19,7 @@ alloc.poly<-function(poly.lst,bounding.poly,ntows,bank.plot=NULL,mindist=1,pool.
 		bounding.poly$SID<-1
 	}
 	
-	source("Z:/Inshore/Survey/2010/r/fn/genran.r",local=T)
+	source("Y:/Inshore/Survey/2010/r/fn/genran.r",local=T)
 	#source("Y:/Inshore/Survey/2010/r/fn/genran.r",local=T)
 	pool.EventData<-genran(npool,bounding.poly,mindist=mindist)
 	#browser()	
@@ -94,7 +94,7 @@ alloc.poly<-function(poly.lst,bounding.poly,ntows,bank.plot=NULL,mindist=1,pool.
 	
 
 	if(!is.null(bank.plot)){
-		source("Z:/Inshore/Survey/2010/r/fn/ScallopMap.r",local=T)
+		source("Y:/Inshore/Survey/2010/r/fn/ScallopMap.r",local=T)
 		ScallopMap(bank.plot,poly.lst=list(surveyed.polys,poly.lst[[2]]))
 #		addPolys(bounding.poly,lwd=2,border='yellow')
 		bg.col<-tapply(poly.lst[[2]]$col,poly.lst[[2]]$PName,unique)

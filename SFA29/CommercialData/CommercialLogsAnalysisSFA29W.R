@@ -23,13 +23,13 @@ require(openxlsx)
 require(sf)
 
 
-source("Z:/Inshore/Assessment/BoF/Assessment_fns/convert.dd.dddd.r")
+source("Y:/Inshore/Assessment/BoF/Assessment_fns/convert.dd.dddd.r")
 #source("Y:/Inshore/BoF/Assessment_fns/convert.dd.dddd.r")
 
 
 #### DEFINE ####
 
-direct <- "Z:/Inshore/Assessment/SFA29"
+direct <- "Y:/Inshore/Assessment/SFA29"
 fishingyear <- 2025 #most recent year of commercial fishing data to be used (e.g. if fishing season is 2019/2020, use 2020)
 assessmentyear <- 2026 #year in which you are conducting the assessment
 un.ID=Sys.getenv("un.raperj") #ptran username

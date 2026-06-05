@@ -47,7 +47,7 @@ yrs <- 2001:surveyyear  #(yr-1)
 #yrs <- 2001:2020
   
 #setwd
-#setwd(paste0("Y:/Inshore/SFA29/",assessmentyear,"/Assessment/Data/Model/"))
+#setwd(paste0("Z:/Inshore/SFA29/",assessmentyear,"/Assessment/Data/Model/"))
 
 # Let's be consistent with our MCMC!
 niter = 500000 #300000
@@ -480,7 +480,7 @@ for(i in 1:num.pe.years)
                                                     g.parm=mod.dat$gh[mod.dat$Year ==pe.years[i] & mod.dat$Strata %in% strata])
 }
 
-#save(pe.pred,file="Y:/INSHORE SCALLOP/SFA29/Model_results_2014_2016/SFA29D/prediction_evaluation_results_2011_2016.RData")
+#save(pe.pred,file="Z:/INSHORE SCALLOP/SFA29/Model_results_2014_2016/SFA29D/prediction_evaluation_results_2011_2016.RData")
 #save(pe.pred,file = paste0(getwd(),"/SFA29D_results/prediction_evaluation_results_",pe.years,".RData"))
 save(pe.pred,file=paste0(path.directory,assessmentyear,"/Assessment/Data/Model/SFA29D/SFA29D.prediction.evaluation.results.",surveyyear,".RData"))
 

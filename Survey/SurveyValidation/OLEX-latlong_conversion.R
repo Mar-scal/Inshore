@@ -108,7 +108,7 @@ strata <- st_read(paste0(temp2, "/PolygonSCSTRATAINFO_rm46-26-57.shp"))
 #Garnstopp - stop
 #Brunsirkel - brown circle (points along trackline?)
 
-zz <- read.csv(gzfile('Z:/Inshore/Survey/OLEX tow tracks/2023/20230711.gz'))
+zz <- read.csv(gzfile('Y:/Inshore/Survey/OLEX tow tracks/2023/20230711.gz'))
 #zz <- read.csv(gzfile('Y:/Inshore/Survey/OLEX tow tracks/2023/20230711.gz'))
 
 str(zz)
@@ -204,12 +204,12 @@ mapview::mapview(coords.sf) + #%>% filter(ID %in% c(96,98)) #option to filter ou
 coords.sf <- coords.sf%>% 
   st_drop_geometry()
 
-write.csv(coords.sf, "Z:/Inshore/Survey/OLEX tow tracks/Olex-latlong_conversion/GM2023_coords_check.csv")
+write.csv(coords.sf, "Y:/Inshore/Survey/OLEX tow tracks/Olex-latlong_conversion/GM2023_coords_check.csv")
 
 ###########################################################################################################
 
 #check file
-tow <- read.csv("Z:/Inshore/Survey/2023/DataEntry/GM2023/GM2023tow_CONVERTED.csv")
+tow <- read.csv("Y:/Inshore/Survey/2023/DataEntry/GM2023/GM2023tow_CONVERTED.csv")
 
 #Convert decimal degrees to decimal minutes seconds.
 tow$Start_Latitude <- convert.dd.dddd(tow$Start_lat, format = 'dec.deg')

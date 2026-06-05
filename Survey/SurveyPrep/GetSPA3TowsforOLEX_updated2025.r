@@ -37,7 +37,7 @@ for(fun in funcs)
 #Load poly data
 Oldsurv.poly<-read.csv("Y:/Inshore/Survey/2010/r/SPA3surveyPoly_Extended.csv")
 VMS.poly<-read.csv("Y:/Inshore/Survey/2011/SPA3/SPA3_VMSpoly.csv")
-poly.sf <- st_read("Y:/Inshore/BoFBoundaries/SPABoundaries_Redrawn2014/SPA New Polys/shp polygons", layer = "SPA3_polygon_NAD83")
+poly.sf <- st_read("Y:/GISdata/Private/BoFBoundaries/SPABoundaries_Redrawn2014/SPA New Polys/shp polygons", layer = "SPA3_polygon_NAD83")
 poly.VMS <- st_read("Y:/Inshore/Databases/Scallsur/SPA3", layer = "SPA3_VMS_StrataBrierLurcher")
 poly.SMB <- st_read("Y:/Inshore/Databases/Scallsur/SPA3", layer = "SMB")
 

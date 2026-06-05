@@ -11,13 +11,13 @@ library(tidyverse)
 surveyyear <- 2025  #This is the last survey year for which you want to include  - note should match year of cruise below 
 cruise <- "SFA292025"  #note should match year for surveyyear set above 
 assessmentyear <- 2026 #year in which you are conducting the survey 
-path.directory <- "Z:/Inshore/Assessment/SFA29/"
+path.directory <- "Y:/Inshore/Assessment/SFA29/"
 
 
 
 #### Import data ####
 ### lbar -- ie commercial shell heights current year (See SHF field) and predicted one year ahead (field SHF.pred )
-lbar <- read.csv(paste0("Z:/Inshore/Assessment/SFA29/",assessmentyear,"/Assessment/Data/Growth/SFA29.SHobj.",surveyyear,".csv"))
+lbar <- read.csv(paste0("Y:/Inshore/Assessment/SFA29/",assessmentyear,"/Assessment/Data/Growth/SFA29.SHobj.",surveyyear,".csv"))
 head(lbar)
 unique(lbar$size)
 lbar <- lbar[,2:dim(lbar)[2]]
@@ -34,7 +34,7 @@ head(lbar.nextyr)
 
 
 ## stratified estimates 
-numbers <- read.csv(paste0("Z:/Inshore/Assessment/SFA29/",assessmentyear,"/Assessment/Data/SurveyIndices/SDM.StratifiedEstimates.2001to",surveyyear,".Numbers.csv"))
+numbers <- read.csv(paste0("Y:/Inshore/Assessment/SFA29/",assessmentyear,"/Assessment/Data/SurveyIndices/SDM.StratifiedEstimates.2001to",surveyyear,".Numbers.csv"))
 head(numbers)
 unique(numbers$size)
 numbers <- numbers[,2:dim(numbers)[2]]
@@ -72,7 +72,7 @@ D.areas
 
 ## weight given lbar ## 
 # need current year model object 
-load(paste0("Z:/Inshore/Assessment/SFA29/",assessmentyear,"/Assessment/Data/Growth/SFA29growth",surveyyear,".RData"))
+load(paste0("Y:/Inshore/Assessment/SFA29/",assessmentyear,"/Assessment/Data/Growth/SFA29growth",surveyyear,".RData"))
 model.object.Y <- get(paste0("MWTSHSFA29.",surveyyear)) #Assign model.object.Y to current year model object - MWTSHSFA29.YYYY
 summary(model.object.Y)
 #data model ran on 
@@ -90,7 +90,7 @@ test.data <- subset(data.Y, YEAR == surveyyear & HEIGHT > 40) #data subsetted as
 
 
 #Bring in file with depths by area, note some are by strata groups within area
-mean.depth <- read.csv('Z:/Inshore/Assessment/SFA29/SFA29DepthProfile/SFA29_AreaMeanDepths.csv')[ ,c("AREA", "MeanDepth_m")] #File for the constant depth to predict on by area
+mean.depth <- read.csv('Y:/Inshore/Assessment/SFA29/SFA29DepthProfile/SFA29_AreaMeanDepths.csv')[ ,c("AREA", "MeanDepth_m")] #File for the constant depth to predict on by area
 mean.depth
 unique(mean.depth$AREA)
 length(mean.depth$AREA)
@@ -157,7 +157,7 @@ wgt.2025to2026$prop.chage <- (wgt.2025to2026$wgt.g.labr.yrtplust1 - wgt.2025to20
 wgt.2025to2026$ratio.prop.change <- wgt.2025to2026$prop.chage+1
 wgt.2025to2026
 
-write.csv(wgt.2025to2026, paste0("Z:/Inshore/Assessment/SFA29/",assessmentyear,"/Assessment/Data/SurveyIndices/expected.prop.change.by.growthonly.csv"))
+write.csv(wgt.2025to2026, paste0("Y:/Inshore/Assessment/SFA29/",assessmentyear,"/Assessment/Data/SurveyIndices/expected.prop.change.by.growthonly.csv"))
 
 
 ## Bump stratified numbers by tow to area of medium and high area 
@@ -414,7 +414,7 @@ catch.2026/current.yr.biomass.d$biomass.mt.tplus1minusM.final[1]
 
 est.all <- rbind(a.numbers, b.numbers, c.numbers, d.numbers)
 
-write.csv(est.all, paste0("Z:/Inshore/Assessment/SFA29/",assessmentyear,"/Assessment/Data/SurveyIndices/Stratified_est_DeterministicApproach.csv"), row.names = F)
+write.csv(est.all, paste0("Y:/Inshore/Assessment/SFA29/",assessmentyear,"/Assessment/Data/SurveyIndices/Stratified_est_DeterministicApproach.csv"), row.names = F)
 
 
 
@@ -423,7 +423,7 @@ write.csv(est.all, paste0("Z:/Inshore/Assessment/SFA29/",assessmentyear,"/Assess
 # Mu = (biomass in year t + catch in year t)/ catch in year t
 
 ## import landings by subarea 
-landings <- read.csv(paste0("Z:/Inshore/Assessment/SFA29/",assessmentyear,"/Assessment/Data/CommercialData/SFA29_totalLandings_YearSubarea.csv"))
+landings <- read.csv(paste0("Y:/Inshore/Assessment/SFA29/",assessmentyear,"/Assessment/Data/CommercialData/SFA29_totalLandings_YearSubarea.csv"))
 landings$SUBAREA <- paste0("SFA",landings$Area )
 landings$year <- landings$YEAR
 
@@ -494,11 +494,11 @@ ggplot(data = exploitation.atod, aes(x = year, y = mu)) +
   theme(axis.title = element_text(size = 16), strip.text = element_text(size = 12), axis.text = element_text(size = 12),
         plot.margin = margin(t = 0.1, r = 0.8, b = 0.1, l = 0.1, unit = "cm"))
   
-ggsave(filename = paste0("Z:/Inshore/Assessment/SFA29/",assessmentyear,"/Assessment/Figures/relative.exploitation.survey.png") , plot = last_plot(), scale = 2.5, width =8, height = 7, dpi = 300, units = "cm", limitsize = TRUE)
+ggsave(filename = paste0("Y:/Inshore/Assessment/SFA29/",assessmentyear,"/Assessment/Figures/relative.exploitation.survey.png") , plot = last_plot(), scale = 2.5, width =8, height = 7, dpi = 300, units = "cm", limitsize = TRUE)
 
 
 
-write.csv(exploitation.atod, paste0("Z:/Inshore/Assessment/SFA29/",assessmentyear,"/Assessment/Data/SurveyIndices/expected.rel.exploitation.csv"))
+write.csv(exploitation.atod, paste0("Y:/Inshore/Assessment/SFA29/",assessmentyear,"/Assessment/Data/SurveyIndices/expected.rel.exploitation.csv"))
 
 
 

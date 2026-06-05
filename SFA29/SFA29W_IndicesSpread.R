@@ -8,7 +8,7 @@ library(grid)
 library(gridtext)
 
 
-setwd("Z:/")
+setwd("Y:/")
 
 surveyyear <- 2025
 assessmentyear <- 2026 
@@ -351,7 +351,7 @@ plot.eng <- grid.arrange(grobs=p.eng, ncol = 1,
 grid.draw(plot.eng)
 
 ##Save out 
-ggsave(file=paste0("Z:/Inshore/Assessment/SFA29/",assessmentyear,"/Assessment/Figures/ConditionNumberWeight_BySubarea_Proportion.png"), plot.eng, width = 20, height = 20, units = "cm", dpi = 300)
+ggsave(file=paste0("Y:/Inshore/Assessment/SFA29/",assessmentyear,"/Assessment/Figures/ConditionNumberWeight_BySubarea_Proportion.png"), plot.eng, width = 20, height = 20, units = "cm", dpi = 300)
 
 
 
@@ -381,7 +381,7 @@ plot.fr <- grid.arrange(grobs=p, ncol = 1,
                         left = yleft, bottom = bottom)
 grid.draw(plot.fr)
 
-ggsave(file=paste0("Z:/Inshore/Assessment/SFA29/",assessmentyear,"/Assessment/Figures/ConditionNumberWeight_BySubarea_Proportion_FR.png"), plot.fr, width = 20, height = 20, units = "cm", dpi = 300)
+ggsave(file=paste0("Y:/Inshore/Assessment/SFA29/",assessmentyear,"/Assessment/Figures/ConditionNumberWeight_BySubarea_Proportion_FR.png"), plot.fr, width = 20, height = 20, units = "cm", dpi = 300)
 
 
 #Save using RStudio GUI 

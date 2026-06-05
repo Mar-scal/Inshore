@@ -23,7 +23,7 @@ library(PEDstrata)
 library(tidyverse)
 
 #setwd temporarily to grab these data...
-setwd('Z:/Inshore/Assesment/BoF/Assessment_fns/SFA29W')
+setwd('Y:/Inshore/Assesment/BoF/Assessment_fns/SFA29W')
 source('Geophysicalareas.R')
 source('SedimentareasSFA29.R')
 source('Domainestimates.R')
@@ -49,11 +49,11 @@ pwd <- pw.sameotoj
 surveyyear <- 2025  #This is the last survey year for which you want to include  - note should match year of cruise below 
 cruise <- "SFA292025"  #note should match year for surveyyear set above 
 assessmentyear <- 2026 #year in which you are conducting the survey 
-path.directory <- "Z:/Inshore/Assessment/SFA29/"
+path.directory <- "Y:/Inshore/Assessment/SFA29/"
 years <- c(2001:2025) 
 
 #Bring in survey tow data with SDM value (note - SFA29_SDM_LWM.R script must be run to get updated survey tows with SDM values prior to running this script)
-sdmtows <- read.csv("Z:/Inshore/Assessment/SFA29/ScalSurv_SDM/SFA29Tows_SDM.csv")
+sdmtows <- read.csv("Y:/Inshore/Assessment/SFA29/ScalSurv_SDM/SFA29Tows_SDM.csv")
 table(sdmtows$CRUISE)
 # Get an unique ID for the tows and keep only the columns we need for later...
 sdmtows$uid <- paste(sdmtows$CRUISE, sdmtows$TOW_NO, sep=".")

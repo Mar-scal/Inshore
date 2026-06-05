@@ -11,7 +11,7 @@ library(compareDF)
 surveyyear <- 2025  #This is the last survey year for which you want to include  - note should match year of cruise below 
 cruise <- "SFA292025"  #note should match year for surveyyear set above 
 assessmentyear <- 2026 #year in which you are conducting the survey 
-path.directory <- "Z:/Inshore/Assessment/SFA29/"
+path.directory <- "Y:/Inshore/Assessment/SFA29/"
 #path.directory <- "Y:/Inshore/SFA29/"
 years <- c(2001:surveyyear)
 
