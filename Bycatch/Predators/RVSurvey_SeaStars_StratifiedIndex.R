@@ -1,3 +1,4 @@
+#stratified estimates for Asterias sp in BoF RV Survey strata - using PEDStrata function - need to account for survey strata change from pre 2014 - which would add a domain estimator - not done yet TBDONE
 
 library(ggspatial)
 library(ROracle)
