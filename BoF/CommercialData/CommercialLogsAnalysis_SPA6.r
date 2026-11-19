@@ -422,7 +422,7 @@ library(lubridate)
     scale_x_continuous("Year", breaks=seq(1976,fishingyear,4)) +
     scale_fill_manual(values=c("black","white", "grey"), labels=c("Food, Social, and Ceremonial","Full Bay", "Mid-Bay"), name=NULL) +
     annotate(geom="text",label="TAC", x=2003.4, y= 210) +
-    theme(legend.position=c(0.75, 0.85)) # play with the location if you want it inside the plotting panel
+    theme(legend.position=c(0.7, 0.85)) # play with the location if you want it inside the plotting panel
   ggsave(filename = paste0(direct, "/",assessmentyear,"/Assessment/Figures/CommercialData/SPA6_TACandLandings",fishingyear, ".png"), width = 24, height = 20, dpi = 400,units='cm')
   
   #TAC and Landings (FR)
@@ -445,7 +445,7 @@ library(lubridate)
     scale_y_continuous("Catch rate (kg/h)", limits=c(0,40), breaks=seq(0,40,5)) +
     scale_x_continuous("Year", breaks=seq(2002,fishingyear,2)) +
     geom_hline(aes(yintercept=median(cpue.kgh[1:(dim(comm.dat.combined)[1]-1)])), linetype = "dashed") + # median line is all years except current year
-    geom_text(x = 2008, y = 16, label = "median", size = 4)
+    geom_text(x = 2008, y = 16.5, label = "median", size = 4)
   #save
   ggsave(filename = paste0(direct, "/",assessmentyear,"/Assessment/Figures/CommercialData/SPA6_CPUE_combined",fishingyear, ".png"), width = 24, height = 20, dpi = 400,units='cm')
   
@@ -489,13 +489,13 @@ library(lubridate)
   ##add sf objects to basemap outside of pecjector
     p +
     geom_tile(df, mapping = aes(lon, lat, fill = mean.cpue), color = "grey55") +
+    geom_sf(data = Land, fill="grey65", colour = "grey65") +
     geom_sf(data = poly.6A, fill=NA, colour="grey55") +
     geom_sf(data = poly.6B, fill=NA, colour="grey55") +
     geom_sf(data = poly.6C, fill=NA, colour="grey55") +
     geom_sf(data = poly.6D, fill=NA, colour="grey55") +
     geom_sf(data = poly.VMSIN, fill=NA, colour="red") +
-    scale_fill_binned(type = "viridis", direction = -1, name="CPUE (kg/h)", breaks = c(10, 20, 30, 40)) +
-    geom_sf(data = Land, fill="grey55", colour = "grey55") +
+    scale_fill_binned(type = "viridis", direction = -1, name="CPUE (kg/h)", limits = c(0, 150), breaks = c(25, 50, 75, 100, 125)) +
     theme(plot.title = element_text(size = 14, hjust = 0.5), #plot title size and position
           axis.title = element_text(size = 12),
           axis.text = element_text(size = 10),
@@ -506,21 +506,21 @@ library(lubridate)
           legend.box.margin = margin(6, 8, 6, 8)) +
       coord_sf(xlim = c(-67.4,-65.8), ylim = c(44.2,45.2), expand = F)
  #save
-  ggsave(filename = paste0(direct, "/",assessmentyear,"/Assessment/Figures/CommercialData/SPA6_CPUEgridplot_new",fishingyear, ".png"), width = 9, height = 9, dpi = 200,units='in')
+  ggsave(filename = paste0(direct, "/",assessmentyear,"/Assessment/Figures/CommercialData/SPA6_CPUEgridplot",fishingyear, ".png"), width = 9, height = 9, dpi = 200,units='in')
   
   
-  # # Make histogram by area for distribution of cpue
-  # histolog<-subset(logs, YEAR == fishingyear, c('ASSIGNED_AREA','CPUE_KG'))
-  # 
-  # cpuehisto <- ggplot (histolog, aes (x = CPUE_KG)) + 
-  #   geom_histogram (breaks = seq (0, 200, by = 5), col = 'grey60') + labs (x = 'CPUE (kg/h)', y = 'Count') +
-  #   facet_wrap (~ASSIGNED_AREA, ncol = 1) +
-  #   scale_x_continuous(breaks = seq (0, 200, by = 50)) +
-  #   theme_bw() +
-  #   theme(panel.grid=element_blank()) 
-  # cpuehisto
-  # 
-  # tapply(histolog$CPUE_KG, histolog$ASSIGNED_AREA, summary)
+  # Make histogram by area for distribution of cpue
+  histolog<-subset(logs, YEAR == fishingyear, c('ASSIGNED_AREA','CPUE_KG'))
+
+  cpuehisto <- ggplot (histolog, aes (x = CPUE_KG)) +
+    geom_histogram (breaks = seq (0, 200, by = 5), col = 'grey60') + labs (x = 'CPUE (kg/h)', y = 'Count') +
+    facet_wrap (~ASSIGNED_AREA, ncol = 1) +
+    scale_x_continuous(breaks = seq (0, 200, by = 50)) +
+    theme_bw() +
+    theme(panel.grid=element_blank())
+  cpuehisto
+
+  tapply(histolog$CPUE_KG, histolog$ASSIGNED_AREA, summary)
   
   
   #Catch Grid Plot

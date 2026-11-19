@@ -362,7 +362,7 @@ p <- pecjector(area =list(x=c(-66.2,-65.5), y=c(44.46,45), crs=4326),repo ='gith
    geom_tile(df, mapping = aes(lon, lat, fill = mean.cpue), color = "grey55") +
    geom_sf(data = poly.strata, fill=NA, colour="grey55") +
    coord_sf(xlim = c(-66.2,-65.5), ylim = c(44.46,45), expand = F) +
-   scale_fill_binned(type = "viridis", direction = -1, name="CPUE (kg/h)", breaks = c(25, 50, 75)) +
+   scale_fill_binned(type = "viridis", direction = -1, name="CPUE (kg/h)", breaks = c(10, 20, 30, 40, 50, 60, 70)) +
    #geom_polygon(data = shp, aes(x = long, y = lat, group = group), fill="grey55") +
    theme(plot.title = element_text(size = 14, hjust = 0.5), #plot title size and position
            axis.title = element_text(size = 12),
@@ -376,17 +376,17 @@ p <- pecjector(area =list(x=c(-66.2,-65.5), y=c(44.46,45), crs=4326),repo ='gith
  
 
  # Make histogram by area for distribution of cpue
- # histolog<-subset(logs, YEAR == fishingyear, c('ASSIGNED_AREA','CPUE_KG'))
- # 
- # cpuehisto <- ggplot (histolog, aes (x = CPUE_KG)) + 
- # geom_histogram (breaks = seq (0, 1300, by = 5), col = 'grey60') + labs (x = 'CPUE (kg/h)', y = 'Count') +
- # facet_wrap (~ASSIGNED_AREA, ncol = 1) +
- # scale_x_continuous(breaks = seq (0, 1300, by = 50)) +
- # theme_bw() +
- # theme(panel.grid=element_blank()) 
- # cpuehisto
- # 
- # tapply(histolog$CPUE_KG, histolog$ASSIGNED_AREA, summary)
+ histolog<-subset(logs, YEAR == fishingyear, c('ASSIGNED_AREA','CPUE_KG'))
+
+ cpuehisto <- ggplot (histolog, aes (x = CPUE_KG)) +
+ geom_histogram (breaks = seq (0, 1300, by = 5), col = 'grey60') + labs (x = 'CPUE (kg/h)', y = 'Count') +
+ facet_wrap (~ASSIGNED_AREA, ncol = 1) +
+ scale_x_continuous(breaks = seq (0, 1300, by = 50)) +
+ theme_bw() +
+ theme(panel.grid=element_blank())
+ cpuehisto
+
+ tapply(histolog$CPUE_KG, histolog$ASSIGNED_AREA, summary)
  
 
 #Catch Grid Plot

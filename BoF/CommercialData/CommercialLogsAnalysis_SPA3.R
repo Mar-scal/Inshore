@@ -376,17 +376,17 @@ ggsave(filename = paste0(direct, "/",assessmentyear,"/Assessment/Figures/Commerc
 
 
 # # Make histogram by area for distribution of cpue
-# histolog<-subset(logs, YEAR == fishingyear, c('ASSIGNED_AREA','CPUE_KG'))
-# 
-# cpuehisto <- ggplot (histolog, aes (x = CPUE_KG)) + 
-#   geom_histogram (breaks = seq (0, 200, by = 5), col = 'grey60') + labs (x = 'CPUE (kg/h)', y = 'Count') +
-#   facet_wrap (~ASSIGNED_AREA, ncol = 1) +
-#   scale_x_continuous(breaks = seq (0, 200, by = 50)) +
-#   theme_bw() +
-#   theme(panel.grid=element_blank()) 
-# cpuehisto
-# 
-# tapply(histolog$CPUE_KG, histolog$ASSIGNED_AREA, summary)
+histolog<-subset(logs, YEAR == fishingyear, c('ASSIGNED_AREA','CPUE_KG'))
+
+cpuehisto <- ggplot (histolog, aes (x = CPUE_KG)) +
+  geom_histogram (breaks = seq (0, 200, by = 5), col = 'grey60') + labs (x = 'CPUE (kg/h)', y = 'Count') +
+  facet_wrap (~ASSIGNED_AREA, ncol = 1) +
+  scale_x_continuous(breaks = seq (0, 200, by = 50)) +
+  theme_bw() +
+  theme(panel.grid=element_blank())
+cpuehisto
+
+tapply(histolog$CPUE_KG, histolog$ASSIGNED_AREA, summary)
 
 
 #Catch Grid Plot
