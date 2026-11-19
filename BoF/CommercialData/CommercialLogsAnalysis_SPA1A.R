@@ -272,7 +272,7 @@ ggsave(filename = paste0(direct, "/",assessmentyear,"/Assessment/Figures/Commerc
 #### SPATIAL PLOTS ####
 
 #Pecjector basemap with SPA 1A boundaries
- p <- pecjector(area =list(x=c(-66.5,-64.5), y=c(44.2,45.4), crs=4326),repo ='github',c_sys="ll", gis.repo = 'github', plot=F,plot_as = 'ggplot', add_layer = list(land = "grey", bathy = c(50,'c')))
+ p <- pecjector(area =list(x=c(-66.5,-64.5), y=c(44.2,45.4), crs=4326),repo ='github',c_sys="ll", gis.repo = 'github', plot=F,plot_as = 'ggplot', add_layer = list(land = "grey", bathy = c(50,'c'), scale.bar = c('tl')))
  
  
 #CPUE Grid Plot
@@ -295,9 +295,9 @@ p +
    geom_tile(df, mapping = aes(lon, lat, fill = mean.cpue), color = "grey55") +
    geom_sf(data = poly.strata, fill=NA, colour="grey55") +
    coord_sf(xlim = c(-66.5,-64.5), ylim = c(44.2,45.4), expand = FALSE) +
-   scale_fill_binned(type = "viridis", direction = -1, name="CPUE (kg/h)", breaks = c(25, 50, 75, 100), limits = c(0,125)) +
-   annotation_scale() +
-   annotation_north_arrow(location = "br") +
+   scale_fill_binned(type = "viridis", direction = -1, name="CPUE (kg/h)", breaks = c(10, 20, 30, 40, 50), limits = c(0,60)) +
+   #annotation_scale() +
+   #annotation_north_arrow(location = "br") +
    theme(plot.title = element_text(size = 14, hjust = 0.5), #plot title size and position
          axis.title = element_text(size = 12),
          axis.text = element_text(size = 10),
@@ -311,17 +311,17 @@ ggsave(filename = paste0(direct, "/",assessmentyear,"/Assessment/Figures/Commerc
  
  
  # Make histogram by area for distribution of cpue
- # histolog<-subset(logs, YEAR == fishingyear, c('ASSIGNED_AREA','CPUE_KG'))
- # 
- # cpuehisto <- ggplot (histolog, aes (x = CPUE_KG)) + 
- # geom_histogram (breaks = seq (0, 1300, by = 5), col = 'grey60') + labs (x = 'CPUE (kg/h)', y = 'Count') +
- # facet_wrap (~ASSIGNED_AREA, ncol = 1) +
- # scale_x_continuous(breaks = seq (0, 1300, by = 50)) +
- # theme_bw() +
- # theme(panel.grid=element_blank()) 
- # cpuehisto
- # 
- # tapply(histolog$CPUE_KG, histolog$ASSIGNED_AREA, summary)
+ histolog<-subset(logs, YEAR == fishingyear, c('ASSIGNED_AREA','CPUE_KG'))
+
+ cpuehisto <- ggplot (histolog, aes (x = CPUE_KG)) +
+ geom_histogram (breaks = seq (0, 100, by = 5), col = 'grey60') + labs (x = 'CPUE (kg/h)', y = 'Count') +
+ facet_wrap (~ASSIGNED_AREA, ncol = 1) +
+ scale_x_continuous(breaks = seq (0, 100, by = 5)) +
+ theme_bw() +
+ theme(panel.grid=element_blank())
+ cpuehisto
+
+ tapply(histolog$CPUE_KG, histolog$ASSIGNED_AREA, summary)
  
  
 #Catch Grid Plot

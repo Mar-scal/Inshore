@@ -57,16 +57,16 @@ for(fun in funcs)
 
 direct <- "Y:/Inshore/Assessment/BoF"
 #direct <- "Y:/Inshore/BoF"
-fishingyear <- 2026 #most recent year of commercial fishing data to be used (e.g. if fishing season is 2019/2020, use 2020)
-assessmentyear <- 2026 #year in which you are conducting the assessment
+fishingyear <- 2025 #most recent year of commercial fishing data to be used (e.g. if fishing season is 2019/2020, use 2020)
+assessmentyear <- 2025 #year in which you are conducting the assessment
 un.ID=Sys.getenv("un.raperj") #ptran username
 pwd.ID=Sys.getenv("pw.raperj") #ptran password
 #un.ID=un.sameotoj #ptran username
 #pwd.ID=pw.sameotoj#ptran password
 
 #Date range for logs to be selected 
-start.date.logs <- "2025-10-01"  #YYYY-MM-DD use Oct 1 
-ends.date.logs <- "2026-10-01"  #YYYY-MM-DD use Oct 1 
+start.date.logs <- "2024-10-01"  #YYYY-MM-DD use Oct 1 
+ends.date.logs <- "2025-10-01"  #YYYY-MM-DD use Oct 1 
 
 
 #### Read files ####
@@ -421,9 +421,9 @@ p <- pecjector(area =list(x=c(-66.5,-64.4), y=c(44.8,45.8), crs=4326),repo ='git
  histolog<-subset(logs, YEAR == fishingyear, c('ASSIGNED_AREA','CPUE_KG'))
 
  cpuehisto <- ggplot (histolog, aes (x = CPUE_KG)) +
-   geom_histogram (breaks = seq (0, 200, by = 5), col = 'grey60') + labs (x = 'CPUE (kg/h)', y = 'Count') +
+   geom_histogram (breaks = seq (0, 150, by = 5), col = 'grey60') + labs (x = 'CPUE (kg/h)', y = 'Count') +
    #facet_wrap (~ASSIGNED_AREA, ncol = 1) +
-   scale_x_continuous(breaks = seq (0, 200, by = 50)) +
+   scale_x_continuous(breaks = seq (0, 150, by = 5)) +
    theme_bw() +
    theme(panel.grid=element_blank())
  cpuehisto

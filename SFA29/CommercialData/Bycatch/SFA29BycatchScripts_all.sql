@@ -48,7 +48,7 @@ AND b.fishset_id = f.fishset_id
 AND x.fishset_id = f.fishset_id
 AND y.tripcd_id = 4320
 AND f.pntcd_id = 2  /*can set to 2 or 3*/
-AND y.board_date BETWEEN '2024-10-01' AND '2025-09-30'
+AND y.board_date BETWEEN '2025-10-01' AND '2026-09-30'
 AND g.cfv  NOT IN ('108626','152320', '106881', '105736','105912','105457','106604','106605','4062','102056','1579','102056','4055','101965','4031','1516','1518','1548','4050') /*list of offshore scallop vrns that have been observed trips*/
 order by trip, set_no
 ) 
@@ -132,9 +132,9 @@ AND b.fishset_id = f.fishset_id
 AND x.fishset_id = f.fishset_id
 AND y.tripcd_id = 4320
 AND f.pntcd_id = 2  /*can set to 2 or 3*/
-AND y.board_date BETWEEN '2023-10-01' AND '2024-09-30'
+AND y.board_date BETWEEN '2025-10-01' AND '2026-09-30'
 AND g.cfv  NOT IN ('152320', '106881', '105736','105912','105457','106604','106605','4062','102056','1579','102056','4055','101965','4031','1516','1518','1548','4050') /*list of offshore scallop vrns that have been observed trips*/
-AND y.trip IN ('J24-0083', 'J24-0084', 'J24-0091', 'J24-0092', 'J24-0098', 'J24-0106', 'J24-0107', 'J24-0133', 'J24-0172')
+AND y.trip IN ('J26-0134','J26-0135', 'J26-0146','J26-0148', 'J26-0149', 'J26-0150', 'J26-0160')
 
 --SCRIPT 4--/*DAYS_OBS for each trip (equal to number of records pulled)*/
 SELECT DISTINCT TRIP, VESSEL_NAME, CFV, LICENSE_NO, SETDATE
@@ -174,7 +174,7 @@ AND x.speccd_id = d.speccd_id
 AND b.fishset_id = f.fishset_id
 AND x.fishset_id = f.fishset_id
 AND y.tripcd_id = 4320
-AND y.trip IN ('J24-0083', 'J24-0084', 'J24-0091', 'J24-0092', 'J24-0098', 'J24-0106', 'J24-0107', 'J24-0133', 'J24-0172')
+AND y.trip IN ('J26-0134','J26-0135', 'J26-0146','J26-0148', 'J26-0149', 'J26-0150', 'J26-0160')
 )
 Order By TRIP, SETDATE
 
